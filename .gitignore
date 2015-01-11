@@ -1,5 +1,4 @@
 .metadata
-.class
-.properties
+*.class
 .repository
 */.recommenders
