@@ -1,4 +1,4 @@
 .metadata
 *.class
 .repository
-*/.recommenders
+.recommenders
