@@ -38,11 +38,12 @@ public class Robot extends IterativeRobot {
     }
 
     public void autonomousInit(){
+        drivePID.setTarget(SmartDashboard.getNumber("TestDistance"));
+        driveAnglePID.setTarget(SmartDashboard.getNumber("TestAngle"));
     	drivePID.update(leftEncoder.get()/2+rightEncoder.get()/2);
         driveAnglePID.update(gyro.getAngle());
     	Preferences.write();
-        drivePID.setTarget(SmartDashboard.getNumber("TestDistance"));
-        driveAnglePID.setTarget(SmartDashboard.getNumber("TestAngle"));
+        System.out.println("YAY!!!");
     }
     
     /**

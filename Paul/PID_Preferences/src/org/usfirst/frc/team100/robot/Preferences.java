@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * Stores all changeable or arbitrary values in a file on the cRIO.
  */
@@ -75,9 +77,10 @@ public class Preferences {
     public static void read() {
 		BufferedReader in;
 		try {
-			in = new BufferedReader(new FileReader("/Preferences.txt"));
+			in = new BufferedReader(new FileReader("/home/lvuser/Preferences.txt"));
 			keys.clear();
 			values.clear();
+			System.out.println("READING");
 			for (int i=0; i<10000; i++){
 				String line = in.readLine();
 				if (line == null) {
@@ -91,7 +94,9 @@ public class Preferences {
 					keys.add(line);
 					values.add("");
 				}
+				System.out.println(line);
 			}
+			in.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -106,16 +111,20 @@ public class Preferences {
         	return;
         }
         try {
-            out = new BufferedWriter(new FileWriter("/Preferences.txt"));
+            out = new BufferedWriter(new FileWriter("/home/lvuser/Preferences.txt"));
+            System.out.println("WRITING");
             for (int i = 0; i < keys.size(); i++) {
                 if(values.get(i).equals("")){
+                	System.out.println(keys.get(i));
                 	out.write(keys.get(i));
                 } else {
+                	System.out.println(keys.get(i)+" "+values.get(i));
                 	out.write(keys.get(i)+" "+values.get(i));
                 }
                 out.newLine();
             }
             out.flush();
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
