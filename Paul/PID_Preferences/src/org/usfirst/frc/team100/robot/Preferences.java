@@ -41,10 +41,11 @@ public class Preferences {
 
     // Returns value of the double preference with the given name
     public static double getDouble(String name) {
+    	String value = getString(name);
         try {
-        	return Double.parseDouble(getString(name));
+        	return Double.parseDouble(value);
         } catch(NumberFormatException e){
-        	System.out.println("Preference is not a double: " + name);
+        	System.out.println("ERROR: Preference is not a double: " + name + " " + value);
         }
         return 0;
     }
@@ -53,7 +54,7 @@ public class Preferences {
     public static boolean getBoolean(String name) {
         String value = getString(name);
         if (!(value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))) {
-            System.out.println("ERROR: no boolean found: " + name + " " + value);
+            System.out.println("ERROR: Preference is not a boolean: " + name + " " + value);
         }
         return "true".equals(value);
     }
@@ -80,7 +81,7 @@ public class Preferences {
 			in = new BufferedReader(new FileReader("/home/lvuser/Preferences.txt"));
 			keys.clear();
 			values.clear();
-			System.out.println("READING");
+			System.out.println("READING PREFERENCES");
 			for (int i=0; i<10000; i++){
 				String line = in.readLine();
 				if (line == null) {
@@ -112,7 +113,7 @@ public class Preferences {
         }
         try {
             out = new BufferedWriter(new FileWriter("/home/lvuser/Preferences.txt"));
-            System.out.println("WRITING");
+            System.out.println("WRITING PREFERENCES");
             for (int i = 0; i < keys.size(); i++) {
                 if(values.get(i).equals("")){
                 	System.out.println(keys.get(i));

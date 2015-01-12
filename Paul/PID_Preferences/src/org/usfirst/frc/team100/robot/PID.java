@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class PID {
 
-    private String name = ""; // The loop's unique identifier
+    private final String name; // The loop's unique identifier
     private double kP = 0.0, kI = 0.0, kD = 0.0; // PID constants
     private double input = 0.0; // New value from sensor
     private double target = 0.0; // Target for the PID loop
@@ -49,9 +49,9 @@ public class PID {
         this.name = name;
         timer.reset();
         timer.start();
-        SmartDashboard.putNumber(name + "_kP", 0.0);
-        SmartDashboard.putNumber(name + "_kI", 0.0);
-        SmartDashboard.putNumber(name + "_kD", 0.0);
+        SmartDashboard.putNumber(name + "_kP", kP);
+        SmartDashboard.putNumber(name + "_kI", kI);
+        SmartDashboard.putNumber(name + "_kD", kD);
         displayData();
     }
 
@@ -100,10 +100,11 @@ public class PID {
         return target;
     }
 
-    // Sets the current state of the loop to be considered zero, resets target
+    // Sets the current state of the loop to be considered zero
     public void reset() {
         offset += target - error; // updates offset for new zero value
-        error = lastError = totalError = target = output = 0.0;
+        totalError = output = 0.0;
+        error = lastError = target;
         timer.reset();
         displayData();
     }

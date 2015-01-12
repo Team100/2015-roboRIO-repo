@@ -1,5 +1,6 @@
 package org.usfirst.frc.team100.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -22,10 +23,14 @@ public class Robot extends IterativeRobot {
     RobotDrive drive = new RobotDrive(leftMotor, rightMotor);
     Encoder leftEncoder = new Encoder(1,2);
     Encoder rightEncoder = new Encoder(3,4);
-    Gyro gyro = new Gyro(1);
-    PID drivePID = new PID("drive");
-    PID driveAnglePID = new PID("driveAngle");
+    Gyro gyro = new Gyro(0);
+    PID drivePID;
+    PID driveAnglePID;
     Joystick joystick = new Joystick(1);
+    
+    
+    AnalogInput p = new AnalogInput(1);
+    
     
     /**
      * This function is run when the robot is first started up and should be
@@ -34,25 +39,32 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         SmartDashboard.putNumber("TestDistance", 0.0);
         SmartDashboard.putNumber("TestAngle", 0.0);
+        SmartDashboard.putNumber("Reset?", 0.0);
         Preferences.read();
+        drivePID = new PID("drive");
+        driveAnglePID = new PID("driveAngle");
     }
 
     public void autonomousInit(){
         drivePID.setTarget(SmartDashboard.getNumber("TestDistance"));
         driveAnglePID.setTarget(SmartDashboard.getNumber("TestAngle"));
-    	drivePID.update(leftEncoder.get()/2+rightEncoder.get()/2);
+//    	drivePID.update(leftEncoder.get()/2+rightEncoder.get()/2);
+    	drivePID.update(p.getValue());
         driveAnglePID.update(gyro.getAngle());
     	Preferences.write();
-        System.out.println("YAY!!!");
     }
     
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        drivePID.update(leftEncoder.get()/2+rightEncoder.get()/2);
+//        drivePID.update(leftEncoder.get()/2+rightEncoder.get()/2);
+    	drivePID.update(p.getValue());
         driveAnglePID.update(gyro.getAngle());
         drive.arcadeDrive(drivePID.getOutput(),driveAnglePID.getOutput());
+        if(SmartDashboard.getNumber("Reset?") == 1.0){
+        	drivePID.reset();
+        }
     }
 
     /**
@@ -68,5 +80,4 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
         
     }
-    
 }
