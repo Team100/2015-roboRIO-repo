@@ -31,16 +31,17 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-    	SmartDashboard.putNumber("X", accel.getX());
+    	
+    	/*SmartDashboard.putNumber("X", accel.getX());
     	SmartDashboard.putNumber("Y", accel.getY());
-    	SmartDashboard.putNumber("Z", accel.getZ());
+    	SmartDashboard.putNumber("Z", accel.getZ());*/
     }
     
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-    	SmartDashboard.putNumber("X", accel.getX());
+    	dash.putNumber("X", accel.getX());
     	SmartDashboard.putNumber("Y", accel.getY());
     	SmartDashboard.putNumber("Z", accel.getZ());
         
