@@ -47,7 +47,6 @@ public class PID {
             Preferences.set(name + "SensorRatio", 1.0);
         }
         this.name = name;
-        timer.reset();
         timer.start();
         SmartDashboard.putNumber(name + "_kP", kP);
         SmartDashboard.putNumber(name + "_kI", kI);
@@ -70,12 +69,12 @@ public class PID {
         totalError += error * interval;
         if(interval>0.0 && interval<1.0){
         	output = kP * error + kI * totalError + kD * (error - lastError) / interval;
+        	timer.reset();
+        	displayData();
         } else {
         	output = kP * error;
-        	totalError = 0;
+        	reset();
         }
-        timer.reset();
-        displayData();
     }
 
     // Returns the current output value
@@ -90,9 +89,8 @@ public class PID {
     // Sets the target value of the PID loop
     public void setTarget(double newTarget) {
         target = newTarget;
-        lastError = target;
-        totalError = 0;
-        displayData();
+        error = target;
+        reset();
     }
 
     // Returns the current target for the PID loop
@@ -100,15 +98,20 @@ public class PID {
         return target;
     }
 
-    // Sets the current state of the loop to be considered zero
+    // Clears any built up error
     public void reset() {
-        offset += target - error; // updates offset for new zero value
-        totalError = output = 0.0;
-        error = lastError = target;
+        totalError = 0.0;
+        lastError = error;
         timer.reset();
         displayData();
     }
 
+    // Sets the current location to be a specified value, but does NOT reset the target
+    public void setRelativeLocation(double value) {
+    	offset += target - error - value;
+    	reset();
+    }
+    
     // Allows PID loop to output
     public void enable() {
         enabled = true;
