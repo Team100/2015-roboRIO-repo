@@ -25,7 +25,6 @@ public class RobotMap {
     public static Encoder drivetrainRightEncoder;
     public static SpeedController elevatorMotor;
     public static Encoder elevatorEncoder;
-    public static DoubleSolenoid elevatorBrake;
     public static SpeedController armDeployMotor;
     public static SpeedController armRaiseMotor;
     public static DoubleSolenoid armPiston;
@@ -78,9 +77,6 @@ public class RobotMap {
         LiveWindow.addSensor("Elevator", "Encoder", elevatorEncoder);
         elevatorEncoder.setDistancePerPulse(1.0);
         elevatorEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
-        elevatorBrake = new DoubleSolenoid(1, 2, 3);      
-        LiveWindow.addActuator("Elevator", "Brake", elevatorBrake);
-        
         armDeployMotor = new VictorSP(4);
         LiveWindow.addActuator("Arm", "DeployMotor", (VictorSP) armDeployMotor);
         
