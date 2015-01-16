@@ -4,12 +4,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc100.Robot2015.Robot;
 
 /**
- * Switches to butterfly or tank drive, depending on the boolean value
- * specified in the constructor.
+ * Terminates after an amount of time specified in the constructor. This class
+ * is used by the autonomous command groups to delay the execution of commands.
  */
-public class  DeployButterfly extends Command {
+public class  AutoDelay extends Command {
 
-    public DeployButterfly(boolean butterflyMode) {
+    public AutoDelay(double time) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 
