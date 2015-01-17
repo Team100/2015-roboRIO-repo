@@ -7,9 +7,9 @@ import org.usfirst.frc100.Robot2015.Robot;
  * Opens the grabbing mechanism on the autonomous arm and terminates
  * immediately. Does not require the subsystem.
  */
-public class  OpenGrabber extends Command {
+public class  DropRecycling extends Command {
 
-    public OpenGrabber() {
+    public DropRecycling() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 

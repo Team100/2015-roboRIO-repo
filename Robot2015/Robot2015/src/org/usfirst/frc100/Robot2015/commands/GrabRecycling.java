@@ -4,12 +4,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc100.Robot2015.Robot;
 
 /**
- * Switches to butterfly or tank drive, depending on the boolean value
- * specified in the constructor.
+ * Closes the grabbing mechanism on the autonomous arm and terminates
+ * immediately. Does not require the subsystem.
  */
-public class  DeployButterfly extends Command {
+public class  GrabRecycling extends Command {
 
-    public DeployButterfly(boolean butterflyMode) {
+    public GrabRecycling() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 
