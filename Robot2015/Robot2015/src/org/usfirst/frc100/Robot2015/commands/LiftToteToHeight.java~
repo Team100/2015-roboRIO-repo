@@ -4,11 +4,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc100.Robot2015.Robot;
 
 /**
- * Manually controls the elevator using the left manipulator joystick Y-value.
+ * Moves the elevator to an integer height specified in the constructor. 1 is on
+ * the floor, 2 is the second tote on the stack, etc. Uses PID.
  */
-public class  ManualControlElevator extends Command {
+public class  LiftToteToHeight extends Command {
 
-    public ManualControlElevator() {
+    public LiftToteToHeight(int height) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 
