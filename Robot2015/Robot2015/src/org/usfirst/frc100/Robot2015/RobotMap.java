@@ -26,6 +26,8 @@ public class RobotMap {
     public static SpeedController elevatorMotor;
     public static Encoder elevatorEncoder;
     public static DoubleSolenoid elevatorBrake;
+    public static DigitalInput elevatorUpperLimit;
+    public static DigitalInput elevatorLowerLimit;
     public static SpeedController armDeployMotor;
     public static SpeedController armRaiseMotor;
     public static DoubleSolenoid armPiston;
@@ -81,6 +83,12 @@ public class RobotMap {
         elevatorBrake = new DoubleSolenoid(1, 2, 3);      
         LiveWindow.addActuator("Elevator", "Brake", elevatorBrake);
         
+        elevatorUpperLimit = new DigitalInput(6);
+        LiveWindow.addSensor("Elevator", "UpperLimit", elevatorUpperLimit);
+        
+        elevatorLowerLimit = new DigitalInput(7);
+        LiveWindow.addSensor("Elevator", "LowerLimit", elevatorLowerLimit);
+        
         armDeployMotor = new VictorSP(4);
         LiveWindow.addActuator("Arm", "DeployMotor", (VictorSP) armDeployMotor);
         
@@ -90,7 +98,7 @@ public class RobotMap {
         armPiston = new DoubleSolenoid(0, 6, 7);      
         LiveWindow.addActuator("Arm", "Piston", armPiston);
         
-        armContainerSensor = new DigitalInput(6);
+        armContainerSensor = new DigitalInput(8);
         LiveWindow.addSensor("Arm", "ContainerSensor", armContainerSensor);
         
         pneumaticsCompressor = new Compressor(0);
