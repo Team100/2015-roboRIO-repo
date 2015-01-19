@@ -37,7 +37,7 @@ public class Claw extends Subsystem {
     	}
     }
     
-    //Still updates the dashboard
+    // Updates the SmartDashboard
     public void updateDashboard() {
     	SmartDashboard.putBoolean("Claw Closed", isClosed());
     }

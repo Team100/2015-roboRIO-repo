@@ -41,9 +41,10 @@ public class Arm extends Subsystem {
     	}
     }
     
-    // Updates the dashboard
+    // Updates the SmartDashboard
     public void updateDashboard() {
     	SmartDashboard.putBoolean("Arm Grabbing", isGrabbing());
+    	SmartDashboard.putBoolean("Arm Container Sensor", containerSensor.get());
     	SmartDashboard.putNumber("Arm Potentiometer", potentiometer.get());
     }
 }

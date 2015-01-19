@@ -112,7 +112,7 @@ public class Elevator extends Subsystem {
 		}
 	}
 	
-	//You should know what this does by now
+	// Updates the SmartDashboard
 	public void updateDashboard () {
 		SmartDashboard.putBoolean("Elevator Upper Limit", upperLimit.get());
 		SmartDashboard.putBoolean("Elevator Lower Limit", lowerLimit.get());
