@@ -30,7 +30,7 @@ public class Client{
 	 * Sets the place where the data file will be stored.
 	 * The default file name is "NetworkTables Data.txt".
 	 */
-	public static final String FILE_PATH = "C:/Users/Public/Documents/NetworkTables Data.txt";
+	public static final String FILE_PATH = "C:/Users/Public/Documents/SmartDashboard Data.txt";
 	//Data refresh cycles.
 	public int refreshCycle = 1;
 	
