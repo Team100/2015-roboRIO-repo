@@ -32,6 +32,7 @@ public class RobotMap {
     public static SpeedController armRaiseMotor;
     public static DoubleSolenoid armPiston;
     public static DigitalInput armContainerSensor;
+    public static AnalogPotentiometer armPotentiometer;
     public static Compressor pneumaticsCompressor;
     public static DoubleSolenoid clawPiston;
 
@@ -100,6 +101,9 @@ public class RobotMap {
         
         armContainerSensor = new DigitalInput(8);
         LiveWindow.addSensor("Arm", "ContainerSensor", armContainerSensor);
+        
+        armPotentiometer = new AnalogPotentiometer(0, 1.0, 0.0);
+        LiveWindow.addSensor("Arm", "Potentiometer", armPotentiometer);
         
         pneumaticsCompressor = new Compressor(0);
         
