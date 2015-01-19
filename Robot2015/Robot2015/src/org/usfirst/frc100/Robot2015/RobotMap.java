@@ -23,6 +23,7 @@ public class RobotMap {
     public static DoubleSolenoid drivetrainButterflyPiston;
     public static Encoder drivetrainLeftEncoder;
     public static Encoder drivetrainRightEncoder;
+    public static Encoder drivetrainSlideEncoder;
     public static SpeedController elevatorMotor;
     public static Encoder elevatorEncoder;
     public static DoubleSolenoid elevatorBrake;
@@ -74,20 +75,24 @@ public class RobotMap {
         LiveWindow.addSensor("Drivetrain", "RightEncoder", drivetrainRightEncoder);
         drivetrainRightEncoder.setDistancePerPulse(1.0);
         drivetrainRightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+        drivetrainSlideEncoder = new Encoder(4, 5, false, EncodingType.k4X);
+        LiveWindow.addSensor("Drivetrain", "SlideEncoder", drivetrainSlideEncoder);
+        drivetrainSlideEncoder.setDistancePerPulse(1.0);
+        drivetrainSlideEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
         elevatorMotor = new VictorSP(3);
         LiveWindow.addActuator("Elevator", "Motor", (VictorSP) elevatorMotor);
         
-        elevatorEncoder = new Encoder(4, 5, false, EncodingType.k4X);
+        elevatorEncoder = new Encoder(6, 7, false, EncodingType.k4X);
         LiveWindow.addSensor("Elevator", "Encoder", elevatorEncoder);
         elevatorEncoder.setDistancePerPulse(1.0);
         elevatorEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
         elevatorBrake = new DoubleSolenoid(1, 2, 3);      
         LiveWindow.addActuator("Elevator", "Brake", elevatorBrake);
         
-        elevatorUpperLimit = new DigitalInput(6);
+        elevatorUpperLimit = new DigitalInput(8);
         LiveWindow.addSensor("Elevator", "UpperLimit", elevatorUpperLimit);
         
-        elevatorLowerLimit = new DigitalInput(7);
+        elevatorLowerLimit = new DigitalInput(9);
         LiveWindow.addSensor("Elevator", "LowerLimit", elevatorLowerLimit);
         
         armDeployMotor = new VictorSP(4);
@@ -99,7 +104,7 @@ public class RobotMap {
         armPiston = new DoubleSolenoid(0, 6, 7);      
         LiveWindow.addActuator("Arm", "Piston", armPiston);
         
-        armContainerSensor = new DigitalInput(8);
+        armContainerSensor = new DigitalInput(10);
         LiveWindow.addSensor("Arm", "ContainerSensor", armContainerSensor);
         
         armPotentiometer = new AnalogPotentiometer(0, 1.0, 0.0);

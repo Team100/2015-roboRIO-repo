@@ -235,28 +235,6 @@ Children:
           value: '3'
       Base: Quadrature Encoder
       Name: RightEncoder
-    Properties:
-      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Drive}
-    Base: Subsystem
-    Name: Drivetrain
-  - Children:
-    - Children: []
-      Properties:
-        Type: !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id001
-          default: Talon
-          name: Type
-          validators: null
-          value: VictorSP
-        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
-          choices: *id002
-          default: '0'
-          name: Output Channel (PWM)
-          validators: *id003
-          value: '3'
-      Base: Speed Controller
-      Name: Motor
     - Children: []
       Properties:
         Channel A Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
@@ -287,6 +265,60 @@ Children:
           name: Channel B Channel (Digital)
           validators: *id017
           value: '5'
+      Base: Quadrature Encoder
+      Name: SlideEncoder
+    Properties:
+      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Default Command, type: Command, validators: null, value: Drive}
+    Base: Subsystem
+    Name: Drivetrain
+  - Children:
+    - Children: []
+      Properties:
+        Type: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
+          default: Talon
+          name: Type
+          validators: null
+          value: VictorSP
+        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id002
+          default: '0'
+          name: Output Channel (PWM)
+          validators: *id003
+          value: '3'
+      Base: Speed Controller
+      Name: Motor
+    - Children: []
+      Properties:
+        Channel A Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id012
+          default: '0'
+          name: Channel A Channel (Digital)
+          validators: *id013
+          value: '6'
+        Distance Per Pulse: !!robotbuilder.data.properties.DoubleProperty {default: 1,
+          name: Distance Per Pulse, validators: null, value: 1.0}
+        PID Source: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id014
+          default: kRate
+          name: PID Source
+          validators: null
+          value: kRate
+        Encoding Type: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id015
+          default: k4X
+          name: Encoding Type
+          validators: null
+          value: k4X
+        Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
+          name: Reverse Direction, validators: null, value: false}
+        Channel B Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id016
+          default: '0'
+          name: Channel B Channel (Digital)
+          validators: *id017
+          value: '7'
       Base: Quadrature Encoder
       Name: Encoder
     - Children: []
@@ -326,7 +358,7 @@ Children:
           default: '0'
           name: Input Channel (Digital)
           validators: &id019 [DigitalChannel]
-          value: '6'
+          value: '8'
       Base: Limit Switch
       Name: UpperLimit
     - Children: []
@@ -336,7 +368,7 @@ Children:
           default: '0'
           name: Input Channel (Digital)
           validators: *id019
-          value: '7'
+          value: '9'
       Base: Limit Switch
       Name: LowerLimit
     Properties:
@@ -414,7 +446,7 @@ Children:
           default: '0'
           name: Input Channel (Digital)
           validators: [DigitalChannel]
-          value: '8'
+          value: '10'
       Base: Digital Input
       Name: ContainerSensor
     - Children: []
