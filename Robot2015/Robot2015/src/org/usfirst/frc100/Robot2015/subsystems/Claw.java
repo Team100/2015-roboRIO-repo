@@ -2,9 +2,10 @@ package org.usfirst.frc100.Robot2015.subsystems;
 
 import org.usfirst.frc100.Robot2015.RobotMap;
 import org.usfirst.frc100.Robot2015.commands.*;
-import edu.wpi.first.wpilibj.*;
 
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The claw attached to the elevator used to pick up totes and recycling containers.
@@ -34,5 +35,10 @@ public class Claw extends Subsystem {
     	} else{
     		piston.set(DoubleSolenoid.Value.kForward);
     	}
+    }
+    
+    //Still updates the dashboard
+    public void updateDashboard() {
+    	SmartDashboard.putBoolean("Claw Closed", isClosed());
     }
 }

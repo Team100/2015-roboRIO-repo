@@ -24,6 +24,7 @@ public class  GradualDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.drivetrain.accelerationLimiter(Robot.oi.getLeftJoystick().getY(), Robot.oi.getLeftJoystick().getX(), Robot.oi.getRightJoystick().getX());
     }
 
     // Make this return true when this Command no longer needs to run execute()

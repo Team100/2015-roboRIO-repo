@@ -2,9 +2,10 @@ package org.usfirst.frc100.Robot2015.subsystems;
 
 import org.usfirst.frc100.Robot2015.RobotMap;
 import org.usfirst.frc100.Robot2015.commands.*;
-import edu.wpi.first.wpilibj.*;
 
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The autonomous arm used to grab recycling containers from the step.
@@ -38,5 +39,11 @@ public class Arm extends Subsystem {
     	}else{
     		piston.set(DoubleSolenoid.Value.kReverse);
     	}
+    }
+    
+    // Updates the dashboard
+    public void updateDashboard() {
+    	SmartDashboard.putBoolean("Arm Grabbing", isGrabbing());
+    	SmartDashboard.putNumber("Arm Potentiometer", potentiometer.get());
     }
 }
