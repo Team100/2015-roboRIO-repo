@@ -24,6 +24,7 @@ public class RobotMap {
     public static Encoder drivetrainLeftEncoder;
     public static Encoder drivetrainRightEncoder;
     public static Encoder drivetrainSlideEncoder;
+    public static Gyro drivetrainGyro;
     public static SpeedController elevatorMotor;
     public static Encoder elevatorEncoder;
     public static DoubleSolenoid elevatorBrake;
@@ -79,6 +80,9 @@ public class RobotMap {
         LiveWindow.addSensor("Drivetrain", "SlideEncoder", drivetrainSlideEncoder);
         drivetrainSlideEncoder.setDistancePerPulse(1.0);
         drivetrainSlideEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+        drivetrainGyro = new Gyro(0);
+        LiveWindow.addSensor("Drivetrain", "Gyro", drivetrainGyro);
+        drivetrainGyro.setSensitivity(0.007);
         elevatorMotor = new VictorSP(3);
         LiveWindow.addActuator("Elevator", "Motor", (VictorSP) elevatorMotor);
         
@@ -107,7 +111,7 @@ public class RobotMap {
         armContainerSensor = new DigitalInput(10);
         LiveWindow.addSensor("Arm", "ContainerSensor", armContainerSensor);
         
-        armPotentiometer = new AnalogPotentiometer(0, 1.0, 0.0);
+        armPotentiometer = new AnalogPotentiometer(1, 1.0, 0.0);
         LiveWindow.addSensor("Arm", "Potentiometer", armPotentiometer);
         
         pneumaticsCompressor = new Compressor(0);
