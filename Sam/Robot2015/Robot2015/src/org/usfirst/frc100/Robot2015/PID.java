@@ -48,17 +48,17 @@ public class PID {
         }
         this.name = name;
         timer.start();
-        SmartDashboard.putNumber(name + "_kP", kP);
-        SmartDashboard.putNumber(name + "_kI", kI);
-        SmartDashboard.putNumber(name + "_kD", kD);
+        SmartDashboard.putNumber(name + " kP", kP);
+        SmartDashboard.putNumber(name + " kI", kI);
+        SmartDashboard.putNumber(name + " kD", kD);
         displayData();
     }
 
     // Updates the PID loop using new input data
     public void update(double newValue) {
-        kP = SmartDashboard.getNumber(name + "_kP");
-        kI = SmartDashboard.getNumber(name + "_kI");
-        kD = SmartDashboard.getNumber(name + "_kD");
+        kP = SmartDashboard.getNumber(name + " kP");
+        kI = SmartDashboard.getNumber(name + " kI");
+        kD = SmartDashboard.getNumber(name + " kD");
         Preferences.set(name + "_kP", kP);
         Preferences.set(name + "_kI", kI);
         Preferences.set(name + "_kD", kD);
@@ -130,10 +130,10 @@ public class PID {
     
     // Displays data on the SmartDashboard
     private void displayData(){
-        SmartDashboard.putNumber(name + "Error", error);
-        SmartDashboard.putNumber(name + "Target", target);
-        SmartDashboard.putNumber(name + "Input", input);
-        SmartDashboard.putNumber(name + "Output", output);
-        SmartDashboard.putNumber(name + "Interval", interval);
+        SmartDashboard.putNumber(name + " Error", error);
+        SmartDashboard.putNumber(name + " Target", target);
+        SmartDashboard.putNumber(name + " Input", input);
+        SmartDashboard.putNumber(name + " Output", output);
+        SmartDashboard.putNumber(name + " Interval", interval);
     }
 }
