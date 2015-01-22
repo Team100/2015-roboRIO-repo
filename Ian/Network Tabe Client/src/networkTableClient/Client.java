@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /*
@@ -90,7 +88,6 @@ public class Client {
 				bWriter.newLine();
 				
 				
-				
 				// Gets data from the arm subsystem.
 				System.out.println();
 				bWriter.newLine();
@@ -99,20 +96,19 @@ public class Client {
 				bWriter.newLine();
 
 				boolean armGrabbing = table.getBoolean("Arm Grabbing", false);
-				bWriter.write("Arm Grabbing: " + armGrabbing);
+				bWriter.write("Arm Is Grabbing: " + armGrabbing);
 				bWriter.newLine();
-				System.out.println("Arm Grabbing: " + armGrabbing);
+				System.out.println("Arm is Grabbing: " + armGrabbing);
 				
 				boolean armContainerSensor = table.getBoolean("Arm Container Sensor", false);
-				bWriter.write("Arm Container Sensor: " + armContainerSensor);
+				bWriter.write("Arm Senses Container: " + armContainerSensor);
 				bWriter.newLine();
-				System.out.println("Arm Container Sensor: " + armContainerSensor);
+				System.out.println("Arm Senses Container: " + armContainerSensor);
 				
 				double armPotentiometer = table.getNumber("Arm Potentiometer", 0.0);
-				bWriter.write("Arm Potentionmeter: " + armPotentiometer);
+				bWriter.write("Arm Potentiometer Output: " + armPotentiometer);
 				bWriter.newLine();
-				System.out.println("Arm Potentionmeter: " + armPotentiometer);
-				
+				System.out.println("Arm Potentiometer Output: " + armPotentiometer);
 				
 				
 				// Gets data from the claw subsystem.
@@ -123,9 +119,9 @@ public class Client {
 				bWriter.newLine();
 				
 				boolean clawClosed = table.getBoolean("Claw Closed", false);
-				bWriter.write("Claw Closed: " + clawClosed);
+				bWriter.write("Claw Is Closed: " + clawClosed);
 				bWriter.newLine();
-				System.out.println("Claw Closed: " + clawClosed);
+				System.out.println("Claw Is Closed: " + clawClosed);
 				
 				
 				// Gets data from the drivetrain subsystem.
@@ -141,14 +137,14 @@ public class Client {
 				System.out.println("DriveTrain Acceleration Limit: " + drivetrainAccelerationLimit);
 				
 				double drivetrainInterval = table.getNumber("DriveTrain Interval", 0.0);
-				bWriter.write("DriveTrain Interval: " + drivetrainInterval);
+				bWriter.write("DriveTrain Acceleration Interval: " + drivetrainInterval);
 				bWriter.newLine();
-				System.out.println("DriveTrain Interval: " + drivetrainInterval);
+				System.out.println("DriveTrain Acceleration Interval: " + drivetrainInterval);
 				
 				double drivetrainVelocity = table.getNumber("DriveTrain Velocity", 0.0); // only applies to non-slide
-				bWriter.write("DriveTrain Velocity: " + drivetrainVelocity);
+				bWriter.write("DriveTrain Non-Slide Velocity: " + drivetrainVelocity);
 				bWriter.newLine();
-				System.out.println("DriveTrain Velocity: " + drivetrainVelocity);
+				System.out.println("DriveTrain Non-Slide Velocity: " + drivetrainVelocity);
 				
 				double drivetrainAcceleration = table.getNumber("DriveTrain Acceleration", 0.0);
 				bWriter.write("DriveTrain Acceleration: " + drivetrainAcceleration);
@@ -156,15 +152,14 @@ public class Client {
 				System.out.println("DriveTrain Acceleration: " + drivetrainAcceleration);
 				
 				boolean drivetrainHighGear = table.getBoolean("DriveTrain High Gear", false);
-				bWriter.write("DriveTrain High Gear: " + drivetrainHighGear);
+				bWriter.write("DriveTrain Is In High Gear: " + drivetrainHighGear);
 				bWriter.newLine();
-				System.out.println("DriveTrain High Gear: " + drivetrainHighGear);
+				System.out.println("DriveTrain Is In High Gear: " + drivetrainHighGear);
 				
 				boolean drivetrainSlideMode = table.getBoolean("DriveTrain Slide Mode", false);
-				bWriter.write("DriveTrain Slide Mode: " + drivetrainSlideMode);
+				bWriter.write("DriveTrain Is In Slide Mode: " + drivetrainSlideMode);
 				bWriter.newLine();
-				System.out.println("DriveTrain Slide Mode: " + drivetrainSlideMode);
-				
+				System.out.println("DriveTrain Is In Slide Mode: " + drivetrainSlideMode);
 				
 				
 				// Gets data from the elevator subsystem.
@@ -175,25 +170,24 @@ public class Client {
 				bWriter.newLine();
 				
 				boolean elevatorUpperLimit = table.getBoolean("Elevator Upper Limit", false);
-				bWriter.write("Elevator Upper Limit: " + elevatorUpperLimit);
+				bWriter.write("Elevator Is At Upper Limit: " + elevatorUpperLimit);
 				bWriter.newLine();
-				System.out.println("Elevator Upper Limit: " + elevatorUpperLimit);
+				System.out.println("Elevator Is At Upper Limit: " + elevatorUpperLimit);
 				
 				boolean elevatorLowerLimit = table.getBoolean("Elevator Lower Limit", false);
-				bWriter.write("Elevator Lower Limit: " + elevatorLowerLimit);
+				bWriter.write("Elevator Is At Lower Limit: " + elevatorLowerLimit);
 				bWriter.newLine();
-				System.out.println("Elevator Lower Limit: " + elevatorLowerLimit);
+				System.out.println("Elevator Is At Lower Limit: " + elevatorLowerLimit);
 				
 				boolean elevatorBrake = table.getBoolean("ELevator Brake", false);
-				bWriter.write("ELevator Brake: " + elevatorBrake);
+				bWriter.write("ELevator Is Brakeing: " + elevatorBrake);
 				bWriter.newLine();
-				System.out.println("ELevator Brake: " + elevatorBrake);
+				System.out.println("ELevator Is Brakeing: " + elevatorBrake);
 				
 				boolean elevatorInPosition = table.getBoolean("Elevator In Position", false);
-				bWriter.write("Elevator In Position: " + elevatorInPosition);
+				bWriter.write("Elevator Is In Position: " + elevatorInPosition);
 				bWriter.newLine();
-				System.out.println("Elevator In Position: " + elevatorInPosition);
-				
+				System.out.println("Elevator Is In Position: " + elevatorInPosition);
 				
 				
 				// WhiteSpace
