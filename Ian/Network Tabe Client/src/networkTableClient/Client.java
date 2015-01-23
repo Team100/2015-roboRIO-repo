@@ -10,10 +10,12 @@ import java.util.logging.Logger;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /*
- * A basic NetworkTables reading/ file-writing client.
- * For this client to work the robot code MUST have NetworkTables Integration.
- * Make sure to rename the file after each use. It will be overwritten if you don't.
- * This Program takes a while to start up.
+ * A basic NetworkTables reading/file-writing client.
+ * 
+ * Make sure to look through the code and configure it. If the
+ * client is only reading variables as "false" and "0.0", it's
+ * probably not connected to the robot. This Program may take a
+ * few seconds to start up.
  * 
  * Code By Ian Smith
  */
@@ -25,11 +27,11 @@ public class Client {
 	// The time between refreshes in milliseconds.
 	public static final long REFRESH_RATE = 1000;
 
-	/*
-	 * Sets the place where the data file will be stored. The default file name
-	 * is "NetworkTables Data.txt".
-	 */
-	public static final String FILE_PATH = "C:/Users/Public/Documents/NetworkTables Data.txt";
+	// Sets the place where the data file will be stored.//The default file nameis "NetworkTables Data.txt".
+	public static final String FILE_PATH = "C:/Users/Public/Documents/";
+	//The default file name is "NetworkTables Data.txt".
+	public static final String FILE_NAME = "NetworkTables Data";
+	
 	// Data refresh cycles.
 	public int refreshCycle = 1;
 
@@ -50,20 +52,17 @@ public class Client {
 			// associated with the "datatable" NetworkTable
 			NetworkTable table = NetworkTable.getTable("SmartDashboard");
 
-			// Sets up the file.
-			File file = new File(FILE_PATH);
+			// Constructs the file.
+			File file = new File(FILE_PATH + FILE_NAME + " 1.txt");
 
-			// If the file doesn't exist then create the file.
-			if (!file.exists()) {
-				file.createNewFile();
-				System.out.println("File has been created!");
-				System.out.println();
+			// If the file doesn't exist then create it, else change the name and try again.
+			for (int copyNum = 1; file.exists(); copyNum++) {
+				file = new File(FILE_PATH + FILE_NAME + " " + copyNum + ".txt");
 			}
-			// If the file exists then it will be OVERWRITTEN!
-			else {
-				System.out.println("File already exists!");
-				System.out.println();
-			}
+			
+			file.createNewFile();
+			System.out.println("Created file: " + file);
+			
 			// Sets up the file writer.
 			FileWriter fWriter = new FileWriter(file.getAbsoluteFile());
 			// Sets up the buffered writer.
