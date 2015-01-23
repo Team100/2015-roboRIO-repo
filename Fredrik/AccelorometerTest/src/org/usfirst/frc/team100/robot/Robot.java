@@ -32,18 +32,16 @@ public class Robot extends IterativeRobot {
 
     public void teleopInit() {
     	
-    	/*SmartDashboard.putNumber("X", accel.getX());
-    	SmartDashboard.putNumber("Y", accel.getY());
-    	SmartDashboard.putNumber("Z", accel.getZ());*/
     }
-    
     /**
      * This function is called periodically during operator control
      */
-    public void teleopPeriodic() {
+	
+    @SuppressWarnings("static-access")
+	public void teleopPeriodic() {
     	dash.putNumber("X", accel.getX());
-    	SmartDashboard.putNumber("Y", accel.getY());
-    	SmartDashboard.putNumber("Z", accel.getZ());
+    	dash.putNumber("Y", accel.getY());
+    	dash.putNumber("Z", accel.getZ());
         
     }
     
@@ -51,7 +49,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    
+		
     }
     
 }
