@@ -1,5 +1,6 @@
 package org.usfirst.frc100.Robot2015.subsystems;
 
+import org.usfirst.frc100.Robot2015.PID;
 import org.usfirst.frc100.Robot2015.RobotMap;
 import org.usfirst.frc100.Robot2015.commands.*;
 
@@ -32,6 +33,9 @@ public class Drivetrain extends Subsystem {
     private double accelerationLimit = 0;
     private double accelerationLoopInterval = 20;
     private Timer timer = new Timer();
+    PID distancePID = new PID("distance");
+    PID anglePID = new PID("angle");
+    PID slidePID = new PID("slide");
 
     // Sets the default command to Drive
     public void initDefaultCommand() {
@@ -100,6 +104,21 @@ public class Drivetrain extends Subsystem {
         }
         previousVelocity = velocity;
         timer.start();
+    }
+    //Sets the target distance for Auto drive
+    public void autoSetTarget(double targetDistance, double targetSlide, double targetAngle ){
+    	distancePID.setTarget(targetDistance);
+    	slidePID.setTarget(targetSlide);
+    	anglePID.setTarget(targetAngle);
+    }
+    //Drives in Auto
+    public void autoDrive() {
+    	distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) /2);
+    	slidePID.update(slideEncoder.getDistance());
+    	anglePID.update(gyro.getAngle());
+    	drive( distancePID.getOutput(), slidePID.getOutput(), anglePID.getOutput());
+    	
+    	
     }
     
     // Updates the SmartDashboard
