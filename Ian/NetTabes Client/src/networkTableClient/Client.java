@@ -21,20 +21,21 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  */
 public class Client {
 
-	// Put the robot IP here.
-	public static final String IP = "10.1.0.2";
-
-	// The time between refreshes in milliseconds.
-	public static final long REFRESH_RATE = 1000;
-
 	// Sets the place where the data file will be stored.//The default file nameis "NetworkTables Data.txt".
 	public static final String FILE_PATH = "C:/Users/Public/Documents/";
 	//The default file name is "NetworkTables Data.txt".
-	public static final String FILE_NAME = "NetworkTables Data";
+	public static final String FILE_NAME = "NetTables Data";
 	
-	// Data refresh cycles.
-	public int refreshCycle = 1;
-
+	
+	
+	// The time between refreshes in milliseconds.
+	public static final long REFRESH_RATE = 1000;
+	// Put the robot IP here.
+	public static final String IP = "10.1.0.2";
+	//Debug mode.
+	public static final boolean DEBUG_MODE = false;
+	
+	
 	public static void main(String[] args) {
 		// Starts the desktop client.
 		new Client().run();
@@ -42,7 +43,11 @@ public class Client {
 
 	// Method that runs the client.
 	public void run() {
-
+		
+		if (DEBUG_MODE) {
+			System.out.println("DEBUG RUN");
+		}
+		
 		try {
 			// Sets NetworkTables to client mode.
 			NetworkTable.setClientMode();
@@ -70,6 +75,13 @@ public class Client {
 			System.out.println("File setup complete!");
 			System.out.println();
 
+			if (DEBUG_MODE) {
+				System.out.println("DEBUG SETUP FILE");
+			}
+			
+			// Data refresh cycles.
+			int refreshCycle = 1;
+			
 			// Refresh loop.
 			while (true) {
 
@@ -80,12 +92,19 @@ public class Client {
 					Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
 				}
 
+				if (DEBUG_MODE) {
+					System.out.println("DEBUG LOOP");
+				}
+				
 				// Print cycles.
 				System.out.println("Cycle: " + refreshCycle);
 				// Writes the cycle to file.
 				bWriter.write("Cycle: " + refreshCycle);
 				bWriter.newLine();
 				
+				if (DEBUG_MODE) {
+					System.out.println("DEBUG LOOP CYCLE");
+				}
 				
 				// Gets data from the arm subsystem.
 				System.out.println();
@@ -109,6 +128,9 @@ public class Client {
 				bWriter.newLine();
 				System.out.println("Arm Potentiometer Output: " + armPotentiometer);
 				
+				if (DEBUG_MODE) {
+					System.out.println("DEBUG LOOP ARM");
+				}
 				
 				// Gets data from the claw subsystem.
 				System.out.println();
@@ -122,6 +144,9 @@ public class Client {
 				bWriter.newLine();
 				System.out.println("Claw Is Closed: " + clawClosed);
 				
+				if (DEBUG_MODE) {
+					System.out.println("DEBUG LOOP CLAW");
+				}
 				
 				// Gets data from the drivetrain subsystem.
 				System.out.println();
@@ -160,6 +185,9 @@ public class Client {
 				bWriter.newLine();
 				System.out.println("DriveTrain Is In Slide Mode: " + drivetrainSlideMode);
 				
+				if (DEBUG_MODE) {
+					System.out.println("DEBUG LOOP DRIVETRAIN");
+				}
 				
 				// Gets data from the elevator subsystem.
 				System.out.println();
@@ -188,6 +216,9 @@ public class Client {
 				bWriter.newLine();
 				System.out.println("Elevator Is In Position: " + elevatorInPosition);
 				
+				if (DEBUG_MODE) {
+					System.out.println("DEBUG LOOP ELEVATOR");
+				}
 				
 				// WhiteSpace
 				System.out.println();
@@ -198,6 +229,10 @@ public class Client {
 
 				// add 1 to "refreshCycles".
 				refreshCycle = refreshCycle + 1;
+				
+				if (DEBUG_MODE) {
+					System.out.println("DEBUG LOOP END");
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
