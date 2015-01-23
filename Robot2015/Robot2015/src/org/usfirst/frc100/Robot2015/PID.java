@@ -18,6 +18,7 @@ public class PID {
     private double lastError = 0.0, totalError = 0.0; // Stores previous error
     private double output = 0.0; // Loop output value
     private double interval = 0.0; // Time between loops
+    private double rate = 0.0; // Change in error per second
     private Timer timer = new Timer(); // Keeps track of loop frequency
     private boolean enabled = true;
 
@@ -46,6 +47,12 @@ public class PID {
         if (!Preferences.contains(name + "SensorRatio")) {
             Preferences.set(name + "SensorRatio", 1.0);
         }
+        if (!Preferences.contains(name + "ErrorTolerance")) {
+            Preferences.set(name + "ErrorTolerance", 0.0);
+        }
+        if (!Preferences.contains(name + "RateTolerance")) {
+            Preferences.set(name + "RateTolerance", Double.MAX_VALUE);
+        }
         this.name = name;
         timer.start();
         SmartDashboard.putNumber(name + " kP", kP);
@@ -67,8 +74,9 @@ public class PID {
         lastError = error;
         error = target - input;
         totalError += error * interval;
+        rate = (error - lastError) / interval;
         if(interval>0.0 && interval<1.0){
-        	output = kP * error + kI * totalError + kD * (error - lastError) / interval;
+        	output = kP * error + kI * totalError + kD * rate;
         	timer.reset();
         	displayData();
         } else {
@@ -113,11 +121,18 @@ public class PID {
 
     // Sets the current location to be a specified value, but does NOT reset the target
     public void setRelativeLocation(double value) {
-    	offset += target - error - value;
+    	offset += input - value;
     	error = target - value;
+    	input = value;
     	reset();
     }
-    
+
+    // Returns whether the PID loop is close enough to the target value
+    public boolean reachedTarget() {
+		return Math.abs(error) < Preferences.getDouble(name + "ErrorTolerance")
+				&& Math.abs(rate) < Preferences.getDouble(name + "RateTolerance");
+    }
+
     // Allows PID loop to output
     public void enable() {
         enabled = true;
@@ -135,5 +150,7 @@ public class PID {
         SmartDashboard.putNumber(name + " Input", input);
         SmartDashboard.putNumber(name + " Output", output);
         SmartDashboard.putNumber(name + " Interval", interval);
+        SmartDashboard.putNumber(name + " Rate", rate);
+        SmartDashboard.putBoolean(name + " Reached Target", reachedTarget());
     }
 }
