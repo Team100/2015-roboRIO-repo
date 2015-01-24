@@ -112,9 +112,9 @@ public class Drivetrain extends Subsystem {
     	distancePID.setTarget(targetDistance);
     	slidePID.setTarget(targetSlide);
     	anglePID.setTarget(targetAngle);
-    	distancePID.reset();
-    	slidePID.reset();
-    	anglePID.reset();
+    	distancePID.setRelativeLocation(0);
+    	slidePID.setRelativeLocation(0);
+    	anglePID.setRelativeLocation(0);
     }
     
     // Updates the auto PID
