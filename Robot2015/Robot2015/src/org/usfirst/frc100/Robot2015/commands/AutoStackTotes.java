@@ -1,4 +1,7 @@
 package org.usfirst.frc100.Robot2015.commands;
+
+import org.usfirst.frc100.Robot2015.Robot;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -6,7 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoStackTotes extends CommandGroup {
     
-    public  AutoStackTotes() {
+    AutoStackTotes() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -23,5 +26,10 @@ public class AutoStackTotes extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	
+    	
+    	addSequential(Robot.autoGetNextTote);
     }
+    
+    
 }
