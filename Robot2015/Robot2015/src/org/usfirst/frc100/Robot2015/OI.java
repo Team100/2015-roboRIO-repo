@@ -65,13 +65,13 @@ public class OI {
         manipulatorJoystick = new Joystick(2);
         
         liftToteButton1 = new JoystickButton(manipulatorJoystick, 1);
-        liftToteButton1.whenPressed(new LiftToteToHeight(1));
+        liftToteButton1.whenPressed(new SetElevatorPosition(1));
         liftToteButton2 = new JoystickButton(manipulatorJoystick, 2);
-        liftToteButton2.whenPressed(new LiftToteToHeight(2));
+        liftToteButton2.whenPressed(new SetElevatorPosition(2));
         liftToteButton3 = new JoystickButton(manipulatorJoystick, 3);
-        liftToteButton3.whenPressed(new LiftToteToHeight(3));
+        liftToteButton3.whenPressed(new SetElevatorPosition(3));
         liftToteButton4 = new JoystickButton(manipulatorJoystick, 4);
-        liftToteButton4.whenPressed(new LiftToteToHeight(4));
+        liftToteButton4.whenPressed(new SetElevatorPosition(4));
         manualControlButton = new JoystickButton(manipulatorJoystick, 5);
         manualControlButton.whileHeld(new ManualControlElevator());
         closeClawButton = new JoystickButton(manipulatorJoystick, 6);
