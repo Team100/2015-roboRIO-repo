@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  */
 public class Client {
 
-	// Sets the place where the data file will be stored.//The default file nameis "NetworkTables Data.txt".
+	// Sets the place where the data file will be stored.//The default file name is "NetTables Data.txt".
 	public static final String FILE_PATH = "C:/Users/Public/Documents/";
 	//The default file name is "NetworkTables Data.txt".
 	public static final String FILE_NAME = "NetTables Data";
@@ -211,10 +211,6 @@ public class Client {
 				bWriter.newLine();
 				System.out.println("ELevator Is Brakeing: " + elevatorBrake);
 				
-				boolean elevatorInPosition = table.getBoolean("Elevator In Position", false);
-				bWriter.write("Elevator Is In Position: " + elevatorInPosition);
-				bWriter.newLine();
-				System.out.println("Elevator Is In Position: " + elevatorInPosition);
 				
 				if (DEBUG_MODE) {
 					System.out.println("DEBUG LOOP ELEVATOR");
