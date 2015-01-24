@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoStackTotes extends CommandGroup {
 	final double DISTANCE_TO_TOTE = 9001.0;
 	final double DISTANCE_FORWARD = 10;
+	final double DISTANCE_TO_SCORING = 10;
 	
     AutoStackTotes() {
         // Add Commands here:
@@ -43,8 +44,8 @@ public class AutoStackTotes extends CommandGroup {
     	addSequential(new SetElevatorPosition(1));
     	addSequential(new CloseClaw());
     	addSequential(new SetElevatorPosition(2));
-    	
+    	addSequential(new AutoDrive(DISTANCE_TO_SCORING));
+    	addSequential(new SetElevatorPosition(1));
+    	addSequential(new OpenClaw());
     }
-    
-    
 }
