@@ -812,7 +812,7 @@ Children:
           name: Command
           type: Command
           validators: *id021
-          value: LiftToteToHeight
+          value: SetElevatorPosition
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id022
           default: whileHeld
@@ -836,7 +836,7 @@ Children:
           name: Command
           type: Command
           validators: *id021
-          value: LiftToteToHeight
+          value: SetElevatorPosition
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id022
           default: whileHeld
@@ -860,7 +860,7 @@ Children:
           name: Command
           type: Command
           validators: *id021
-          value: LiftToteToHeight
+          value: SetElevatorPosition
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id022
           default: whileHeld
@@ -884,7 +884,7 @@ Children:
           name: Command
           type: Command
           validators: *id021
-          value: LiftToteToHeight
+          value: SetElevatorPosition
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id022
           default: whileHeld
@@ -921,7 +921,7 @@ Children:
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
-    Name: LiftToteToHeight
+    Name: SetElevatorPosition
   - Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
