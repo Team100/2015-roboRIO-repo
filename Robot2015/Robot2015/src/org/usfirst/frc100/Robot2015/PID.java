@@ -20,7 +20,7 @@ public class PID {
     private double interval = 0.0; // Time between loops
     private double rate = 0.0; // Change in error per second
     private Timer timer = new Timer(); // Keeps track of loop frequency
-    private boolean enabled = true;
+    private boolean enabled = true; // If set to false, it will reduce output to 0
 
     // Instantiates a PID loop, requires a unique name for creating preferences
     public PID(String name) {

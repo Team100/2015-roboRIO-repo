@@ -140,11 +140,15 @@ public class Drivetrain extends Subsystem {
         SmartDashboard.putBoolean("DriveTrain Slide Mode", isSlide());
     }
     
-    public void updateAngle() {
+    public double updateAngle() {
     	anglePID.update(gyro.getAngle());
+    	return anglePID.getOutput();
     }
     
     public void setAngleTarget(double targetAngle) {
     	anglePID.setTarget(targetAngle);
-    	anglePID.setRelativeLocation(0);    }
+    	anglePID.setRelativeLocation(0);    
+	}
+    
+    
 }
