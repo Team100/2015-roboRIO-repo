@@ -1,6 +1,8 @@
 package org.usfirst.frc100.Robot2015.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc100.Robot2015.Robot;
 
 /**
@@ -25,6 +27,12 @@ public class  UpdateDashboard extends Command {
     	Robot.claw.updateDashboard();
     	Robot.drivetrain.updateDashboard();
     	Robot.elevator.updateDashboard();
+
+        SmartDashboard.putData(Robot.drivetrain);
+        SmartDashboard.putData(Robot.elevator);
+        SmartDashboard.putData(Robot.arm);
+        SmartDashboard.putData(Robot.claw);
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()

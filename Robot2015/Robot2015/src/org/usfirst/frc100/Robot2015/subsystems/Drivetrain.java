@@ -1,6 +1,7 @@
 package org.usfirst.frc100.Robot2015.subsystems;
 
 import org.usfirst.frc100.Robot2015.PID;
+import org.usfirst.frc100.Robot2015.Preferences;
 import org.usfirst.frc100.Robot2015.RobotMap;
 import org.usfirst.frc100.Robot2015.commands.*;
 
@@ -89,17 +90,17 @@ public class Drivetrain extends Subsystem {
         timer.stop();
         accelerationLoopInterval = timer.get();
         velocity = leftEncoder.getRate();
-        if ((velocity - previousVelocity) / accelerationLoopInterval > SmartDashboard.getNumber("Uppper Acceleration Limit", 100000000)) {
+        if ((velocity - previousVelocity) / accelerationLoopInterval > Preferences.getDouble("UppperAccelerationLimit")) {
              drive(accelerationLimit, slide, turn);
 
-        } else if ((velocity - previousVelocity) / accelerationLoopInterval < SmartDashboard.getNumber("Lower  Acceleration Limit", -100000000)) {
+        } else if ((velocity - previousVelocity) / accelerationLoopInterval < Preferences.getDouble("LowerAccelerationLimit")) {
             drive(accelerationLimit, slide, turn);
 
         } else {
             if(yaxis > accelerationLimit) {
-                accelerationLimit += SmartDashboard.getNumber("Limit Step");
+                accelerationLimit += Preferences.getDouble("LimitStep");
             } else{
-               accelerationLimit -= SmartDashboard.getNumber("Limit Step");
+               accelerationLimit -= Preferences.getDouble("LimitStep");
             }
             drive(accelerationLimit, slide, turn);
         }
