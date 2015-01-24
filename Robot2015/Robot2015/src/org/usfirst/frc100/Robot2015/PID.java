@@ -81,7 +81,7 @@ public class PID {
         	displayData();
         } else {
         	output = kP * error;
-        	reset();
+        	resetError();
         }
     }
 
@@ -103,7 +103,7 @@ public class PID {
     public void setTarget(double newTarget) {
         target = newTarget;
         error = target;
-        reset();
+        resetError();
     }
 
     // Returns the current target for the PID loop
@@ -112,7 +112,7 @@ public class PID {
     }
 
     // Clears any built up error
-    public void reset() {
+    public void resetError() {
         totalError = 0.0;
         lastError = error;
         timer.reset();
@@ -124,7 +124,7 @@ public class PID {
     	offset += input - value;
     	error = target - value;
     	input = value;
-    	reset();
+    	resetError();
     }
 
     // Returns whether the PID loop is close enough to the target value
