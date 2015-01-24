@@ -139,4 +139,12 @@ public class Drivetrain extends Subsystem {
         SmartDashboard.putBoolean("DriveTrain High Gear", leftShifter.get() == DoubleSolenoid.Value.kForward);
         SmartDashboard.putBoolean("DriveTrain Slide Mode", isSlide());
     }
+    
+    public void updateAngle() {
+    	anglePID.update(gyro.getAngle());
+    }
+    
+    public void setAngleTarget(double targetAngle) {
+    	anglePID.setTarget(targetAngle);
+    	anglePID.setRelativeLocation(0);    }
 }
