@@ -504,7 +504,7 @@ Children:
           validators: *id021
           value: '11'
       Base: Limit Switch
-      Name: ArmForwardLimit
+      Name: ForwardLimit
     - Children: []
       Properties:
         Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
@@ -514,7 +514,7 @@ Children:
           validators: *id021
           value: '12'
       Base: Limit Switch
-      Name: ArmBackLimit
+      Name: BackLimit
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: None}
