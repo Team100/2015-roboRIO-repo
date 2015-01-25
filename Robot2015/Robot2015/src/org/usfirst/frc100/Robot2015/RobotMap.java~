@@ -37,8 +37,8 @@ public class RobotMap {
     public static DoubleSolenoid armPiston;
     public static DigitalInput armContainerSensor;
     public static AnalogPotentiometer armPotentiometer;
-    public static DigitalInput armArmForwardLimit;
-    public static DigitalInput armArmBackLimit;
+    public static DigitalInput armForwardLimit;
+    public static DigitalInput armBackLimit;
     public static Compressor pneumaticsCompressor;
     public static DoubleSolenoid clawPiston;
 
@@ -124,11 +124,11 @@ public class RobotMap {
         armPotentiometer = new AnalogPotentiometer(1, 1.0, 0.0);
         LiveWindow.addSensor("Arm", "Potentiometer", armPotentiometer);
         
-        armArmForwardLimit = new DigitalInput(11);
-        LiveWindow.addSensor("Arm", "ArmForwardLimit", armArmForwardLimit);
+        armForwardLimit = new DigitalInput(11);
+        LiveWindow.addSensor("Arm", "ForwardLimit", armForwardLimit);
         
-        armArmBackLimit = new DigitalInput(12);
-        LiveWindow.addSensor("Arm", "ArmBackLimit", armArmBackLimit);
+        armBackLimit = new DigitalInput(12);
+        LiveWindow.addSensor("Arm", "BackLimit", armBackLimit);
         
         pneumaticsCompressor = new Compressor(0);
         
