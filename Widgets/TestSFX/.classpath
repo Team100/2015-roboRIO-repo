@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_31"/>
+	<classpathentry kind="lib" path="C:/Users/Student/wpilib/tools/sfx-2014.11.01/sfxlib.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Student/wpilib/tools/sfx-2014.11.01/sfxmeta.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_31/jre/lib/ext/jfxrt.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
