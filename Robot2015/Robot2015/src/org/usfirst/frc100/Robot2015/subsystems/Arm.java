@@ -21,7 +21,7 @@ public class Arm extends Subsystem {
     DigitalInput containerSensor = RobotMap.armContainerSensor;
     AnalogPotentiometer potentiometer = RobotMap.armPotentiometer;
     double heightTarget = potentiometer.get();
-    double standardDeviation = 1;
+    double tolerance = 1;
     DigitalInput armForwardLimit = RobotMap.armArmForwardLimit;
     DigitalInput armBackLimit = RobotMap.armArmBackLimit;
 
@@ -79,9 +79,9 @@ public class Arm extends Subsystem {
 
     public boolean updateArm() {
     	int done = 0;
-    	if (heightTarget - potentiometer.get() > standardDeviation) {
+    	if (heightTarget - potentiometer.get() > tolerance) {
     		raiseMotor.set(1);
-    	} else if (heightTarget - potentiometer.get() < -standardDeviation) {
+    	} else if (heightTarget - potentiometer.get() < -tolerance) {
     		raiseMotor.set(-1);
     	} else {
     		raiseMotor.set(0);
