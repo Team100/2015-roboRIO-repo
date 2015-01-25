@@ -23,6 +23,10 @@ public class  ManualControl extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.elevator.manualControl(Robot.oi.getManipulatorJoystick().getY());
+    	Robot.arm.manualControl(Robot.oi.getManipulatorJoystick().getTwist(), Robot.oi.getManipulatorJoystick().getThrottle());
+    	if (Robot.oi.closeClawButton.get()) Robot.arm.setDeploy(true);
+    	if (Robot.oi.openClawButton.get()) Robot.arm.setDeploy(false);
+    	Robot.arm.updateArm();
     }
 
     // Make this return true when this Command no longer needs to run execute()
