@@ -475,6 +475,26 @@ Children:
           validators: null, value: 0.0}
       Base: Analog Potentiometer
       Name: Potentiometer
+    - Children: []
+      Properties:
+        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id018
+          default: '0'
+          name: Input Channel (Digital)
+          validators: *id019
+          value: '11'
+      Base: Limit Switch
+      Name: ArmForwardLimit
+    - Children: []
+      Properties:
+        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id018
+          default: '0'
+          name: Input Channel (Digital)
+          validators: *id019
+          value: '12'
+      Base: Limit Switch
+      Name: ArmBackLimit
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: None}
@@ -788,7 +808,7 @@ Children:
           name: Command
           type: Command
           validators: *id021
-          value: ManualControlElevator
+          value: ManualControl
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id022
           default: whileHeld
@@ -1029,7 +1049,7 @@ Children:
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
-    Name: ManualControlElevator
+    Name: ManualControl
   - Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,

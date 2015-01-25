@@ -73,7 +73,7 @@ public class OI {
         liftToteButton4 = new JoystickButton(manipulatorJoystick, 4);
         liftToteButton4.whenPressed(new SetElevatorPosition(4));
         manualControlButton = new JoystickButton(manipulatorJoystick, 5);
-        manualControlButton.whileHeld(new ManualControl());
+        manualControlButton.whileHeld(new ManualControlElevator());
         closeClawButton = new JoystickButton(manipulatorJoystick, 6);
         closeClawButton.whenPressed(new CloseClaw());
         calibrateElevatorButton = new JoystickButton(manipulatorJoystick, 7);
@@ -99,7 +99,7 @@ public class OI {
         // SmartDashboard Buttons
 //        SmartDashboard.putData("DeployButterfly", new DeployButterfly());
 //
-//        SmartDashboard.putData("SetElevatorPosition", new SetElevatorPosition());
+//        SmartDashboard.putData("LiftToteToHeight", new LiftToteToHeight());
 //
 //        SmartDashboard.putData("Drive", new Drive());
 //
@@ -127,7 +127,7 @@ public class OI {
 //
 //        SmartDashboard.putData("GrabRecycling", new GrabRecycling());
 //
-//        SmartDashboard.putData("ManualControlElevator", new ManualControl());
+//        SmartDashboard.putData("ManualControlElevator", new ManualControlElevator());
 //
 //        SmartDashboard.putData("GradualDrive", new GradualDrive());
 //
