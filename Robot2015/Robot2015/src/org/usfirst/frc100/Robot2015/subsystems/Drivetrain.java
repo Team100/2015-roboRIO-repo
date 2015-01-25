@@ -159,6 +159,10 @@ public class Drivetrain extends Subsystem {
         SmartDashboard.putNumber("DriveTrain Acceleration", (velocity - previousVelocity) / accelerationLoopInterval );
         SmartDashboard.putBoolean("DriveTrain High Gear", leftShifter.get() == DoubleSolenoid.Value.kForward);
         SmartDashboard.putBoolean("DriveTrain Slide Mode", isSlide());
+        SmartDashboard.putNumber("Left LineReader Value", Robot.drivetrain.leftLineReader.getValue());
+    	SmartDashboard.putNumber("Right LineReader Value", Robot.drivetrain.rightLineReader.getValue());        
+        SmartDashboard.putBoolean("Left LineReader OnWhite", !Robot.drivetrain.leftLineReadTrigger.getTriggerState());
+    	SmartDashboard.putBoolean("Right LineReader OnWhite", !Robot.drivetrain.rightLineReadTrigger.getTriggerState());
     }
     
     public double updateAngle() {
