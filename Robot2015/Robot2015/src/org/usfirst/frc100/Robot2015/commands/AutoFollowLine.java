@@ -1,6 +1,8 @@
 package org.usfirst.frc100.Robot2015.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc100.Robot2015.Robot;
 
 /**
@@ -17,10 +19,12 @@ public class  AutoFollowLine extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	SmartDashboard.putNumber("LineTracker Limit", 0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.drivetrain.followLine();
     }
 
     // Make this return true when this Command no longer needs to run execute()
