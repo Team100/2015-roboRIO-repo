@@ -104,10 +104,10 @@ public class Drivetrain extends Subsystem {
         slideVelocity = slideEncoder.getRate();
         trueVelocity = Math.hypot(turnVelocity, slideVelocity);
         turnAcceleration = (turnVelocity - previousTurnVelocity)/accelerationLoopInterval;
-        if (trueVelocity / accelerationLoopInterval > Preferences.getDouble("UpperAccelerationLimit") || turnAcceleration > Preferences.getDouble("Upper Turn Acceleration Limit")) {
+        if (trueVelocity / accelerationLoopInterval > Preferences.getDouble("UpperAccelerationLimit") || turnAcceleration > Preferences.getDouble("Upper Turn Acceleration Limit") || turnVelocity > Preferences.getDouble("Upper Turn Velocity Limit")) {
              drive(accelerationLimit, slideLimit, turnLimit);
 
-        } else if (trueVelocity / accelerationLoopInterval < Preferences.getDouble("LowerAccelerationLimit") || turnAcceleration > Preferences.getDouble("Lower Turn Acceleration Limit")) {
+        } else if (trueVelocity / accelerationLoopInterval < Preferences.getDouble("Lower Acceleration Limit") || turnAcceleration < Preferences.getDouble("Lower Turn Acceleration Limit") || turnVelocity < Preferences.getDouble("Lower Turn Velocity Limit")) {
             drive(accelerationLimit, slideLimit, turnLimit);
 
         } else {
