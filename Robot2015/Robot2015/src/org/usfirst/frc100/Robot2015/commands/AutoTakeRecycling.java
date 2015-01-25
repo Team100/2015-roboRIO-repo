@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoTakeRecycling extends CommandGroup {
     
+	final double DRIVE_LENGTH = 10;
     public  AutoTakeRecycling() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
@@ -23,5 +24,7 @@ public class AutoTakeRecycling extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	addSequential(new DeployArm(true));
+    	addParallel(new AutoDrive(DRIVE_LENGTH));
     }
 }

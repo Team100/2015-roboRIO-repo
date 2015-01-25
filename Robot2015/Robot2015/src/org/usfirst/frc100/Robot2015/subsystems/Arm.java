@@ -77,17 +77,21 @@ public class Arm extends Subsystem {
     	heightTarget = height;
     }
 
-    public void updateArm() {
+    public boolean updateArm() {
+    	int done = 0;
     	if (heightTarget - potentiometer.get() > standardDeviation) {
     		raiseMotor.set(1);
     	} else if (heightTarget - potentiometer.get() < -standardDeviation) {
     		raiseMotor.set(-1);
     	} else {
     		raiseMotor.set(0);
+    		done++;
     	}
     	if (armForwardLimit.get() || armBackLimit.get() || containerSensor.get()) {
     		deployMotor.set(0);
+    		done++;
     	}
+    	return done == 2;
     }
     
     // Updates the SmartDashboard
