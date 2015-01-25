@@ -34,6 +34,14 @@ public class Drivetrain extends Subsystem {
     private double previousVelocity = 0;
     private double accelerationLimit = 0;
     private double accelerationLoopInterval = 20;
+    private double turnLimit = 0;
+    private double turnVelocity = 0;
+    private double turnAcceleration = 0;
+    private double previousTurnVelocity = 0;
+    private double slideLimit = 0;
+    private double slideVelocity = 0;
+    private double previousSlideVelocity = 0;
+    private double trueVelocity = 0;
     private Timer timer = new Timer();
     PID distancePID = new PID("DriveDistance");
     PID anglePID = new PID("DriveAngle");
@@ -90,21 +98,31 @@ public class Drivetrain extends Subsystem {
         timer.stop();
         accelerationLoopInterval = timer.get();
         velocity = leftEncoder.getRate();
-        if ((velocity - previousVelocity) / accelerationLoopInterval > Preferences.getDouble("UppperAccelerationLimit")) {
-             drive(accelerationLimit, slide, turn);
+        turnVelocity = gyro.getRate();
+        slideVelocity = slideEncoder.getRate();
+        trueVelocity = Math.hypot(turnVelocity, slideVelocity);
+        turnAcceleration = (turnVelocity - previousTurnVelocity)/accelerationLoopInterval;
+        if (trueVelocity / accelerationLoopInterval > Preferences.getDouble("UpperAccelerationLimit") || turnAcceleration > Preferences.getDouble("Upper Turn Acceleration Limit")) {
+             drive(accelerationLimit, slideLimit, turnLimit);
 
-        } else if ((velocity - previousVelocity) / accelerationLoopInterval < Preferences.getDouble("LowerAccelerationLimit")) {
-            drive(accelerationLimit, slide, turn);
+        } else if (trueVelocity / accelerationLoopInterval < Preferences.getDouble("LowerAccelerationLimit") || turnAcceleration > Preferences.getDouble("Lower Turn Acceleration Limit")) {
+            drive(accelerationLimit, slideLimit, turnLimit);
 
         } else {
             if(yaxis > accelerationLimit) {
                 accelerationLimit += Preferences.getDouble("LimitStep");
+                slideLimit += Preferences.getDouble("LimitStep");
+                turnLimit += Preferences.getDouble("LimitStep");
             } else{
                accelerationLimit -= Preferences.getDouble("LimitStep");
+               slideLimit -= Preferences.getDouble("LimitStep");
+               turnLimit -= Preferences.getDouble("LimitStep");
             }
-            drive(accelerationLimit, slide, turn);
+            drive(accelerationLimit, slideLimit, turnLimit);
         }
         previousVelocity = velocity;
+        previousSlideVelocity = slideVelocity;
+        previousTurnVelocity = turnVelocity;
         timer.start();
     }
     
