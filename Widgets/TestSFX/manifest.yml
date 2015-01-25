@@ -1,0 +1,9 @@
+API: 0.1
+Name: Tutorial plugin
+Description: Contains all the plugins from the tutorial
+Version: 1.0.0
+# Please generate your own unique UUID and replace it below
+Plugin ID: 8210ccee-a265-11e4-89d3-123b93f75cba
+Controls:
+-
+  Class: org.team100.smartdashboard.XYLocation
