@@ -39,7 +39,11 @@ public class Arm extends Subsystem {
      */
     public void manualControl(double raise, double extend) {
     	raiseMotor.set(raise);
-    	deployMotor.set(extend);
+    	if((!forwardLimit.get()&&extend>0)||(!backLimit.get()&&extend<0)){
+    		deployMotor.set(extend);
+    	} else {
+    		deployMotor.set(0);
+    	}
     }
     
     // Returns whether the arm's grabbing mechanism is closed
@@ -64,7 +68,6 @@ public class Arm extends Subsystem {
      */
     public void setDeploy(boolean extended) {
     	deployMotor.set(extended ? 1 : -1);
-    	
     }
     
     /**
