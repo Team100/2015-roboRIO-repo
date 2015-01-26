@@ -172,6 +172,9 @@ public class Drivetrain extends Subsystem {
     	SmartDashboard.putNumber("Right LineReader Value", Robot.drivetrain.rightLineReader.getValue());        
         SmartDashboard.putBoolean("Left LineReader OnWhite", !Robot.drivetrain.leftLineReadTrigger.getTriggerState());
     	SmartDashboard.putBoolean("Right LineReader OnWhite", !Robot.drivetrain.rightLineReadTrigger.getTriggerState());
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
     }
     
