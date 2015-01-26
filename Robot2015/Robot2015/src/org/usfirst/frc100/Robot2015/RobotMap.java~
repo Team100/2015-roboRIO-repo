@@ -25,6 +25,8 @@ public class RobotMap {
     public static Encoder drivetrainRightEncoder;
     public static Encoder drivetrainSlideEncoder;
     public static Gyro drivetrainGyro;
+    public static AnalogInput drivetrainLeftLineReader;
+    public static AnalogInput drivetrainRightLineReader;
     public static SpeedController elevatorMotor;
     public static Encoder elevatorEncoder;
     public static DoubleSolenoid elevatorBrake;
@@ -35,6 +37,8 @@ public class RobotMap {
     public static DoubleSolenoid armPiston;
     public static DigitalInput armContainerSensor;
     public static AnalogPotentiometer armPotentiometer;
+    public static DigitalInput armForwardLimit;
+    public static DigitalInput armBackLimit;
     public static Compressor pneumaticsCompressor;
     public static DoubleSolenoid clawPiston;
 
@@ -83,6 +87,12 @@ public class RobotMap {
         drivetrainGyro = new Gyro(0);
         LiveWindow.addSensor("Drivetrain", "Gyro", drivetrainGyro);
         drivetrainGyro.setSensitivity(0.007);
+        drivetrainLeftLineReader = new AnalogInput(2);
+        LiveWindow.addSensor("Drivetrain", "LeftLineReader", drivetrainLeftLineReader);
+        
+        drivetrainRightLineReader = new AnalogInput(3);
+        LiveWindow.addSensor("Drivetrain", "RightLineReader", drivetrainRightLineReader);
+        
         elevatorMotor = new VictorSP(3);
         LiveWindow.addActuator("Elevator", "Motor", (VictorSP) elevatorMotor);
         
@@ -113,6 +123,12 @@ public class RobotMap {
         
         armPotentiometer = new AnalogPotentiometer(1, 1.0, 0.0);
         LiveWindow.addSensor("Arm", "Potentiometer", armPotentiometer);
+        
+        armForwardLimit = new DigitalInput(11);
+        LiveWindow.addSensor("Arm", "ForwardLimit", armForwardLimit);
+        
+        armBackLimit = new DigitalInput(12);
+        LiveWindow.addSensor("Arm", "BackLimit", armBackLimit);
         
         pneumaticsCompressor = new Compressor(0);
         

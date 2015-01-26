@@ -12,7 +12,7 @@ public class AutoStackTotes extends CommandGroup {
 	final double DISTANCE_FORWARD = 10;
 	final double DISTANCE_TO_SCORING = 10;
 	
-    AutoStackTotes() {
+    public AutoStackTotes() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -29,6 +29,7 @@ public class AutoStackTotes extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	addSequential(new AutoCalibrateElevator());
     	addSequential(new OpenClaw());
     	addSequential(new AutoDrive(DISTANCE_FORWARD, 0));
     	addSequential(new SetElevatorPosition(1));

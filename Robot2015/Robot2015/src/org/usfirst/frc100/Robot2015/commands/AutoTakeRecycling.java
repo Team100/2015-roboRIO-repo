@@ -6,11 +6,14 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoTakeRecycling extends CommandGroup {
     
+	final double DRIVE_1LENGTH = 10;
+	final double DRIVE_2LENGTH = 10;
+	final double SLIDE_DISTANCE = 10;
     public  AutoTakeRecycling() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
-        // these will run in order.
+        // these will1 run in order.
 
         // To run multiple commands at the same time,
         // use addParallel()
@@ -23,5 +26,25 @@ public class AutoTakeRecycling extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	addSequential(new DeployArm(true));
+    	addSequential(new GrabRecycling());
+    	addParallel(new DeployArm(false));
+    	addParallel(new DropRecycling());
+    	addParallel(new DeployArm(true));
+    	addSequential(new AutoDrive(DRIVE_1LENGTH));
+    	addSequential(new GrabRecycling());
+    	addParallel(new DeployArm(false));
+    	addParallel(new DropRecycling());
+    	addParallel(new DeployArm(true));
+    	addSequential(new AutoDrive(DRIVE_2LENGTH));
+    	addSequential(new GrabRecycling());
+    	addParallel(new DeployArm(false));
+    	addParallel(new DropRecycling());
+    	addParallel(new DeployArm(true));
+    	addSequential(new AutoDrive(DRIVE_1LENGTH));
+    	addSequential(new GrabRecycling());
+    	addSequential(new DeployArm(false));
+    	addSequential(new DropRecycling());
+    	addSequential(new AutoDrive(0, SLIDE_DISTANCE));
     }
 }
