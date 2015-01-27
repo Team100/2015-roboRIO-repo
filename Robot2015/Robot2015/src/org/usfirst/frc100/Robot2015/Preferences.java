@@ -12,6 +12,8 @@ import java.util.ArrayList;
  * Stores all changeable or arbitrary values in a file on the cRIO.
  */
 public class Preferences {
+	
+	private static final boolean DEBUG_MODE = false;
 
     private static ArrayList<String> keys = new ArrayList<String>();
     private static ArrayList<String> values = new ArrayList<String>();
@@ -19,9 +21,11 @@ public class Preferences {
     // Creates or sets a preference, but does not modify cRIO file
     public static void set(String name, Object value) {
         if(keys.contains(name)){
+        	if(DEBUG_MODE) System.out.println("Modified Preference: " + name + " " + value);
         	int index = keys.indexOf(name);
         	values.set(index, value+"");
         } else {
+        	if(DEBUG_MODE) System.out.println("Added Preference: " + name + " " + value);
         	keys.add(name);
         	values.add(value+"");
         }
@@ -43,7 +47,7 @@ public class Preferences {
         try {
         	return Double.parseDouble(value);
         } catch(NumberFormatException e){
-        	System.out.println("ERROR: Preference is not a double: " + name + " " + value);
+        	if(DEBUG_MODE) System.out.println("Preference is not a double: " + name + " " + value);
         }
         return 0;
     }
@@ -52,7 +56,7 @@ public class Preferences {
     public static boolean getBoolean(String name) {
         String value = getString(name);
         if (!(value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))) {
-            System.out.println("ERROR: Preference is not a boolean: " + name + " " + value);
+        	if(DEBUG_MODE) System.out.println("Preference is not a boolean: " + name + " " + value);
         }
         return "true".equals(value);
     }
@@ -63,6 +67,7 @@ public class Preferences {
         	int index = keys.indexOf(name);
         	return values.get(index);
         } else {
+        	if(DEBUG_MODE) System.out.println("Preference not found: " + name);
         	return "0";
         }
     }
@@ -72,6 +77,13 @@ public class Preferences {
         return keys.contains(name);
     }
 
+    // Adds a preference with the given name if one does not yet exist
+    public static void create(String name) {
+    	if(!contains(name)) {
+    		set(name, 0);
+    	}
+    }
+    
     // Pulls preferences from the file, overwrites any existing preferences
     public static void read() {
 		BufferedReader in;
@@ -79,7 +91,7 @@ public class Preferences {
 			in = new BufferedReader(new FileReader("/home/lvuser/Preferences.txt"));
 			keys.clear();
 			values.clear();
-			System.out.println("READING PREFERENCES");
+			if(DEBUG_MODE) System.out.println("READING PREFERENCES");
 			for (int i=0; i<10000; i++){
 				String line = in.readLine();
 				if (line == null) {
@@ -93,7 +105,7 @@ public class Preferences {
 					keys.add(line);
 					values.add("");
 				}
-				System.out.println(line);
+				if(DEBUG_MODE) System.out.println(line);
 			}
 			in.close();
 		} catch (FileNotFoundException e) {
@@ -111,13 +123,13 @@ public class Preferences {
         }
         try {
             out = new BufferedWriter(new FileWriter("/home/lvuser/Preferences.txt"));
-            System.out.println("WRITING PREFERENCES");
+            if(DEBUG_MODE) System.out.println("WRITING PREFERENCES");
             for (int i = 0; i < keys.size(); i++) {
                 if(values.get(i).equals("")){
-                	System.out.println(keys.get(i));
+                	if(DEBUG_MODE) System.out.println(keys.get(i));
                 	out.write(keys.get(i));
                 } else {
-                	System.out.println(keys.get(i)+" "+values.get(i));
+                	if(DEBUG_MODE) System.out.println(keys.get(i)+" "+values.get(i));
                 	out.write(keys.get(i)+" "+values.get(i));
                 }
                 out.newLine();

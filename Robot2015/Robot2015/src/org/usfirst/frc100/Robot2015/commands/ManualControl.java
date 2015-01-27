@@ -27,9 +27,9 @@ public class  ManualControl extends Command {
     	Robot.elevator.manualControl(Robot.oi.getManipulatorJoystick().getY());
     	Robot.arm.manualControl(Robot.oi.getManipulatorJoystick().getThrottle(), Robot.oi.getManipulatorJoystick().getTwist());
     	if (Robot.oi.calibrateElevatorButton.get()) {
-    		Robot.arm.setDeploy(true);
+    		Robot.arm.setGrab(true);
     	} else {
-    		Robot.arm.setDeploy(false);
+    		Robot.arm.setGrab(false);
     	}
     }
 

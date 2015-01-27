@@ -24,40 +24,18 @@ public class PID {
 
     // Instantiates a PID loop, requires a unique name for creating preferences
     public PID(String name) {
-        if (Preferences.contains(name + "_kP")) {
-            kP = Preferences.getDouble(name + "_kP");
-        } else {
-            Preferences.set(name + "_kP", 0.0);
-        }
-        if (Preferences.contains(name + "_kI")) {
-            kI = Preferences.getDouble(name + "_kI");
-        } else {
-            Preferences.set(name + "_kI", 0.0);
-        }
-        if (Preferences.contains(name + "_kD")) {
-            kD = Preferences.getDouble(name + "_kD");
-        } else {
-            Preferences.set(name + "_kD", 0.0);
-        }
-        if (Preferences.contains(name + "InitialOffset")) {
-            offset = Preferences.getDouble(name + "InitialOffset");
-        } else {
-            Preferences.set(name + "InitialOffset", 0.0);
-        }
-        if (!Preferences.contains(name + "SensorRatio")) {
-            Preferences.set(name + "SensorRatio", 1.0);
-        }
-        if (!Preferences.contains(name + "ErrorTolerance")) {
-            Preferences.set(name + "ErrorTolerance", 0.0);
-        }
-        if (!Preferences.contains(name + "RateTolerance")) {
-            Preferences.set(name + "RateTolerance", Double.MAX_VALUE);
-        }
-        this.name = name;
-        timer.start();
+        Preferences.create(name + "_kP");
+        Preferences.create(name + "_kI");
+        Preferences.create(name + "_kD");
+        Preferences.create(name + "InitialOffset");
+        Preferences.create(name + "SensorRatio");
+        Preferences.create(name + "ErrorTolerance");
+        Preferences.create(name + "RateTolerance");
         SmartDashboard.putNumber(name + " kP", kP);
         SmartDashboard.putNumber(name + " kI", kI);
         SmartDashboard.putNumber(name + " kD", kD);
+        this.name = name;
+        timer.start();
         displayData();
     }
 

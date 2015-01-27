@@ -47,9 +47,9 @@ public class Drivetrain extends Subsystem {
     private double previousTrueVelocity = 0;
     private double trueAcceleration = 0;
     private Timer timer = new Timer();
-    PID distancePID = new PID("DriveDistance");
-    PID anglePID = new PID("DriveAngle");
-    PID slidePID = new PID("DriveSlide");
+    private PID distancePID = new PID("DriveDistance");
+    private PID anglePID = new PID("DriveAngle");
+    private PID slidePID = new PID("DriveSlide");
 
     // Sets the default command to Drive
     public void initDefaultCommand() {
@@ -162,24 +162,18 @@ public class Drivetrain extends Subsystem {
         SmartDashboard.putNumber("DriveTrain LeftEncoder", leftEncoder.getDistance());
         SmartDashboard.putNumber("DriveTrain RightEncoder", rightEncoder.getDistance());
         SmartDashboard.putNumber("DriveTrain Gyro", gyro.getAngle());
+        SmartDashboard.putNumber("Left LineReader Value", leftLineReader.getValue());
+    	SmartDashboard.putNumber("Right LineReader Value", rightLineReader.getValue());        
+        SmartDashboard.putBoolean("Left LineReader OnWhite", !leftLineReadTrigger.getTriggerState());
+    	SmartDashboard.putBoolean("Right LineReader OnWhite", !rightLineReadTrigger.getTriggerState());
         
         // Acceleration code
     	SmartDashboard.putNumber("DriveTrain Acceleration Limit", accelerationLimit);
         SmartDashboard.putNumber("DriveTrain Interval", accelerationLoopInterval);
         SmartDashboard.putNumber("DriveTrain Velocity", velocity); // only applies to non-slide
         SmartDashboard.putNumber("DriveTrain Acceleration", (velocity - previousVelocity) / accelerationLoopInterval );
-<<<<<<< HEAD
-=======
         SmartDashboard.putBoolean("DriveTrain High Gear", leftShifter.get() == DoubleSolenoid.Value.kForward);
         SmartDashboard.putBoolean("DriveTrain Slide Mode", isSlide());
-        SmartDashboard.putNumber("Left LineReader Value", Robot.drivetrain.leftLineReader.getValue());
-    	SmartDashboard.putNumber("Right LineReader Value", Robot.drivetrain.rightLineReader.getValue());        
-        SmartDashboard.putBoolean("Left LineReader OnWhite", !Robot.drivetrain.leftLineReadTrigger.getTriggerState());
-    	SmartDashboard.putBoolean("Right LineReader OnWhite", !Robot.drivetrain.rightLineReadTrigger.getTriggerState());
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
     }
     
     public double updateAngle() {

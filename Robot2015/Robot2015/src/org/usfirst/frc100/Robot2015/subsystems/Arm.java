@@ -62,6 +62,7 @@ public class Arm extends Subsystem {
     		piston.set(DoubleSolenoid.Value.kReverse);
     	}
     }
+    
     /**
      * Sets the arm to extend or retract the grabbing mechanism
      * @param extended whether the grabber should be extended or retracted
@@ -75,7 +76,7 @@ public class Arm extends Subsystem {
      * @param height the value of the height between HEIGHT_MIN and HEIGHT_MAX
      * TODO add height limits
      */
-    public void setArm(double height) {
+    public void setArmHeight(double height) {
     	heightTarget = height;
     }
 
