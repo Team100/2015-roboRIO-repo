@@ -44,6 +44,8 @@ public class Drivetrain extends Subsystem {
     private double slideVelocity = 0;
     private double previousSlideVelocity = 0;
     private double trueVelocity = 0;
+    private double previousTrueVelocity = 0;
+    private double trueAcceleration = 0;
     private Timer timer = new Timer();
     PID distancePID = new PID("DriveDistance");
     PID anglePID = new PID("DriveAngle");
@@ -100,14 +102,15 @@ public class Drivetrain extends Subsystem {
         timer.stop();
         accelerationLoopInterval = timer.get();
         velocity = leftEncoder.getRate();
-        turnVelocity = gyro.getRate();
         slideVelocity = slideEncoder.getRate();
         trueVelocity = Math.hypot(turnVelocity, slideVelocity);
+        trueAcceleration = (trueVelocity-previousTrueVelocity) / accelerationLoopInterval;
+        turnVelocity = gyro.getRate();
         turnAcceleration = (turnVelocity - previousTurnVelocity)/accelerationLoopInterval;
-        if (trueVelocity / accelerationLoopInterval > Preferences.getDouble("UpperAccelerationLimit") || turnAcceleration > Preferences.getDouble("Upper Turn Acceleration Limit") || turnVelocity > Preferences.getDouble("Upper Turn Velocity Limit")) {
+        if (trueAcceleration > Preferences.getDouble("UpperAccelerationLimit") || turnAcceleration > Preferences.getDouble("Upper Turn Acceleration Limit") || turnVelocity > Preferences.getDouble("Upper Turn Velocity Limit")) {
              drive(accelerationLimit, slideLimit, turnLimit);
 
-        } else if (trueVelocity / accelerationLoopInterval < Preferences.getDouble("Lower Acceleration Limit") || turnAcceleration < Preferences.getDouble("Lower Turn Acceleration Limit") || turnVelocity < Preferences.getDouble("Lower Turn Velocity Limit")) {
+        } else if (trueAcceleration < Preferences.getDouble("Lower Acceleration Limit") || turnAcceleration < Preferences.getDouble("Lower Turn Acceleration Limit") || turnVelocity < Preferences.getDouble("Lower Turn Velocity Limit")) {
             drive(accelerationLimit, slideLimit, turnLimit);
 
         } else {
@@ -122,6 +125,7 @@ public class Drivetrain extends Subsystem {
             }
             drive(accelerationLimit, slideLimit, turnLimit);
         }
+        previousTrueVelocity = trueVelocity;
         previousVelocity = velocity;
         previousSlideVelocity = slideVelocity;
         previousTurnVelocity = turnVelocity;
