@@ -186,9 +186,6 @@ public class Drivetrain extends Subsystem {
     	anglePID.setRelativeLocation(0);    
 	}
     public void followLine() {
-    	int limit = (int)SmartDashboard.getNumber("LineTracker Limit");
-    	leftLineReadTrigger.setLimitsRaw(limit, limit);
-    	rightLineReadTrigger.setLimitsRaw(limit, limit);
         double turnTrack = 0;
         double speedTrack = .75;
         
@@ -205,9 +202,20 @@ public class Drivetrain extends Subsystem {
             speedTrack = .75;
     	}
         
-    	SmartDashboard.putNumber("direction", turnTrack);
-    	robotDrive.arcadeDrive(speedTrack, turnTrack);
-        
+    	robotDrive.arcadeDrive(speedTrack, turnTrack);      
+    }
+    public void setLineTrackLimits(){
+    	int limit;
+    	int diff = rightLineReader.getValue() - leftLineReader.getValue();
+    	if( diff < 50 ){
+    		limit = (int)Preferences.getDouble("LineTracker Limit");
+    	}
+    	else{
+    		limit = leftLineReader.getValue() + diff/2;
+    		Preferences.set("LineTracker Limit", limit);
+    	}
+    	leftLineReadTrigger.setLimitsRaw(limit, limit);
+    	rightLineReadTrigger.setLimitsRaw(limit, limit);
     }
     
 }
