@@ -1,4 +1,6 @@
 package org.usfirst.frc100.Robot2015.commands;
+import org.usfirst.frc100.Robot2015.Preferences;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -6,9 +8,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoTakeRecycling extends CommandGroup {
     
-	final double DRIVE_1LENGTH = 10;
-	final double DRIVE_2LENGTH = 10;
-	final double SLIDE_DISTANCE = 10;
+	private final double DRIVE_1LENGTH;
+	private final double DRIVE_2LENGTH;
+	private final double SLIDE_DISTANCE;
     public  AutoTakeRecycling() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
@@ -21,6 +23,10 @@ public class AutoTakeRecycling extends CommandGroup {
         //      addSequential(new Command2());
         // Command1 and Command2 will run in parallel.
 
+    	DRIVE_1LENGTH = Preferences.getDouble("AutoTakeRecycling_Drive1Length");
+    	DRIVE_2LENGTH = Preferences.getDouble("AutoTakeRecycling_Drive2Length");
+    	SLIDE_DISTANCE = Preferences.getDouble("AutoTakeRecycling_SlideDistance");
+    	
         // A command group will require all of the subsystems that each member
         // would require.
         // e.g. if Command1 requires chassis, and Command2 requires arm,

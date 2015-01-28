@@ -26,11 +26,7 @@ public class  ManualControl extends Command {
     protected void execute() {
     	Robot.elevator.manualControl(Robot.oi.getManipulatorJoystick().getY());
     	Robot.arm.manualControl(Robot.oi.getManipulatorJoystick().getThrottle(), Robot.oi.getManipulatorJoystick().getTwist());
-    	if (Robot.oi.calibrateElevatorButton.get()) {
-    		Robot.arm.setGrab(true);
-    	} else {
-    		Robot.arm.setGrab(false);
-    	}
+		Robot.arm.setGrab(Robot.oi.calibrateElevatorButton.get());
     }
 
     // Make this return true when this Command no longer needs to run execute()

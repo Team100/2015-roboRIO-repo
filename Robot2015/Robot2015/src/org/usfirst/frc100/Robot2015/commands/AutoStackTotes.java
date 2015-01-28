@@ -1,5 +1,6 @@
 package org.usfirst.frc100.Robot2015.commands;
 
+import org.usfirst.frc100.Robot2015.Preferences;
 import org.usfirst.frc100.Robot2015.Robot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -8,9 +9,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * Autonomous mode that picks up all 3 yellow totes and stacks them in the auto zone.
  */
 public class AutoStackTotes extends CommandGroup {
-	final double DISTANCE_TO_TOTE = 9001.0;
-	final double DISTANCE_FORWARD = 10;
-	final double DISTANCE_TO_SCORING = 10;
+	final double DISTANCE_TO_TOTE;
+	final double DISTANCE_FORWARD;
+	final double DISTANCE_TO_SCORING;
 	
     public AutoStackTotes() {
         // Add Commands here:
@@ -23,6 +24,9 @@ public class AutoStackTotes extends CommandGroup {
         // e.g. addParallel(new Command1());
         //      addSequential(new Command2());
         // Command1 and Command2 will run in parallel.
+    	DISTANCE_TO_TOTE = Preferences.getDouble("AutoStackTotes_DistanceToTote");
+    	DISTANCE_FORWARD = Preferences.getDouble("AutoStackTotes_DistanceForward");
+    	DISTANCE_TO_SCORING = Preferences.getDouble("AutoStackTotes_DistanceToScoring");
 
         // A command group will require all of the subsystems that each member
         // would require.
