@@ -90,7 +90,7 @@ public class Arm extends Subsystem {
     		raiseMotor.set(0);
     		done++;
     	}
-    	if (forwardLimit.get() || backLimit.get() || containerSensor.get()) {
+    	if ((forwardLimit.get() && deployMotor.get() == 1) || (backLimit.get() && deployMotor.get() == -1) || (containerSensor.get() && deployMotor.get() == 1)) {
     		deployMotor.set(0);
     		done++;
     	}
