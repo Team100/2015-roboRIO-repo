@@ -39,7 +39,11 @@ public class Arm extends Subsystem {
      */
     public void manualControl(double raise, double extend) {
     	raiseMotor.set(raise);
-    	deployMotor.set(extend);
+    	if((!forwardLimit.get()&&extend>0)||(!backLimit.get()&&extend<0)){
+    		deployMotor.set(extend);
+    	} else {
+    		deployMotor.set(0);
+    	}
     }
     
     // Returns whether the arm's grabbing mechanism is closed
@@ -58,13 +62,13 @@ public class Arm extends Subsystem {
     		piston.set(DoubleSolenoid.Value.kReverse);
     	}
     }
+    
     /**
      * Sets the arm to extend or retract the grabbing mechanism
      * @param extended whether the grabber should be extended or retracted
      */
     public void setDeploy(boolean extended) {
     	deployMotor.set(extended ? 1 : -1);
-    	
     }
     
     /**
@@ -72,7 +76,7 @@ public class Arm extends Subsystem {
      * @param height the value of the height between HEIGHT_MIN and HEIGHT_MAX
      * TODO add height limits
      */
-    public void setArm(double height) {
+    public void setArmHeight(double height) {
     	heightTarget = height;
     }
 
@@ -86,7 +90,7 @@ public class Arm extends Subsystem {
     		raiseMotor.set(0);
     		done++;
     	}
-    	if (forwardLimit.get() || backLimit.get() || containerSensor.get()) {
+    	if ((forwardLimit.get() && deployMotor.get() == 1) || (backLimit.get() && deployMotor.get() == -1) || (containerSensor.get() && deployMotor.get() == 1)) {
     		deployMotor.set(0);
     		done++;
     	}

@@ -110,5 +110,6 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putBoolean("Elevator Upper Limit", upperLimit.get());
 		SmartDashboard.putBoolean("Elevator Lower Limit", lowerLimit.get());
 		SmartDashboard.putBoolean("ELevator Brake",brake.get() == DoubleSolenoid.Value.kReverse);
+		SmartDashboard.putNumber("Elevator Encoder", encoder.getDistance());
 	}
 }
