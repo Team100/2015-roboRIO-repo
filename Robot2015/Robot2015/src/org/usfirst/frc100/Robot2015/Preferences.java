@@ -68,6 +68,8 @@ public class Preferences {
         	return values.get(index);
         } else {
         	if(DEBUG_MODE) System.out.println("Preference not found: " + name);
+        	if(DEBUG_MODE) System.out.println("Preference created: " + name + " 0");
+        	set(name, 0);
         	return "0";
         }
     }
@@ -77,13 +79,6 @@ public class Preferences {
         return keys.contains(name);
     }
 
-    // Adds a preference with the given name if one does not yet exist
-    public static void create(String name) {
-    	if(!contains(name)) {
-    		set(name, 0);
-    	}
-    }
-    
     // Pulls preferences from the file, overwrites any existing preferences
     public static void read() {
 		BufferedReader in;

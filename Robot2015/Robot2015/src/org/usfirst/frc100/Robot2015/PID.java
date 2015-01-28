@@ -24,13 +24,9 @@ public class PID {
 
     // Instantiates a PID loop, requires a unique name for creating preferences
     public PID(String name) {
-        Preferences.create(name + "_kP");
-        Preferences.create(name + "_kI");
-        Preferences.create(name + "_kD");
-        Preferences.create(name + "InitialOffset");
-        Preferences.create(name + "SensorRatio");
-        Preferences.create(name + "ErrorTolerance");
-        Preferences.create(name + "RateTolerance");
+    	kP = Preferences.getDouble(name + "_kP");
+    	kI = Preferences.getDouble(name + "_kP");
+    	kP = Preferences.getDouble(name + "_kP");
         SmartDashboard.putNumber(name + " kP", kP);
         SmartDashboard.putNumber(name + " kI", kI);
         SmartDashboard.putNumber(name + " kD", kD);
