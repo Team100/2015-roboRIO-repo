@@ -211,6 +211,11 @@ public class Client {
 				bWriter.newLine();
 				System.out.println("ELevator Is Brakeing: " + elevatorBrake);
 				
+				double elevatorEncoder = table.getNumber("Elevator Encoder", 0.0);
+				bWriter.write("Elevator Encoder: " + elevatorEncoder);
+				bWriter.newLine();
+				System.out.println("Elevator Encoder: " + elevatorEncoder);
+				
 				
 				if (DEBUG_MODE) {
 					System.out.println("DEBUG LOOP ELEVATOR");
