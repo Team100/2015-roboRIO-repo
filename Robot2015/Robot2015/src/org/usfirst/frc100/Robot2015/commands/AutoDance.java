@@ -36,11 +36,11 @@ public class AutoDance extends CommandGroup {
 			default: {
 				addSequential(new AutoDrive(5));
 				addSequential(new AutoDrive(5));
-				addParallel(new AutoTurn(360));
+				addSequential(new AutoTurn(360));
 				addParallel(new AutoDrive(0, 5));
 				addParallel(new RaiseArm(false));
 				addSequential(new SetElevatorPosition(0));
-				addParallel(new AutoTurn(-360));
+				addSequential(new AutoTurn(-360));
 				addParallel(new AutoDrive(0, -5));
 				addParallel(new RaiseArm(true));
 				addSequential(new SetElevatorPosition(4));
