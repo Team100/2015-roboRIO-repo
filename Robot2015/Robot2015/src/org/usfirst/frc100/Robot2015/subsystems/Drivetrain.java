@@ -103,7 +103,7 @@ public class Drivetrain extends Subsystem {
         accelerationLoopInterval = timer.get();
         velocity = leftEncoder.getRate();
         slideVelocity = slideEncoder.getRate();
-        trueVelocity = Math.hypot(turnVelocity, slideVelocity);
+        trueVelocity = Math.hypot(velocity, slideVelocity);
         trueAcceleration = (trueVelocity-previousTrueVelocity) / accelerationLoopInterval;
         turnVelocity = gyro.getRate();
         turnAcceleration = (turnVelocity - previousTurnVelocity)/accelerationLoopInterval;
