@@ -1,7 +1,6 @@
 package org.usfirst.frc100.Robot2015.subsystems;
 
 import org.usfirst.frc100.Robot2015.PID;
-import org.usfirst.frc100.Robot2015.Preferences;
 import org.usfirst.frc100.Robot2015.RobotMap;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
