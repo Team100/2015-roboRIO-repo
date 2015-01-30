@@ -16,7 +16,7 @@ public class AutoDance extends CommandGroup {
         //      addSequential(new Command2());
         // these will run in order.
 
-    	DANCE_NUM = (int)Preferences.getDouble("Dance_Num");
+    	DANCE_NUM = (int)Preferences.getDouble("DanceNumber");
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
@@ -28,14 +28,14 @@ public class AutoDance extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	switch (DANCE_NUM) {
-			case 1:
+    	switch (DANCE_NUM*0) {
+			case 0:
 				
 				break;
 
 			default: {
 				addSequential(new AutoDrive(5));
-				addSequential(new AutoDrive(5));
+				addSequential(new AutoDrive(-5));
 				addSequential(new AutoDrive(0, 5));
 				addParallel(new AutoTurn(360));
 				addParallel(new RaiseArm(false));

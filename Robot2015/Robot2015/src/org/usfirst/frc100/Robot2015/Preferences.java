@@ -2,7 +2,6 @@ package org.usfirst.frc100.Robot2015;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,11 +20,11 @@ public class Preferences {
     // Creates or sets a preference, but does not modify cRIO file
     public static void set(String name, Object value) {
         if(keys.contains(name)){
-        	if(DEBUG_MODE) System.out.println("Modified Preference: " + name + " " + value);
+        	if(DEBUG_MODE) System.out.println("Preference modified: " + name + " " + value);
         	int index = keys.indexOf(name);
         	values.set(index, value+"");
         } else {
-        	if(DEBUG_MODE) System.out.println("Added Preference: " + name + " " + value);
+        	if(DEBUG_MODE) System.out.println("Preference added: " + name + " " + value);
         	keys.add(name);
         	values.add(value+"");
         }
@@ -68,7 +67,6 @@ public class Preferences {
         	return values.get(index);
         } else {
         	if(DEBUG_MODE) System.out.println("Preference not found: " + name);
-        	if(DEBUG_MODE) System.out.println("Preference created: " + name + " 0");
         	set(name, 0);
         	return "0";
         }
@@ -103,8 +101,6 @@ public class Preferences {
 				if(DEBUG_MODE) System.out.println(line);
 			}
 			in.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
