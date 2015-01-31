@@ -107,6 +107,7 @@ public class Drivetrain extends Subsystem {
         trueAcceleration = (trueVelocity-previousTrueVelocity) / accelerationLoopInterval;
         turnVelocity = gyro.getRate();
         turnAcceleration = (turnVelocity - previousTurnVelocity)/accelerationLoopInterval;
+        // see if the velocity limits work
         if (trueAcceleration > Preferences.getDouble("UpperAccelerationLimit") || turnAcceleration > Preferences.getDouble("Upper Turn Acceleration Limit") || turnVelocity > Preferences.getDouble("Upper Turn Velocity Limit")) {
              drive(accelerationLimit, slideLimit, turnLimit);
 
@@ -116,13 +117,20 @@ public class Drivetrain extends Subsystem {
         } else {
             if(yaxis > accelerationLimit) {
                 accelerationLimit += Preferences.getDouble("LimitStep");
-                slideLimit += Preferences.getDouble("LimitStep");
-                turnLimit += Preferences.getDouble("LimitStep");
-            } else{
+            } else if (yaxis < accelerationLimit){
                accelerationLimit -= Preferences.getDouble("LimitStep");
-               slideLimit -= Preferences.getDouble("LimitStep");
-               turnLimit -= Preferences.getDouble("LimitStep");
             }
+            if(slide > slideLimit){
+            	slideLimit += Preferences.getDouble("LimitStep");
+            } else if(slide < slideLimit){
+            	slideLimit -= Preferences.getDouble("LimitStep");
+            }
+            if(turn > turnLimit){
+            	turnLimit += Preferences.getDouble("LimitStep");
+            }else if(turn < turnLimit){
+            	turnLimit -= Preferences.getDouble("LimitStep");
+            }
+            
             drive(accelerationLimit, slideLimit, turnLimit);
         }
         previousTrueVelocity = trueVelocity;
