@@ -84,10 +84,10 @@ public class Drivetrain extends Subsystem {
         turnVelocity = gyro.getRate();
         turnAcceleration = (turnVelocity - previousTurnVelocity)/accelerationLoopInterval;
         // see if the velocity limits work
-        if (trueAcceleration > Preferences.getDouble("UpperAccelerationLimit") || turnAcceleration > Preferences.getDouble("Upper Turn Acceleration Limit") || turnVelocity > Preferences.getDouble("Upper Turn Velocity Limit")) {
+        if (trueAcceleration > Preferences.getDouble("UpperAccelerationLimit") || turnAcceleration > Preferences.getDouble("UpperTurnAccelerationLimit") ) {
              drive(accelerationLimit, slideLimit, turnLimit);
 
-        } else if (trueAcceleration < Preferences.getDouble("Lower Acceleration Limit") || turnAcceleration < Preferences.getDouble("Lower Turn Acceleration Limit") || turnVelocity < Preferences.getDouble("Lower Turn Velocity Limit")) {
+        } else if (trueAcceleration < Preferences.getDouble("LowerAccelerationLimit") || turnAcceleration < Preferences.getDouble("LowerTurnAccelerationLimit") ) {
             drive(accelerationLimit, slideLimit, turnLimit);
 
         } else {
@@ -109,6 +109,7 @@ public class Drivetrain extends Subsystem {
             
             drive(accelerationLimit, slideLimit, turnLimit);
         }
+        
         previousTrueVelocity = trueVelocity;
         previousVelocity = velocity;
         previousSlideVelocity = slideVelocity;
@@ -154,7 +155,7 @@ public class Drivetrain extends Subsystem {
     	SmartDashboard.putNumber("DriveTrain Acceleration Limit", accelerationLimit);
         SmartDashboard.putNumber("DriveTrain Interval", accelerationLoopInterval);
         SmartDashboard.putNumber("DriveTrain Velocity", velocity); // only applies to non-slide
-        SmartDashboard.putNumber("DriveTrain Acceleration", (velocity - previousVelocity) / accelerationLoopInterval );
+        SmartDashboard.putNumber("DriveTrain Acceleration", trueAcceleration );
     }
     
     //anglePID methods
