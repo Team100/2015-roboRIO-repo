@@ -176,6 +176,7 @@ public class Drivetrain extends Subsystem {
         SmartDashboard.putBoolean("DriveTrain Slide Mode", isSlide());
     }
     
+    //anglePID methods
     public double updateAngle() {
     	anglePID.update(gyro.getAngle());
     	return anglePID.getOutput();
@@ -185,24 +186,32 @@ public class Drivetrain extends Subsystem {
     	anglePID.setTarget(targetAngle);
     	anglePID.setRelativeLocation(0);    
 	}
-    public void followLine() {
+    
+    //distancePID methods
+    public void setDistanceTarget(double targetDistance){
+    	distancePID.setTarget(targetDistance);
+    	distancePID.setRelativeLocation(0);
+    }
+    public double updateDistance() {
+    	distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) /2);
+    	return distancePID.getOutput();
+    }
+    
+    //returns turn value to turn towards line
+    public double followLine() {
         double turnTrack = 0;
-        double speedTrack = .75;
         
         if(rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()){
     		turnTrack = -.5;
-            speedTrack = .8;
     	}
     	else if(leftLineReadTrigger.getTriggerState() && !rightLineReadTrigger.getTriggerState()){
     		turnTrack = .5;
-            speedTrack = .8;
     	}
     	else if(!rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()){
     		turnTrack = 0;
-            speedTrack = .75;
     	}
         
-    	robotDrive.arcadeDrive(speedTrack, turnTrack);      
+    	return turnTrack;     
     }
     public void setLineTrackLimits(){
     	int limit;
@@ -212,6 +221,7 @@ public class Drivetrain extends Subsystem {
     	}
     	else{
     		limit = leftLineReader.getValue() + diff/2;
+    		SmartDashboard.putNumber("LineTracker Limit", limit);
     		Preferences.set("LineTracker Limit", limit);
     	}
     	leftLineReadTrigger.setLimitsRaw(limit, limit);
