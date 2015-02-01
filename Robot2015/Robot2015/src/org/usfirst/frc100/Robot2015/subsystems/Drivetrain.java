@@ -109,8 +109,6 @@ public class Drivetrain extends Subsystem {
         }
         
         previousTrueVelocity = trueVelocity;
-        previousVelocity = velocity;
-        previousSlideVelocity = slideVelocity;
         previousTurnVelocity = turnVelocity;
         timer.start();
     }
