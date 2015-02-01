@@ -137,8 +137,8 @@ public class Client {
 	// Prints the cycle and time.
 	public void cycleTime() {
 		if (refreshCycle == 1) {
-			csvHeader.add(0, "Cycle:");
-			csvHeader.add(1, "Time (Secs):");
+			csvHeader.add("Cycle:");
+			csvHeader.add("Time (Secs):");
 		}
 		csvData.add(0, Integer.toString(refreshCycle));
 		csvData.add(1, Float.toString(currentTimeSecs));
@@ -159,10 +159,10 @@ public class Client {
 	}
 
 	// Prints Current Subsystem.
-	public void subsystem(int slot, String subsystem) {
+	public void subsystem(String subsystem) {
 		// Adds subsystem to .csv file.
 		if (refreshCycle == 1) {
-			csvHeader.add(slot, subsystem.toUpperCase() + " SUBSYSTEM");
+			csvHeader.add(subsystem.toUpperCase() + " SUBSYSTEM");
 		}
 		try {
 			bTxtWriter.newLine();
@@ -171,20 +171,20 @@ public class Client {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		csvData.add(slot, "<" + subsystem.toUpperCase() + ">");
+		csvData.add("<" + subsystem.toUpperCase() + ">");
 		debug(subsystem.toUpperCase() + " SUBSYSTEM");
 		System.out.println();
 		System.out.println(subsystem + " Subsystem:");
 	}
 
 	// Gets Dashboard booleans.
-	public void getBool(int slot, String key) {
+	public void getBool(String key) {
 		if (refreshCycle == 1) {
-			csvHeader.add(slot, key + ":");
+			csvHeader.add(key + ":");
 		}
 		boolean bool = table.getBoolean(key, false);
 		String strBool = Boolean.toString(bool);
-		csvData.add(slot, strBool);
+		csvData.add(strBool);
 		try {
 			// Write data to .txt file.
 			bTxtWriter.write(key + ": " + bool);
@@ -197,13 +197,13 @@ public class Client {
 	}
 
 	// Gets Dashboard doubles.
-	public void getNum(int slot, String key) {
+	public void getNum(String key) {
 		if (refreshCycle == 1) {
-			csvHeader.add(slot, key + ":");
+			csvHeader.add(key + ":");
 		}
 		double num = table.getNumber(key, 0.0);
 		String strNum = Double.toString(num);
-		csvData.add(slot, strNum);
+		csvData.add(strNum);
 		try {
 			// Write data to .txt file.
 			bTxtWriter.write(key + ": " + num);
@@ -290,30 +290,40 @@ public class Client {
 			debug("CYCLE");
 
 			// Gets data from the Arm subsystem.
-			subsystem(2, "Arm");
-			getBool(3, "Arm Grabbing");
-			getBool(4, "Arm Container Sensor");
-			getBool(5, "Arm Forward Limit");
-			getBool(6, "Arm Back Limit");
-			getNum(7, "Arm Potentiometer");
+			subsystem("Arm");
+			getBool("Arm Grabbing");
+			getBool("Arm Container Sensor");
+			getBool("Arm Forward Limit");
+			getBool("Arm Back Limit");
+			getNum("Arm Potentiometer");
 
 			// Gets data from the Claw subsystem.
-			subsystem(8, "Claw");
-			getBool(9, "Claw Closed");
+			subsystem("Claw");
+			getBool("Claw Closed");
 
 			// Gets data from the DriveTrain subsystem.
-			subsystem(10, "DriveTrain");
-			getNum(11, "DriveTrain Acceleration Limit");
-			getNum(12, "DriveTrain Interval");
-			getNum(13, "DriveTrain Velocity"); // only applies to non-slide
-			getNum(14, "DriveTrain Acceleration");
+			subsystem("DriveTrain");
+			getBool("DriveTrain High Gear");
+	        getNum("DriveTrain LeftEncoder");
+	        getNum("DriveTrain RightEncoder");
+	        getNum("DriveTrain Gyro");
+	        getNum("Left LineReader Value");
+	    	getNum("Right LineReader Value");        
+	        getBool("Left LineReader OnWhite");
+	    	getBool("Right LineReader OnWhite");
+	    	
+	    	// Acceleration code.
+			getNum("DriveTrain Acceleration Limit");
+			getNum("DriveTrain Interval");
+			getNum("DriveTrain Velocity"); // only applies to non-slide
+			getNum("DriveTrain Acceleration");
 
 			// Gets data from the Elevator subsystem.
-			subsystem(15, "Elevator");
-			getBool(16, "Elevator Upper Limit");
-			getBool(17, "Elevator Lower Limit");
-			getBool(18, "ELevator Brake");
-			getNum(19, "Elevator Encoder");
+			subsystem("Elevator");
+			getBool("Elevator Upper Limit");
+			getBool("Elevator Lower Limit");
+			getBool("ELevator Brake");
+			getNum("Elevator Encoder");
 
 			// Writes .csv arrays to the file.
 			writeCsv();
