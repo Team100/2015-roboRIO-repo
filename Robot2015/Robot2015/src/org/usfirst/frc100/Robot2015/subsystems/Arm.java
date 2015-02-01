@@ -38,8 +38,8 @@ public class Arm extends Subsystem {
     }
     
     /**
-     * @param raise value for height motor
-     * @param extend value for extension motor
+     * @param raise Value for height motor
+     * @param extend Value for extension motor
      */
     public void manualControl(double raise, boolean extend) {
     	raiseMotor.set(raise);
@@ -48,6 +48,14 @@ public class Arm extends Subsystem {
     	} else {
     		deployPiston.set(DoubleSolenoid.Value.kReverse);
     	}
+    }
+    
+    /**
+     * 
+     * @param raise Value for height motor
+     */
+    public void manualControl(double raise) {
+    	raiseMotor.set(raise);
     }
     
     // Returns whether the arm's grabbing mechanism is closed
