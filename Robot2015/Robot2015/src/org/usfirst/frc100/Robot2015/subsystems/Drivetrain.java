@@ -31,8 +31,7 @@ public class Drivetrain extends Subsystem {
     AnalogTrigger leftLineReadTrigger = RobotMap.drivetrainLeftLineReadTrigger;
     AnalogTrigger rightLineReadTrigger = RobotMap.drivetrainRightLineReadTrigger;
     private double velocity = 0;
-    private double previousVelocity = 0;
-    private double accelerationLimit = 0;
+    private double driveLimit = 0;
     private double accelerationLoopInterval = 20;
     private double turnLimit = 0;
     private double turnVelocity = 0;
@@ -40,7 +39,6 @@ public class Drivetrain extends Subsystem {
     private double previousTurnVelocity = 0;
     private double slideLimit = 0;
     private double slideVelocity = 0;
-    private double previousSlideVelocity = 0;
     private double trueVelocity = 0;
     private double previousTrueVelocity = 0;
     private double trueAcceleration = 0;
@@ -74,7 +72,7 @@ public class Drivetrain extends Subsystem {
     }
     
     // Limits the acceleration.
-    public void gradualDrive(double yaxis, double slide, double turn) {
+    public void gradualDrive(double drive, double slide, double turn) {
         timer.stop();
         accelerationLoopInterval = timer.get();
         velocity = leftEncoder.getRate();
@@ -85,16 +83,16 @@ public class Drivetrain extends Subsystem {
         turnAcceleration = (turnVelocity - previousTurnVelocity)/accelerationLoopInterval;
         // see if the velocity limits work
         if (trueAcceleration > Preferences.getDouble("UpperAccelerationLimit") || turnAcceleration > Preferences.getDouble("UpperTurnAccelerationLimit") ) {
-             drive(accelerationLimit, slideLimit, turnLimit);
+             drive(driveLimit, slideLimit, turnLimit);
 
         } else if (trueAcceleration < Preferences.getDouble("LowerAccelerationLimit") || turnAcceleration < Preferences.getDouble("LowerTurnAccelerationLimit") ) {
-            drive(accelerationLimit, slideLimit, turnLimit);
+            drive(driveLimit, slideLimit, turnLimit);
 
         } else {
-            if(yaxis > accelerationLimit) {
-                accelerationLimit += Preferences.getDouble("LimitStep");
-            } else if (yaxis < accelerationLimit){
-               accelerationLimit -= Preferences.getDouble("LimitStep");
+            if(drive > driveLimit) {
+                driveLimit += Preferences.getDouble("LimitStep");
+            } else if (drive < driveLimit){
+               driveLimit -= Preferences.getDouble("LimitStep");
             }
             if(slide > slideLimit){
             	slideLimit += Preferences.getDouble("LimitStep");
@@ -107,7 +105,7 @@ public class Drivetrain extends Subsystem {
             	turnLimit -= Preferences.getDouble("LimitStep");
             }
             
-            drive(accelerationLimit, slideLimit, turnLimit);
+            drive(driveLimit, slideLimit, turnLimit);
         }
         
         previousTrueVelocity = trueVelocity;
@@ -152,7 +150,7 @@ public class Drivetrain extends Subsystem {
     	SmartDashboard.putBoolean("Right LineReader OnWhite", !rightLineReadTrigger.getTriggerState());
         
         // Acceleration code
-    	SmartDashboard.putNumber("DriveTrain Acceleration Limit", accelerationLimit);
+    	SmartDashboard.putNumber("DriveTrain Acceleration Limit", driveLimit);
         SmartDashboard.putNumber("DriveTrain Interval", accelerationLoopInterval);
         SmartDashboard.putNumber("DriveTrain Velocity", velocity); // only applies to non-slide
         SmartDashboard.putNumber("DriveTrain Acceleration", trueAcceleration );

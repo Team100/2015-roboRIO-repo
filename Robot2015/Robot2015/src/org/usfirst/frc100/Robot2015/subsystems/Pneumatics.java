@@ -22,10 +22,10 @@ public class Pneumatics extends Subsystem {
     }
     
     // Starts the compressor if enough current - boolean signifies if the compressor was started sucessfully
-    public boolean start(){
+    public boolean run(){
     	if(availableCompressorCurrent()){
-    	compressor.start();
-    	return true;
+    		compressor.start();
+    		return true;
     	} else {
     		compressor.stop();
     		return false;
