@@ -1,4 +1,4 @@
-package netTableClient;
+package netTablesClient;
 
 import java.io.BufferedWriter;
 import java.io.File;
