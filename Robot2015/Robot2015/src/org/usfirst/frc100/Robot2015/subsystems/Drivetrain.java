@@ -215,7 +215,7 @@ public class Drivetrain extends Subsystem {
     }
     public void setLineTrackLimits(){
     	int limit;
-    	int diff = rightLineReader.getValue() - leftLineReader.getValue();
+    	int diff = Math.abs(rightLineReader.getValue() - leftLineReader.getValue());
     	if( diff < 50 ){
     		limit = (int)Preferences.getDouble("LineTracker Limit");
     	}
