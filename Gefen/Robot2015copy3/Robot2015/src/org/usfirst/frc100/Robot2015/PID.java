@@ -22,8 +22,12 @@ public class PID {
     private Timer timer = new Timer(); // Keeps track of loop frequency
     private boolean enabled = true; // If set to false, it will reduce output to 0
 
-    // Instantiates a PID loop, requires a unique name for creating preferences
+    /**
+     * Instantiates a PID loop
+     * @param name - A unique name for preferences and dashboard values
+     */
     public PID(String name) {
+    	// gets the constant values from preferences and puts them on SmartDashboard 
     	kP = Preferences.getDouble(name + "_kP");
     	kI = Preferences.getDouble(name + "_kP");
     	kP = Preferences.getDouble(name + "_kP");
@@ -35,7 +39,10 @@ public class PID {
         displayData();
     }
 
-    // Updates the PID loop using new input data
+    /** 
+     * Updates the PID loop using new input data
+     * @param newValue - The raw sensor value
+    */ 
     public void update(double newValue) {
         kP = SmartDashboard.getNumber(name + " kP");
         kI = SmartDashboard.getNumber(name + " kI");
@@ -73,7 +80,10 @@ public class PID {
         }
     }
 
-    // Sets the target value of the PID loop
+    /** 
+     * Sets the target value of the PID loop
+     * @param newTarget - Sets a new target for the robot to go
+     */
     public void setTarget(double newTarget) {
         target = newTarget;
         error = target;
@@ -93,11 +103,14 @@ public class PID {
         displayData();
     }
 
-    // Sets the current location to be a specified value, but does NOT reset the target
-    public void setRelativeLocation(double value) {
-    	offset += input - value;
-    	error = target - value;
-    	input = value;
+    /** 
+     * Sets the current location to be a specified value, but does NOT reset the target
+     * @param newLocation - Current location of the system
+     */
+    public void setRelativeLocation(double newLocation) {
+    	offset += input - newLocation;
+    	error = target - newLocation;
+    	input = newLocation;
     	resetError();
     }
 

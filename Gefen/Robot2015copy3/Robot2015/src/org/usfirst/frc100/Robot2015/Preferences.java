@@ -17,7 +17,11 @@ public class Preferences {
     private static ArrayList<String> keys = new ArrayList<String>();
     private static ArrayList<String> values = new ArrayList<String>();
 
-    // Creates or sets a preference, but does not modify cRIO file
+    /**
+     * Creates or sets a preference, but does not modify cRIO file
+     * @param name - Name of preference
+     * @param value - Desired preference value
+     */
     public static void set(String name, Object value) {
         if(keys.contains(name)){
         	if(DEBUG_MODE) System.out.println("Preference modified: " + name + " " + value);
@@ -30,17 +34,29 @@ public class Preferences {
         }
     }
 
-    // Casts double to an object for regular set method
+    /**
+     * Casts double to an object for regular set method
+     * @param name - Name of preference
+     * @param value - Desired preference value
+     */
     public static void set(String name, double value) {
     	set(name, Double.valueOf(value));
     }
     
-    // Casts boolean to an object for regular set method
+    /**
+     * Casts boolean to an object for regular set method
+     * @param name - Name of preference 
+     * @param value - Desired preference value
+     */
     public static void set(String name, boolean value) {
     	set(name, Boolean.valueOf(value));
     }
 
-    // Returns value of the double preference with the given name
+    /**
+     * Returns value of the double preference with the given name
+     * @param name -  Name of preference
+     * @return double value parsed from string name
+     */
     public static double getDouble(String name) {
     	String value = getString(name);
         try {
@@ -51,7 +67,11 @@ public class Preferences {
         return 0;
     }
 
-    // Returns value of the boolean preference with the given name
+    /**
+     * Returns value of the boolean preference with the given name
+     * @param name - Name of preference
+     * @return boolean value of a boolean preference
+     */
     public static boolean getBoolean(String name) {
         String value = getString(name);
         if (!(value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))) {
@@ -60,7 +80,11 @@ public class Preferences {
         return "true".equals(value);
     }
 
-    // Returns value of the String preference with the given name
+    /**
+     * Returns value of the String preference with the given name
+     * @param name - Name of preference
+     * @return String of preference
+     */
     public static String getString(String name) {
         if(keys.contains(name)){
         	int index = keys.indexOf(name);
@@ -72,7 +96,11 @@ public class Preferences {
         }
     }
 
-    // Returns whether a preference is present
+    /**
+     * Returns whether a preference is present
+     * @param name - Name of preference
+     * @return boolean if present
+     */
     public static boolean contains(String name) {
         return keys.contains(name);
     }

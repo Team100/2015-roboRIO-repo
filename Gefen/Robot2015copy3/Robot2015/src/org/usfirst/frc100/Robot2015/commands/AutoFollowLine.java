@@ -30,7 +30,10 @@ public class  AutoFollowLine extends Command {
     	Robot.drivetrain.followLine();
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     *  Make this return true when this Command no longer needs to run execute()
+     *  @return true when Command no longer needs to run execute()
+     */
     protected boolean isFinished() {
         return false;
     }

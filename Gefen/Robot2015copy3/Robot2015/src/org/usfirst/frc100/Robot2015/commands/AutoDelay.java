@@ -32,7 +32,10 @@ public class  AutoDelay extends Command {
     protected void execute() {
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     *  Make this return true when this Command no longer needs to run execute()
+     *  @return true when Command no longer needs to run execute() 
+     */
     protected boolean isFinished() {
         return timer.get()>t;
     }

@@ -26,7 +26,10 @@ public class  AutoCalibrateElevator extends Command {
     	Robot.elevator.manualControl(-0.42);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     *  Make this return true when this Command no longer needs to run execute()
+     *  @return true when Command no longer needs to run execute() 
+     */
     protected boolean isFinished() {
         return Robot.elevator.getLowerLimit();
     }
