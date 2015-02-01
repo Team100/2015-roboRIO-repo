@@ -9,7 +9,6 @@ import org.usfirst.frc100.Robot2015.Robot;
  */
 public class  DeployArm extends Command {
 	
-	private boolean isFinished = false;
 	private boolean extend;
     
     public DeployArm(boolean extend) {
@@ -22,22 +21,20 @@ public class  DeployArm extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	isFinished = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	isFinished = Robot.arm.deployArm(extend);
+    	Robot.arm.deployArm(extend);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isFinished;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.arm.manualControl(0, 0);
     }
 
     // Called when another command which requires one or more of the same

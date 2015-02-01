@@ -1,7 +1,9 @@
 package org.usfirst.frc100.Robot2015.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+
 import org.usfirst.frc100.Robot2015.Robot;
+import org.usfirst.frc100.Robot2015.subsystems.Arm;
 
 /**
  * Manually controls the elevator using the left manipulator joystick Y-value.
@@ -25,8 +27,14 @@ public class  ManualControl extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.elevator.manualControl(Robot.oi.getManipulatorJoystick().getY());
-    	Robot.arm.manualControl(Robot.oi.getManipulatorJoystick().getThrottle(), Robot.oi.getManipulatorJoystick().getTwist());
-		Robot.arm.setGrab(Robot.oi.calibrateElevatorButton.get());
+    	if (Robot.oi.getManipulatorJoystick().getTwist() > 0.5) {
+    		Robot.arm.manualControl(Robot.oi.getManipulatorJoystick().getThrottle(), true);
+    	} else if (Robot.oi.getManipulatorJoystick().getTwist() < -0.5) {
+    		Robot.arm.manualControl(Robot.oi.getManipulatorJoystick().getThrottle(), false);
+    	} else {
+    		Robot.arm.setArmHeight(Robot.oi.getManipulatorJoystick().getThrottle());
+    	}
+		Robot.arm.setStab(Robot.oi.calibrateElevatorButton.get());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -37,7 +45,6 @@ public class  ManualControl extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.elevator.activateBrake();
-    	Robot.arm.manualControl(0, 0);
     }
 
     // Called when another command which requires one or more of the same
