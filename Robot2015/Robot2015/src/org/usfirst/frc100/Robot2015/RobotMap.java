@@ -30,13 +30,13 @@ public class RobotMap {
     public static DoubleSolenoid elevatorBrake;
     public static DigitalInput elevatorUpperLimit;
     public static DigitalInput elevatorLowerLimit;
-    public static SpeedController armDeployMotor;
     public static SpeedController armRaiseMotor;
-    public static DoubleSolenoid armPiston;
+    public static DoubleSolenoid armStabPiston;
     public static DigitalInput armContainerSensor;
     public static AnalogPotentiometer armPotentiometer;
     public static DigitalInput armForwardLimit;
     public static DigitalInput armBackLimit;
+    public static DoubleSolenoid armDeployPiston;
     public static Compressor pneumaticsCompressor;
     public static DoubleSolenoid clawPiston;
 
@@ -103,14 +103,11 @@ public class RobotMap {
         elevatorLowerLimit = new DigitalInput(9);
         LiveWindow.addSensor("Elevator", "LowerLimit", elevatorLowerLimit);
         
-        armDeployMotor = new VictorSP(4);
-        LiveWindow.addActuator("Arm", "DeployMotor", (VictorSP) armDeployMotor);
-        
         armRaiseMotor = new VictorSP(5);
         LiveWindow.addActuator("Arm", "RaiseMotor", (VictorSP) armRaiseMotor);
         
-        armPiston = new DoubleSolenoid(0, 4, 5);      
-        LiveWindow.addActuator("Arm", "Piston", armPiston);
+        armStabPiston = new DoubleSolenoid(0, 4, 5);      
+        LiveWindow.addActuator("Arm", "StabPiston", armStabPiston);
         
         armContainerSensor = new DigitalInput(10);
         LiveWindow.addSensor("Arm", "ContainerSensor", armContainerSensor);
@@ -123,6 +120,9 @@ public class RobotMap {
         
         armBackLimit = new DigitalInput(12);
         LiveWindow.addSensor("Arm", "BackLimit", armBackLimit);
+        
+        armDeployPiston = new DoubleSolenoid(1, 0, 1);      
+        LiveWindow.addActuator("Arm", "DeployPiston", armDeployPiston);
         
         pneumaticsCompressor = new Compressor(0);
         
