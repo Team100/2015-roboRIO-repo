@@ -176,6 +176,11 @@ public class Drivetrain extends Subsystem {
     	return distancePID.getOutput();
     }
     
+    public boolean reachedDistance() {
+    	return distancePID.reachedTarget();
+    }
+    
+    
     //returns turn value to turn towards line
     public double followLine() {
         double turnTrack = 0;
