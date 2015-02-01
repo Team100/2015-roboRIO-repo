@@ -101,7 +101,7 @@ public class Drivetrain extends Subsystem {
             }
             if(turn > turnLimit){
             	turnLimit += Preferences.getDouble("LimitStep");
-            }else if(turn < turnLimit){
+            } else if(turn < turnLimit){
             	turnLimit -= Preferences.getDouble("LimitStep");
             }
             
@@ -118,6 +118,9 @@ public class Drivetrain extends Subsystem {
     	distancePID.setTarget(targetDistance);
     	slidePID.setTarget(targetSlide);
     	anglePID.setTarget(targetAngle);
+    	distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) /2);
+    	slidePID.update(slideEncoder.getDistance());
+    	anglePID.update(gyro.getAngle());
     	distancePID.setRelativeLocation(0);
     	slidePID.setRelativeLocation(0);
     	anglePID.setRelativeLocation(0);
@@ -139,6 +142,8 @@ public class Drivetrain extends Subsystem {
     // Updates the SmartDashboard
     public void updateDashboard() {
         SmartDashboard.putBoolean("DriveTrain High Gear", shifter.get() == DoubleSolenoid.Value.kForward);
+        SmartDashboard.putNumber("DriveTrain LeftEncoder Raw", leftEncoder.getRaw());
+        SmartDashboard.putNumber("DriveTrain RightEncoder Raw", rightEncoder.getRaw());
         SmartDashboard.putNumber("DriveTrain LeftEncoder", leftEncoder.getDistance());
         SmartDashboard.putNumber("DriveTrain RightEncoder", rightEncoder.getDistance());
         SmartDashboard.putNumber("DriveTrain Gyro", gyro.getAngle());
@@ -162,12 +167,16 @@ public class Drivetrain extends Subsystem {
     
     public void setAngleTarget(double targetAngle) {
     	anglePID.setTarget(targetAngle);
+    	anglePID.update(gyro.getAngle());
     	anglePID.setRelativeLocation(0);    
 	}
     
     //distancePID methods
     public void setDistanceTarget(double targetDistance){
+    	leftEncoder.reset();
+        rightEncoder.reset();
     	distancePID.setTarget(targetDistance);
+        distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) /2);
     	distancePID.setRelativeLocation(0);
     }
     
@@ -184,17 +193,34 @@ public class Drivetrain extends Subsystem {
     //returns turn value to turn towards line
     public double followLine() {
         double turnTrack = 0;
+        boolean right = true;
+        boolean firstTime = true;
         
         if(rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()){
-    		turnTrack = -.5;
-    	}
-    	else if(leftLineReadTrigger.getTriggerState() && !rightLineReadTrigger.getTriggerState()){
+        	timer.stop();
+        	right = false;
+        	firstTime = true;
+        	turnTrack = -.5;
+    	} else if(leftLineReadTrigger.getTriggerState() && !rightLineReadTrigger.getTriggerState()){
+    		timer.stop();
+    		right = true;
+    		firstTime = true;
     		turnTrack = .5;
-    	}
-    	else if(!rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()){
+    	} else if(!rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()){
+    		timer.stop();
+            firstTime = true;
     		turnTrack = 0;
+    	} else if(rightLineReadTrigger.getTriggerState() && leftLineReadTrigger.getTriggerState()){
+    		if(firstTime){
+                timer.start();
+                firstTime = false;
+    		}
+    		if(right){
+                turnTrack = 2*timer.get();
+            } else{
+                turnTrack = -2*timer.get();
+            }
     	}
-        
     	return turnTrack;     
     }
     
@@ -202,12 +228,11 @@ public class Drivetrain extends Subsystem {
     	int limit;
     	int diff = Math.abs(rightLineReader.getValue() - leftLineReader.getValue());
     	if( diff < 50 ){
-    		limit = (int)Preferences.getDouble("LineTracker Limit");
-    	}
-    	else{
-    		limit = leftLineReader.getValue() + diff/2;
+    		limit = (int)Preferences.getDouble("LineTrackerLimit");
+    	} else{
+    		limit = (leftLineReader.getValue() + rightLineReader.getValue())/2;
     		SmartDashboard.putNumber("LineTracker Limit", limit);
-    		Preferences.set("LineTracker Limit", limit);
+    		Preferences.set("LineTrackerLimit", limit);
     	}
     	leftLineReadTrigger.setLimitsRaw(limit, limit);
     	rightLineReadTrigger.setLimitsRaw(limit, limit);

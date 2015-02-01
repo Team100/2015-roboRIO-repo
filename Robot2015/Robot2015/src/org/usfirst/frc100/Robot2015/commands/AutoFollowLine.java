@@ -22,8 +22,8 @@ public class  AutoFollowLine extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	SmartDashboard.putNumber("LineTracker Limit", 500);
-    	Preferences.set("LineTracker Limit", 500);
+    	SmartDashboard.putNumber("LineTrackerLimit", 700);
+    	Preferences.set("LineTrackerLimit", 700);
     	Robot.drivetrain.setLineTrackLimits();
     	Robot.drivetrain.setDistanceTarget(distance);
     }
@@ -35,7 +35,7 @@ public class  AutoFollowLine extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.drivetrain.reachedDistance();
     }
 
     // Called once after isFinished returns true
