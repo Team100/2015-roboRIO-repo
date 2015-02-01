@@ -23,12 +23,11 @@ public class  Drive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double leftJoyStickValue = Robot.oi.getLeftJoystick().getX();
-    	if(leftJoyStickValue > .2 || leftJoyStickValue < -.2) {
-    	Robot.drivetrain.drive(Robot.oi.getLeftJoystick().getY(), Robot.oi.getLeftJoystick().getX(), Robot.oi.getRightJoystick().getX());
-    	}else {
-    		Robot.drivetrain.drive(Robot.oi.getLeftJoystick().getY(),0, Robot.oi.getRightJoystick().getX());
+    	double leftJoystickX = Robot.oi.getLeftJoystick().getX();
+    	if(Math.abs(leftJoystickX) < .2) {
+    		leftJoystickX = 0;
     	}
+    	Robot.drivetrain.drive(Robot.oi.getLeftJoystick().getY(),leftJoystickX, Robot.oi.getRightJoystick().getX());
     }
 
     // Make this return true when this Command no longer needs to run execute()
