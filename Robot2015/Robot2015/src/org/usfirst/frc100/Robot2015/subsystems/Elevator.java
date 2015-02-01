@@ -1,9 +1,13 @@
 package org.usfirst.frc100.Robot2015.subsystems;
 
-import org.usfirst.frc100.Robot2015.*;
-import org.usfirst.frc100.Robot2015.commands.*;
+import org.usfirst.frc100.Robot2015.PID;
+import org.usfirst.frc100.Robot2015.Robot;
+import org.usfirst.frc100.Robot2015.RobotMap;
 
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -25,7 +29,6 @@ public class Elevator extends Subsystem {
 	private PID elevatorPID = new PID("Elevator"); // the elevator PID loop
 	private final double positionOne = 6; // inches
 	private final double toteHeight = 11.75; // inches, compensated for 0.35 difference between lip and actual
-	private final double driveDiffHeight = 1.0; // inches
 	private final double scoringPlatformHeight = 2.0; // inches
 	private final double stepHeight = 4.0; // inches, compensated for the standard +2 in for scoring
 
@@ -64,9 +67,6 @@ public class Elevator extends Subsystem {
 	public void setPosition(int position) {
 		SmartDashboard.putNumber("Elevator Position", position);
 		double height = positionOne;
-		if (Robot.drivetrain.isSlide()) {
-			height += driveDiffHeight;
-		}
 		height += (position - 1) * toteHeight;
 		if (!Robot.oi.nonScoringButton.get()) {
 			height += scoringPlatformHeight;

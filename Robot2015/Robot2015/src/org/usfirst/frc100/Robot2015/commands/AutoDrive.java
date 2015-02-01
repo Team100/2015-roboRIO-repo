@@ -53,5 +53,6 @@ public class  AutoDrive extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     	end();
+    	
     }
 }
