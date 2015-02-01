@@ -19,9 +19,7 @@ public class Drivetrain extends Subsystem {
     SpeedController rightMotor = RobotMap.drivetrainRightMotor;
     RobotDrive robotDrive = RobotMap.drivetrainRobotDrive;
     SpeedController slideMotor = RobotMap.drivetrainSlideMotor;
-    DoubleSolenoid leftShifter = RobotMap.drivetrainLeftShifter;
-    DoubleSolenoid rightShifter = RobotMap.drivetrainRightShifter;
-    DoubleSolenoid butterflyPiston = RobotMap.drivetrainButterflyPiston;
+    DoubleSolenoid shifter = RobotMap.drivetrainShifter;
     Encoder leftEncoder = RobotMap.drivetrainLeftEncoder;
     Encoder rightEncoder = RobotMap.drivetrainRightEncoder;
     Encoder slideEncoder = RobotMap.drivetrainSlideEncoder;
@@ -33,8 +31,7 @@ public class Drivetrain extends Subsystem {
     AnalogTrigger leftLineReadTrigger = RobotMap.drivetrainLeftLineReadTrigger;
     AnalogTrigger rightLineReadTrigger = RobotMap.drivetrainRightLineReadTrigger;
     private double velocity = 0;
-    private double previousVelocity = 0;
-    private double accelerationLimit = 0;
+    private double driveLimit = 0;
     private double accelerationLoopInterval = 20;
     private double turnLimit = 0;
     private double turnVelocity = 0;
@@ -42,7 +39,6 @@ public class Drivetrain extends Subsystem {
     private double previousTurnVelocity = 0;
     private double slideLimit = 0;
     private double slideVelocity = 0;
-    private double previousSlideVelocity = 0;
     private double trueVelocity = 0;
     private double previousTrueVelocity = 0;
     private double trueAcceleration = 0;
@@ -68,66 +64,51 @@ public class Drivetrain extends Subsystem {
     // Shifts to high or low gear
     public void shift(boolean highgear) {
     	if(highgear) {
-    		leftShifter.set(DoubleSolenoid.Value.kForward);
-    		rightShifter.set(DoubleSolenoid.Value.kForward);
+    		shifter.set(DoubleSolenoid.Value.kForward);
     	} 
     	else {
-    		leftShifter.set(DoubleSolenoid.Value.kReverse);
-        	rightShifter.set(DoubleSolenoid.Value.kReverse);
-    	}
-    }
-    
-    // Switches to tank or slide drive
-    public void switchDrive(boolean tankdrive) {
-    	if(tankdrive) {
-    		butterflyPiston.set(DoubleSolenoid.Value.kReverse);
-    	}
-    	else{
-    		butterflyPiston.set(DoubleSolenoid.Value.kForward);
-    	}	
-     }
-    
-    // Returns whether the drivetrain is in slide mode
-    public boolean isSlide() {
-    	if(butterflyPiston.get() == DoubleSolenoid.Value.kForward){
-    		return true;
-    	}
-    	else {
-    		return false;
+    		shifter.set(DoubleSolenoid.Value.kReverse);
     	}
     }
     
     // Limits the acceleration.
-    public void gradualDrive(double yaxis, double slide, double turn) {
+    public void gradualDrive(double drive, double slide, double turn) {
         timer.stop();
         accelerationLoopInterval = timer.get();
         velocity = leftEncoder.getRate();
         slideVelocity = slideEncoder.getRate();
-        trueVelocity = Math.hypot(turnVelocity, slideVelocity);
+        trueVelocity = Math.hypot(velocity, slideVelocity);
         trueAcceleration = (trueVelocity-previousTrueVelocity) / accelerationLoopInterval;
         turnVelocity = gyro.getRate();
         turnAcceleration = (turnVelocity - previousTurnVelocity)/accelerationLoopInterval;
-        if (trueAcceleration > Preferences.getDouble("UpperAccelerationLimit") || turnAcceleration > Preferences.getDouble("Upper Turn Acceleration Limit") || turnVelocity > Preferences.getDouble("Upper Turn Velocity Limit")) {
-             drive(accelerationLimit, slideLimit, turnLimit);
+        // see if the velocity limits work
+        if (trueAcceleration > Preferences.getDouble("UpperAccelerationLimit") || turnAcceleration > Preferences.getDouble("UpperTurnAccelerationLimit") ) {
+             drive(driveLimit, slideLimit, turnLimit);
 
-        } else if (trueAcceleration < Preferences.getDouble("Lower Acceleration Limit") || turnAcceleration < Preferences.getDouble("Lower Turn Acceleration Limit") || turnVelocity < Preferences.getDouble("Lower Turn Velocity Limit")) {
-            drive(accelerationLimit, slideLimit, turnLimit);
+        } else if (trueAcceleration < Preferences.getDouble("LowerAccelerationLimit") || turnAcceleration < Preferences.getDouble("LowerTurnAccelerationLimit") ) {
+            drive(driveLimit, slideLimit, turnLimit);
 
         } else {
-            if(yaxis > accelerationLimit) {
-                accelerationLimit += Preferences.getDouble("LimitStep");
-                slideLimit += Preferences.getDouble("LimitStep");
-                turnLimit += Preferences.getDouble("LimitStep");
-            } else{
-               accelerationLimit -= Preferences.getDouble("LimitStep");
-               slideLimit -= Preferences.getDouble("LimitStep");
-               turnLimit -= Preferences.getDouble("LimitStep");
+            if(drive > driveLimit) {
+                driveLimit += Preferences.getDouble("LimitStep");
+            } else if (drive < driveLimit){
+               driveLimit -= Preferences.getDouble("LimitStep");
             }
-            drive(accelerationLimit, slideLimit, turnLimit);
+            if(slide > slideLimit){
+            	slideLimit += Preferences.getDouble("LimitStep");
+            } else if(slide < slideLimit){
+            	slideLimit -= Preferences.getDouble("LimitStep");
+            }
+            if(turn > turnLimit){
+            	turnLimit += Preferences.getDouble("LimitStep");
+            }else if(turn < turnLimit){
+            	turnLimit -= Preferences.getDouble("LimitStep");
+            }
+            
+            drive(driveLimit, slideLimit, turnLimit);
         }
+        
         previousTrueVelocity = trueVelocity;
-        previousVelocity = velocity;
-        previousSlideVelocity = slideVelocity;
         previousTurnVelocity = turnVelocity;
         timer.start();
     }
@@ -157,8 +138,7 @@ public class Drivetrain extends Subsystem {
     
     // Updates the SmartDashboard
     public void updateDashboard() {
-        SmartDashboard.putBoolean("DriveTrain High Gear", leftShifter.get() == DoubleSolenoid.Value.kForward);
-        SmartDashboard.putBoolean("DriveTrain Slide Mode", isSlide());
+        SmartDashboard.putBoolean("DriveTrain High Gear", shifter.get() == DoubleSolenoid.Value.kForward);
         SmartDashboard.putNumber("DriveTrain LeftEncoder", leftEncoder.getDistance());
         SmartDashboard.putNumber("DriveTrain RightEncoder", rightEncoder.getDistance());
         SmartDashboard.putNumber("DriveTrain Gyro", gyro.getAngle());
@@ -168,12 +148,10 @@ public class Drivetrain extends Subsystem {
     	SmartDashboard.putBoolean("Right LineReader OnWhite", !rightLineReadTrigger.getTriggerState());
         
         // Acceleration code
-    	SmartDashboard.putNumber("DriveTrain Acceleration Limit", accelerationLimit);
+    	SmartDashboard.putNumber("DriveTrain Acceleration Limit", driveLimit);
         SmartDashboard.putNumber("DriveTrain Interval", accelerationLoopInterval);
         SmartDashboard.putNumber("DriveTrain Velocity", velocity); // only applies to non-slide
-        SmartDashboard.putNumber("DriveTrain Acceleration", (velocity - previousVelocity) / accelerationLoopInterval );
-        SmartDashboard.putBoolean("DriveTrain High Gear", leftShifter.get() == DoubleSolenoid.Value.kForward);
-        SmartDashboard.putBoolean("DriveTrain Slide Mode", isSlide());
+        SmartDashboard.putNumber("DriveTrain Acceleration", trueAcceleration );
     }
     
     //anglePID methods
@@ -192,10 +170,16 @@ public class Drivetrain extends Subsystem {
     	distancePID.setTarget(targetDistance);
     	distancePID.setRelativeLocation(0);
     }
+    
     public double updateDistance() {
     	distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) /2);
     	return distancePID.getOutput();
     }
+    
+    public boolean reachedDistance() {
+    	return distancePID.reachedTarget();
+    }
+    
     
     //returns turn value to turn towards line
     public double followLine() {
@@ -213,6 +197,7 @@ public class Drivetrain extends Subsystem {
         
     	return turnTrack;     
     }
+    
     public void setLineTrackLimits(){
     	int limit;
     	int diff = Math.abs(rightLineReader.getValue() - leftLineReader.getValue());
@@ -227,5 +212,4 @@ public class Drivetrain extends Subsystem {
     	leftLineReadTrigger.setLimitsRaw(limit, limit);
     	rightLineReadTrigger.setLimitsRaw(limit, limit);
     }
-    
 }

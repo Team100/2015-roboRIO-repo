@@ -16,7 +16,7 @@ public class  SyncPreferences extends Command {
 	private final boolean fromFile;
 	
 	// @param reading or writing preferences
-	// @param RoboRIO file or SmartDashboard	
+	// @param RoboRIO file or SmartDashboard
     public SyncPreferences(boolean read, boolean fromFile) {
     	this.read = read;
     	this.fromFile = fromFile;

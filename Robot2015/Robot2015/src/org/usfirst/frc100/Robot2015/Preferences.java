@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Preferences {
 	
-	private static final boolean DEBUG_MODE = false;
+	private static final boolean DEBUG_MODE = true;
 
     private static ArrayList<String> keys = new ArrayList<String>();
     private static ArrayList<String> values = new ArrayList<String>();

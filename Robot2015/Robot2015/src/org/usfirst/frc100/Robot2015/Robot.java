@@ -75,7 +75,6 @@ public class Robot extends IterativeRobot {
         	new AutoStackTotes().start();
         }
         new UpdateDashboard().start();
-        pneumatics.start();
     }
 
     /**
@@ -83,13 +82,13 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        pneumatics.run();
     }
 
     public void teleopInit() {
     	Scheduler.getInstance().removeAll();
         new UpdateDashboard().start();
         new AutoCalibrateElevator().start();
-        pneumatics.start();
     }
 
     /**
@@ -97,6 +96,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        pneumatics.run();
     }
 
     /**
