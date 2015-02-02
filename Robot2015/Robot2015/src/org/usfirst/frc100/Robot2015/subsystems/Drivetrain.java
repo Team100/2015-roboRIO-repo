@@ -115,15 +115,15 @@ public class Drivetrain extends Subsystem {
     
     // Sets the target for the auto PID
     public void setAutoTarget(double targetDistance, double targetSlide, double targetAngle ){
-    	distancePID.setTarget(targetDistance);
-    	slidePID.setTarget(targetSlide);
-    	anglePID.setTarget(targetAngle);
     	distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) /2);
     	slidePID.update(slideEncoder.getDistance());
     	anglePID.update(gyro.getAngle());
     	distancePID.setRelativeLocation(0);
     	slidePID.setRelativeLocation(0);
     	anglePID.setRelativeLocation(0);
+    	distancePID.setTarget(targetDistance);
+    	slidePID.setTarget(targetSlide);
+    	anglePID.setTarget(targetAngle);
     }
     
     // Updates the auto PID
@@ -166,18 +166,16 @@ public class Drivetrain extends Subsystem {
     }
     
     public void setAngleTarget(double targetAngle) {
-    	anglePID.setTarget(targetAngle);
     	anglePID.update(gyro.getAngle());
     	anglePID.setRelativeLocation(0);    
+    	anglePID.setTarget(targetAngle);
 	}
     
     //distancePID methods
     public void setDistanceTarget(double targetDistance){
-    	leftEncoder.reset();
-        rightEncoder.reset();
-    	distancePID.setTarget(targetDistance);
         distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) /2);
     	distancePID.setRelativeLocation(0);
+    	distancePID.setTarget(targetDistance);
     }
     
     public double updateDistance() {
