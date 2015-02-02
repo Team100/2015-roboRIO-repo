@@ -19,7 +19,9 @@ public class Drivetrain extends Subsystem {
     SpeedController rightMotor = RobotMap.drivetrainRightMotor;
     RobotDrive robotDrive = RobotMap.drivetrainRobotDrive;
     SpeedController slideMotor = RobotMap.drivetrainSlideMotor;
-    DoubleSolenoid shifter = RobotMap.drivetrainShifter;
+    DoubleSolenoid leftShifter = RobotMap.drivetrainLeftShifter;
+    DoubleSolenoid rightShifter = RobotMap.drivetrainRightShifter;
+    DoubleSolenoid butterflyPiston = RobotMap.drivetrainButterflyPiston;
     Encoder leftEncoder = RobotMap.drivetrainLeftEncoder;
     Encoder rightEncoder = RobotMap.drivetrainRightEncoder;
     Encoder slideEncoder = RobotMap.drivetrainSlideEncoder;
@@ -31,7 +33,8 @@ public class Drivetrain extends Subsystem {
     AnalogTrigger leftLineReadTrigger = RobotMap.drivetrainLeftLineReadTrigger;
     AnalogTrigger rightLineReadTrigger = RobotMap.drivetrainRightLineReadTrigger;
     private double velocity = 0;
-    private double driveLimit = 0;
+    private double previousVelocity = 0;
+    private double accelerationLimit = 0;
     private double accelerationLoopInterval = 20;
     private double turnLimit = 0;
     private double turnVelocity = 0;
@@ -39,6 +42,7 @@ public class Drivetrain extends Subsystem {
     private double previousTurnVelocity = 0;
     private double slideLimit = 0;
     private double slideVelocity = 0;
+    private double previousSlideVelocity = 0;
     private double trueVelocity = 0;
     private double previousTrueVelocity = 0;
     private double trueAcceleration = 0;
@@ -64,66 +68,78 @@ public class Drivetrain extends Subsystem {
     // Shifts to high or low gear
     public void shift(boolean highgear) {
     	if(highgear) {
-    		shifter.set(DoubleSolenoid.Value.kForward);
+    		leftShifter.set(DoubleSolenoid.Value.kForward);
+    		rightShifter.set(DoubleSolenoid.Value.kForward);
     	} 
     	else {
-    		shifter.set(DoubleSolenoid.Value.kReverse);
+    		leftShifter.set(DoubleSolenoid.Value.kReverse);
+        	rightShifter.set(DoubleSolenoid.Value.kReverse);
+    	}
+    }
+    
+    // Switches to tank or slide drive
+    public void switchDrive(boolean tankdrive) {
+    	if(tankdrive) {
+    		butterflyPiston.set(DoubleSolenoid.Value.kReverse);
+    	}
+    	else{
+    		butterflyPiston.set(DoubleSolenoid.Value.kForward);
+    	}	
+     }
+    
+    // Returns whether the drivetrain is in slide mode
+    public boolean isSlide() {
+    	if(butterflyPiston.get() == DoubleSolenoid.Value.kForward){
+    		return true;
+    	}
+    	else {
+    		return false;
     	}
     }
     
     // Limits the acceleration.
-    public void gradualDrive(double drive, double slide, double turn) {
+    public void gradualDrive(double yaxis, double slide, double turn) {
         timer.stop();
         accelerationLoopInterval = timer.get();
         velocity = leftEncoder.getRate();
         slideVelocity = slideEncoder.getRate();
-        trueVelocity = Math.hypot(velocity, slideVelocity);
+        trueVelocity = Math.hypot(turnVelocity, slideVelocity);
         trueAcceleration = (trueVelocity-previousTrueVelocity) / accelerationLoopInterval;
         turnVelocity = gyro.getRate();
         turnAcceleration = (turnVelocity - previousTurnVelocity)/accelerationLoopInterval;
-        // see if the velocity limits work
-        if (trueAcceleration > Preferences.getDouble("UpperAccelerationLimit") || turnAcceleration > Preferences.getDouble("UpperTurnAccelerationLimit") ) {
-             drive(driveLimit, slideLimit, turnLimit);
+        if (trueAcceleration > Preferences.getDouble("UpperAccelerationLimit") || turnAcceleration > Preferences.getDouble("Upper Turn Acceleration Limit") || turnVelocity > Preferences.getDouble("Upper Turn Velocity Limit")) {
+             drive(accelerationLimit, slideLimit, turnLimit);
 
-        } else if (trueAcceleration < Preferences.getDouble("LowerAccelerationLimit") || turnAcceleration < Preferences.getDouble("LowerTurnAccelerationLimit") ) {
-            drive(driveLimit, slideLimit, turnLimit);
+        } else if (trueAcceleration < Preferences.getDouble("Lower Acceleration Limit") || turnAcceleration < Preferences.getDouble("Lower Turn Acceleration Limit") || turnVelocity < Preferences.getDouble("Lower Turn Velocity Limit")) {
+            drive(accelerationLimit, slideLimit, turnLimit);
 
         } else {
-            if(drive > driveLimit) {
-                driveLimit += Preferences.getDouble("LimitStep");
-            } else if (drive < driveLimit){
-               driveLimit -= Preferences.getDouble("LimitStep");
+            if(yaxis > accelerationLimit) {
+                accelerationLimit += Preferences.getDouble("LimitStep");
+                slideLimit += Preferences.getDouble("LimitStep");
+                turnLimit += Preferences.getDouble("LimitStep");
+            } else{
+               accelerationLimit -= Preferences.getDouble("LimitStep");
+               slideLimit -= Preferences.getDouble("LimitStep");
+               turnLimit -= Preferences.getDouble("LimitStep");
             }
-            if(slide > slideLimit){
-            	slideLimit += Preferences.getDouble("LimitStep");
-            } else if(slide < slideLimit){
-            	slideLimit -= Preferences.getDouble("LimitStep");
-            }
-            if(turn > turnLimit){
-            	turnLimit += Preferences.getDouble("LimitStep");
-            } else if(turn < turnLimit){
-            	turnLimit -= Preferences.getDouble("LimitStep");
-            }
-            
-            drive(driveLimit, slideLimit, turnLimit);
+            drive(accelerationLimit, slideLimit, turnLimit);
         }
-        
         previousTrueVelocity = trueVelocity;
+        previousVelocity = velocity;
+        previousSlideVelocity = slideVelocity;
         previousTurnVelocity = turnVelocity;
         timer.start();
     }
     
     // Sets the target for the auto PID
     public void setAutoTarget(double targetDistance, double targetSlide, double targetAngle ){
-    	distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) /2);
-    	slidePID.update(slideEncoder.getDistance());
-    	anglePID.update(gyro.getAngle());
-    	distancePID.setRelativeLocation(0);
-    	slidePID.setRelativeLocation(0);
-    	anglePID.setRelativeLocation(0);
     	distancePID.setTarget(targetDistance);
     	slidePID.setTarget(targetSlide);
     	anglePID.setTarget(targetAngle);
+    	distancePID.setRelativeLocation(0);
+    	slidePID.setRelativeLocation(0);
+    	anglePID.setRelativeLocation(0);
     }
     
     // Updates the auto PID
@@ -141,106 +157,65 @@ public class Drivetrain extends Subsystem {
     
     // Updates the SmartDashboard
     public void updateDashboard() {
-        SmartDashboard.putBoolean("DriveTrain High Gear", shifter.get() == DoubleSolenoid.Value.kForward);
-        SmartDashboard.putNumber("DriveTrain LeftEncoder Raw", leftEncoder.getRaw());
-        SmartDashboard.putNumber("DriveTrain RightEncoder Raw", rightEncoder.getRaw());
+        SmartDashboard.putBoolean("DriveTrain High Gear", leftShifter.get() == DoubleSolenoid.Value.kForward);
+        SmartDashboard.putBoolean("DriveTrain Slide Mode", isSlide());
         SmartDashboard.putNumber("DriveTrain LeftEncoder", leftEncoder.getDistance());
         SmartDashboard.putNumber("DriveTrain RightEncoder", rightEncoder.getDistance());
         SmartDashboard.putNumber("DriveTrain Gyro", gyro.getAngle());
         SmartDashboard.putNumber("Left LineReader Value", leftLineReader.getValue());
     	SmartDashboard.putNumber("Right LineReader Value", rightLineReader.getValue());        
-        SmartDashboard.putBoolean("Left LineReader OnWhite", !leftLineReadTrigger.getTriggerState());
-    	SmartDashboard.putBoolean("Right LineReader OnWhite", !rightLineReadTrigger.getTriggerState());
-    	SmartDashboard.putNumber("LineTrackerLimit", Preferences.getDouble("LineTrackerLimit"));
+        //SmartDashboard.putBoolean("Left LineReader OnWhite", !leftLineReadTrigger.getTriggerState());
+    	//SmartDashboard.putBoolean("Right LineReader OnWhite", !rightLineReadTrigger.getTriggerState());
         
         // Acceleration code
-    	SmartDashboard.putNumber("DriveTrain Acceleration Limit", driveLimit);
+    	SmartDashboard.putNumber("DriveTrain Acceleration Limit", accelerationLimit);
         SmartDashboard.putNumber("DriveTrain Interval", accelerationLoopInterval);
         SmartDashboard.putNumber("DriveTrain Velocity", velocity); // only applies to non-slide
-        SmartDashboard.putNumber("DriveTrain Acceleration", trueAcceleration );
+        SmartDashboard.putNumber("DriveTrain Acceleration", (velocity - previousVelocity) / accelerationLoopInterval );
+        SmartDashboard.putBoolean("DriveTrain High Gear", leftShifter.get() == DoubleSolenoid.Value.kForward);
+        SmartDashboard.putBoolean("DriveTrain Slide Mode", isSlide());
     }
     
-    //anglePID methods
     public double updateAngle() {
     	anglePID.update(gyro.getAngle());
     	return anglePID.getOutput();
     }
     
     public void setAngleTarget(double targetAngle) {
-    	anglePID.update(gyro.getAngle());
-    	anglePID.setRelativeLocation(0);    
     	anglePID.setTarget(targetAngle);
+    	anglePID.setRelativeLocation(0);    
 	}
-    
-    //distancePID methods
-    public void setDistanceTarget(double targetDistance){
-        distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) /2);
-    	distancePID.setTarget(targetDistance);
-    	distancePID.setRelativeLocation(0);
-    	distancePID.setTarget(targetDistance);
-    }
-    
-    public double updateDistance() {
-    	distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) /2);
-    	return distancePID.getOutput();
-    }
-    
-    public boolean reachedDistance() {
-    	return distancePID.reachedTarget();
-    }
-    
-    
-    //returns turn value to turn towards line
-    public double followLine() {
+    public void followLine() {
         double turnTrack = 0;
-        boolean right = true;
-        boolean firstTime = true;
+        double speedTrack = .75;
         
         if(rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()){
-        	timer.stop();
-        	right = false;
-        	firstTime = true;
-        	turnTrack = -.5;
-    	} else if(leftLineReadTrigger.getTriggerState() && !rightLineReadTrigger.getTriggerState()){
-    		timer.stop();
-    		right = true;
-    		firstTime = true;
-    		turnTrack = .5;
-    	} else if(!rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()){
-    		timer.stop();
-            firstTime = true;
-    		turnTrack = 0;
-    	} else if(rightLineReadTrigger.getTriggerState() && leftLineReadTrigger.getTriggerState()){
-    		if(firstTime){
-                timer.start();
-                firstTime = false;
-    		}
-    		if(right){
-                turnTrack = 2*timer.get();
-            } else{
-                turnTrack = -2*timer.get();
-            }
+    		turnTrack = -.5;
+            speedTrack = .8;
     	}
-    	return turnTrack;     
+    	else if(leftLineReadTrigger.getTriggerState() && !rightLineReadTrigger.getTriggerState()){
+    		turnTrack = .5;
+            speedTrack = .8;
+    	}
+    	else if(!rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()){
+    		turnTrack = 0;
+            speedTrack = .75;
+    	}
+        
+    	robotDrive.arcadeDrive(speedTrack, turnTrack);      
     }
-    
     public void setLineTrackLimits(){
     	int limit;
-    	int diff = Math.abs(rightLineReader.getValue() - leftLineReader.getValue());
+    	int diff = rightLineReader.getValue() - leftLineReader.getValue();
     	if( diff < 50 ){
-    		limit = (int)Preferences.getDouble("LineTrackerLimit");
-    	} else{
-    		limit = (leftLineReader.getValue() + rightLineReader.getValue())/2;
-    		SmartDashboard.putNumber("LineTracker Limit", limit);
-    		Preferences.set("LineTrackerLimit", limit);
+    		limit = (int)Preferences.getDouble("LineTracker Limit");
+    	}
+    	else{
+    		limit = leftLineReader.getValue() + diff/2;
+    		Preferences.set("LineTracker Limit", limit);
     	}
     	leftLineReadTrigger.setLimitsRaw(limit, limit);
     	rightLineReadTrigger.setLimitsRaw(limit, limit);
     }
-    public void slideToLine(){
-    	boolean onLine;
-    	if(rightLineReadTrigger.getTriggerState()){
-    		
-    	}
-    }
+    
 }

@@ -1,42 +1,51 @@
 package org.usfirst.frc100.Robot2015.commands;
+
 import org.usfirst.frc100.Robot2015.Preferences;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * Autonomous mode that moves all of the recycling bins onto our side of the field.
+ *
  */
-public class AutoTakeRecycling extends CommandGroup {
+public class AutoDance extends CommandGroup {
+	private final int DANCE_NUM;
     
-	private final double SLIDE_DISTANCE;
-	private final double DRIVE_LENGTH;
-    public  AutoTakeRecycling() {
+    public  AutoDance() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
-        // these will1 run in order.
+        // these will run in order.
 
+    	DANCE_NUM = (int)Preferences.getDouble("DanceNumber");
         // To run multiple commands at the same time,
         // use addParallel()
         // e.g. addParallel(new Command1());
         //      addSequential(new Command2());
         // Command1 and Command2 will run in parallel.
-
-    	DRIVE_LENGTH = Preferences.getDouble("AutoTakeRecycling_DriveLength");
-    	SLIDE_DISTANCE = Preferences.getDouble("AutoTakeRecycling_SlideDistance");
     	
         // A command group will require all of the subsystems that each member
         // would require.
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new DeployArm(true));
-    	addSequential(new StabRecycling(true));
-    	addParallel(new DeployArm(false));
-    	addSequential(new StabRecycling(false));
-    	addParallel(new DeployArm(true));
-    	addParallel(new AutoFollowLine(DRIVE_LENGTH));
-    	addSequential(new AutoGrabRecycling(3, 2));
-    	addSequential(new AutoDrive(0, SLIDE_DISTANCE));
+    	switch (DANCE_NUM*0) {
+			case 0:
+				
+				break;
+
+			default: {
+				addSequential(new AutoDrive(5));
+				addSequential(new AutoDrive(-5));
+				addSequential(new AutoDrive(0, 5));
+				addParallel(new AutoTurn(360));
+				addParallel(new RaiseArm(false));
+				addSequential(new SetElevatorPosition(0));
+				addSequential(new AutoDrive(0, -5));
+				addParallel(new AutoTurn(-360));
+				addParallel(new RaiseArm(true));
+				addSequential(new SetElevatorPosition(4));
+				break;
+			}
+    	}
     }
 }

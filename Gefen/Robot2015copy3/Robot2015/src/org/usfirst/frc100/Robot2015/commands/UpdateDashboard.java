@@ -9,7 +9,7 @@ import org.usfirst.frc100.Robot2015.Robot;
 /**
  * Updates the SmartDashboard in all of the subsystems.
  */
-public class UpdateDashboard extends Command {
+public class  UpdateDashboard extends Command {
 	PowerDistributionPanel pdp = new PowerDistributionPanel();
 	// No required subsystems
     public UpdateDashboard() {

@@ -8,8 +8,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoTakeRecycling extends CommandGroup {
     
+	private final double DRIVE_1LENGTH;
+	private final double DRIVE_2LENGTH;
 	private final double SLIDE_DISTANCE;
-	private final double DRIVE_LENGTH;
     public  AutoTakeRecycling() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
@@ -22,7 +23,8 @@ public class AutoTakeRecycling extends CommandGroup {
         //      addSequential(new Command2());
         // Command1 and Command2 will run in parallel.
 
-    	DRIVE_LENGTH = Preferences.getDouble("AutoTakeRecycling_DriveLength");
+    	DRIVE_1LENGTH = Preferences.getDouble("AutoTakeRecycling_Drive1Length");
+    	DRIVE_2LENGTH = Preferences.getDouble("AutoTakeRecycling_Drive2Length");
     	SLIDE_DISTANCE = Preferences.getDouble("AutoTakeRecycling_SlideDistance");
     	
         // A command group will require all of the subsystems that each member
@@ -31,12 +33,24 @@ public class AutoTakeRecycling extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new DeployArm(true));
-    	addSequential(new StabRecycling(true));
+    	addSequential(new GrabRecycling());
     	addParallel(new DeployArm(false));
-    	addSequential(new StabRecycling(false));
+    	addParallel(new DropRecycling());
     	addParallel(new DeployArm(true));
-    	addParallel(new AutoFollowLine(DRIVE_LENGTH));
-    	addSequential(new AutoGrabRecycling(3, 2));
+    	addSequential(new AutoDrive(DRIVE_1LENGTH));
+    	addSequential(new GrabRecycling());
+    	addParallel(new DeployArm(false));
+    	addParallel(new DropRecycling());
+    	addParallel(new DeployArm(true));
+    	addSequential(new AutoDrive(DRIVE_2LENGTH));
+    	addSequential(new GrabRecycling());
+    	addParallel(new DeployArm(false));
+    	addParallel(new DropRecycling());
+    	addParallel(new DeployArm(true));
+    	addSequential(new AutoDrive(DRIVE_1LENGTH));
+    	addSequential(new GrabRecycling());
+    	addSequential(new DeployArm(false));
+    	addSequential(new DropRecycling());
     	addSequential(new AutoDrive(0, SLIDE_DISTANCE));
     }
 }
