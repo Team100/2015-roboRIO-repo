@@ -151,6 +151,7 @@ public class Drivetrain extends Subsystem {
     	SmartDashboard.putNumber("Right LineReader Value", rightLineReader.getValue());        
         SmartDashboard.putBoolean("Left LineReader OnWhite", !leftLineReadTrigger.getTriggerState());
     	SmartDashboard.putBoolean("Right LineReader OnWhite", !rightLineReadTrigger.getTriggerState());
+    	SmartDashboard.putNumber("LineTrackerLimit", Preferences.getDouble("LineTrackerLimit"));
         
         // Acceleration code
     	SmartDashboard.putNumber("DriveTrain Acceleration Limit", driveLimit);
@@ -175,8 +176,8 @@ public class Drivetrain extends Subsystem {
     public void setDistanceTarget(double targetDistance){
     	leftEncoder.reset();
         rightEncoder.reset();
-    	distancePID.setTarget(targetDistance);
         distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) /2);
+    	distancePID.setTarget(targetDistance);
     	distancePID.setRelativeLocation(0);
     }
     
@@ -236,5 +237,11 @@ public class Drivetrain extends Subsystem {
     	}
     	leftLineReadTrigger.setLimitsRaw(limit, limit);
     	rightLineReadTrigger.setLimitsRaw(limit, limit);
+    }
+    public void slideToLine(){
+    	boolean onLine;
+    	if(rightLineReadTrigger.getTriggerState()){
+    		
+    	}
     }
 }

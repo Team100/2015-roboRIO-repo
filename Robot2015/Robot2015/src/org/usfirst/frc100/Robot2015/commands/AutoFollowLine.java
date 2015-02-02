@@ -22,15 +22,13 @@ public class  AutoFollowLine extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	SmartDashboard.putNumber("LineTrackerLimit", 700);
-    	Preferences.set("LineTrackerLimit", 700);
     	Robot.drivetrain.setLineTrackLimits();
     	Robot.drivetrain.setDistanceTarget(distance);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.drive(Robot.drivetrain.updateDistance(), 0, Robot.drivetrain.followLine());
+    	Robot.drivetrain.drive(-Robot.drivetrain.updateDistance(), 0, Robot.drivetrain.followLine());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,10 +38,12 @@ public class  AutoFollowLine extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.drivetrain.drive(0, 0, 0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }
