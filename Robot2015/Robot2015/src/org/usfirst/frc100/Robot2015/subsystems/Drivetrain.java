@@ -174,11 +174,6 @@ public class Drivetrain extends Subsystem {
     
     //distancePID methods
     public void setDistanceTarget(double targetDistance){
-<<<<<<< HEAD
-    	leftEncoder.reset();
-        rightEncoder.reset();
-=======
->>>>>>> d28a5ef55b3fa32b2824f8525df9158cf2640aec
         distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) /2);
     	distancePID.setTarget(targetDistance);
     	distancePID.setRelativeLocation(0);
