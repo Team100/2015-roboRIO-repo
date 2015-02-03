@@ -1,7 +1,7 @@
 package org.usfirst.frc100.Robot2015.commands;
 
+import org.usfirst.frc100.Robot2015.Preferences;
 import org.usfirst.frc100.Robot2015.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
