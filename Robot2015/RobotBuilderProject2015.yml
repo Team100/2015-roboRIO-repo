@@ -600,6 +600,30 @@ Children:
           default: '1'
           name: Button
           validators: null
+          value: '2'
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: *id023
+          value: AutoTurn
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id024
+          default: whileHeld
+          name: When to Run
+          validators: null
+          value: whileHeld
+      Base: Joystick Button
+      Name: QuickTurnButton
+    - Children: []
+      Properties:
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: RightJoystick}
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id022
+          default: '1'
+          name: Button
+          validators: null
           value: '1'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
@@ -760,7 +784,7 @@ Children:
           name: Command
           type: Command
           validators: *id023
-          value: ManualControl
+          value: ManipulatorManualControl
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id024
           default: whileHeld
@@ -977,7 +1001,7 @@ Children:
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
-    Name: ManualControl
+    Name: ManipulatorManualControl
   - Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,

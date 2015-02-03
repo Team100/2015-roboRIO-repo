@@ -12,7 +12,9 @@ public class  AutoDrive extends Command {
 	private final double distance;
 	private final double slide;
 
-	// Target distance in inches, requires Drivetrain
+	/**
+	 * @param distance - The distance to travel in inches
+	 */
     public AutoDrive(double distance) {
         this.distance = distance;
     	this.slide = 0;

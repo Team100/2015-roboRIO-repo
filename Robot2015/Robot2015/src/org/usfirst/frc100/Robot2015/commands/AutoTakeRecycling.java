@@ -11,6 +11,7 @@ public class AutoTakeRecycling extends CommandGroup {
     
 	private final double SLIDE_DISTANCE;
 	private final double DRIVE_LENGTH;
+	
     public  AutoTakeRecycling() {
         // Add Commands here:
         // e.g. addSequential(new Command1());

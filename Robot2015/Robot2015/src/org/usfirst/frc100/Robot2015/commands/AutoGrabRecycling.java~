@@ -2,12 +2,13 @@ package org.usfirst.frc100.Robot2015.commands;
 
 import org.usfirst.frc100.Robot2015.Robot;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AutoGrabRecycling extends CommandGroup {
+public class AutoGrabRecycling extends Command {
     private final int containers;
     private final int time;
     private int containersTaken = 0;
@@ -18,23 +19,6 @@ public class AutoGrabRecycling extends CommandGroup {
      * @param time the time to wait before start
      */
     public  AutoGrabRecycling(int containers, int time) {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-    	
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
     	this.containers = containers;
     	this.time = time;
     }
@@ -71,4 +55,10 @@ public class AutoGrabRecycling extends CommandGroup {
     public boolean isFinished() {
     	return containers == containersTaken;
     }
+
+	@Override
+	protected void interrupted() {
+		// TODO Auto-generated method stub
+		
+	}
 }

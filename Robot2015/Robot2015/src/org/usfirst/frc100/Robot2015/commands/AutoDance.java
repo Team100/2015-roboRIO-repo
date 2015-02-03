@@ -1,39 +1,21 @@
 package org.usfirst.frc100.Robot2015.commands;
 
-import org.usfirst.frc100.Robot2015.Preferences;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * The result of programmers having too much time and not enough issues.
  */
 public class AutoDance extends CommandGroup {
+	
 	private final int DANCE_NUM;
     
-    public  AutoDance() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-    	DANCE_NUM = (int)Preferences.getDouble("DanceNumber");
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-    	
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
+	/**
+	 * @param danceNum - The dance routine to perform
+	 */
+    public  AutoDance(int danceNum) {
+    	DANCE_NUM = danceNum;
     	switch (DANCE_NUM*0) {
-			case 0:
-				
-				break;
-
-			default: {
+			case 1:
 				addSequential(new AutoDrive(5));
 				addSequential(new AutoDrive(-5));
 				addSequential(new AutoDrive(0, 5));
@@ -45,7 +27,6 @@ public class AutoDance extends CommandGroup {
 				addParallel(new RaiseArm(true));
 				addSequential(new SetElevatorPosition(4));
 				break;
-			}
     	}
     }
 }

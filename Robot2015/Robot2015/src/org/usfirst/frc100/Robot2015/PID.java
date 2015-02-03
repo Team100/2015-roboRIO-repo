@@ -21,7 +21,10 @@ public class PID {
     private double rate = 0.0; // Change in error per second
     private Timer timer = new Timer(); // Keeps track of loop frequency
 
-    // Instantiates a PID loop, requires a unique name for creating preferences
+    /**
+     * Instantiates a PID loop
+     * @param name - The unique identifier of the system for preferences and dashboard values
+     */
     public PID(String name) {
     	kP = Preferences.getDouble(name + "_kP");
     	kI = Preferences.getDouble(name + "_kI");
@@ -36,7 +39,10 @@ public class PID {
         displayData();
     }
 
-    // Updates the PID loop using new input data
+    /**
+     * Updates the PID loop using new input data, call before using other methods
+     * @param newValue - The new input value from the sensor
+     */
     public void update(double newValue) {
         kP = SmartDashboard.getNumber(name + " kP");
         kI = SmartDashboard.getNumber(name + " kI");
@@ -57,17 +63,26 @@ public class PID {
         displayData();
     }
 
-    // The current error of the loop
+    /**
+     * Getter method for error
+     * @return The displacement from the target value
+     */
     public double getError(){
     	return error;
     }
     
-    // Returns the current output value
+    /**
+     * Getter method for output
+     * @return The PID output value
+     */
     public double getOutput() {
     	return output;
     }
 
-    // Sets the target value of the PID loop
+    /**
+     * Setter method for target
+     * @param newTarget - The target value the PID will attempt to reach
+     */
     public void setTarget(double newTarget) {
         target = newTarget;
         error = target - input;
@@ -75,25 +90,36 @@ public class PID {
         displayData();
     }
 
-    // Returns the current target for the PID loop
+    /**
+     * Getter method for target
+     * @return The current target for the PID loop
+     */
     public double getTarget() {
         return target;
     }
 
-    // Sets the current location to be a specified value, but does NOT reset the target
+    /**
+     * Sets the relative value of the current location
+     * @param value - The desired value of the current location
+     */
     public void setRelativeLocation(double value) {
     	offset += input - value;
     	input = value;
     	setTarget(target);
     }
 
-    // Returns whether the PID loop is close enough to the target value
+    /**
+     * Determines if error and rate are within acceptable tolerances
+     * @return Whether the PID loop has reached the target
+     */
     public boolean reachedTarget() {
 		return Math.abs(error) < Preferences.getDouble(name + "ErrorTolerance")
 				&& Math.abs(rate) < Preferences.getDouble(name + "RateTolerance");
     }
     
-    // Displays data on the SmartDashboard
+    /**
+     * Displays data on the SmartDashboard
+     */
     private void displayData(){
         SmartDashboard.putNumber(name + " Error", error);
         SmartDashboard.putNumber(name + " Target", target);

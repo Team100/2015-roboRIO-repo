@@ -12,12 +12,15 @@ import java.util.ArrayList;
  */
 public class Preferences {
 	
-	private static final boolean DEBUG_MODE = true;
+	private static final boolean DEBUG_MODE = true; // Whether to print out debugging info
+    private static ArrayList<String> keys = new ArrayList<String>(); // The preference identifiers
+    private static ArrayList<String> values = new ArrayList<String>(); // The preference values
 
-    private static ArrayList<String> keys = new ArrayList<String>();
-    private static ArrayList<String> values = new ArrayList<String>();
-
-    // Creates or sets a preference, but does not modify cRIO file
+    /**
+     * Sets a preference value, creating the preference if it does not exist
+     * @param name - The name of the preference
+     * @param value - The desired value of the preference
+     */
     public static void set(String name, Object value) {
         if(keys.contains(name)){
         	if(DEBUG_MODE) System.out.println("Preference modified: " + name + " " + value);
@@ -30,17 +33,29 @@ public class Preferences {
         }
     }
 
-    // Casts double to an object for regular set method
+    /**
+     * Casts double to an object for regular set method
+     * @param name - The name of the preference
+     * @param value - The desired value of the preference
+     */
     public static void set(String name, double value) {
     	set(name, Double.valueOf(value));
     }
     
-    // Casts boolean to an object for regular set method
+    /**
+     * Casts boolean to an object for regular set method
+     * @param name - The name of the preference
+     * @param value - The desired value of the preference
+     */
     public static void set(String name, boolean value) {
     	set(name, Boolean.valueOf(value));
     }
 
-    // Returns value of the double preference with the given name
+    /**
+     * Returns value of a preference as a double
+     * @param name - The name of the preference
+     * @return The value of the preference
+     */
     public static double getDouble(String name) {
     	String value = getString(name);
         try {
@@ -51,7 +66,11 @@ public class Preferences {
         return 0;
     }
 
-    // Returns value of the boolean preference with the given name
+    /**
+     * Returns value of a preference as a boolean
+     * @param name - The name of the preference
+     * @return The value of the preference
+     */
     public static boolean getBoolean(String name) {
         String value = getString(name);
         if (!(value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))) {
@@ -60,7 +79,11 @@ public class Preferences {
         return "true".equals(value);
     }
 
-    // Returns value of the String preference with the given name
+    /**
+     * Returns value of a preference as a String
+     * @param name - The name of the preference
+     * @return The value of the preference
+     */
     public static String getString(String name) {
         if(keys.contains(name)){
         	int index = keys.indexOf(name);
@@ -72,12 +95,18 @@ public class Preferences {
         }
     }
 
-    // Returns whether a preference is present
+    /**
+     * Returns whether a preference exists
+     * @param name - The name of the preference
+     * @return The existence of the given preference
+     */
     public static boolean contains(String name) {
         return keys.contains(name);
     }
 
-    // Pulls preferences from the file, overwrites any existing preferences
+    /**
+     * Pulls preferences from the file, overwrites any existing preferences
+     */
     public static void read() {
 		BufferedReader in;
 		try {
@@ -106,7 +135,9 @@ public class Preferences {
 		}
     }
 
-    // Overwrites the file with current preferences
+    /**
+     * Overwrites the file with current preferences
+     */
     public static void write() {
         BufferedWriter out;
         if(keys.isEmpty()){
