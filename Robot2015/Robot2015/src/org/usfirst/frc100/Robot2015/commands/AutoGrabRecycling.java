@@ -25,9 +25,9 @@ public class AutoGrabRecycling extends Command {
     }
 
 	public void initialize() {
-		Robot.arm.deployArm(true);
+		Robot.arm.setDeploy(true);
 		Robot.arm.setStab(true);
-		Robot.arm.deployArm(false);
+		Robot.arm.setDeploy(false);
 		Robot.arm.setStab(false);
 		Robot.arm.setStab(true);
 	}
@@ -36,9 +36,9 @@ public class AutoGrabRecycling extends Command {
     	if (Robot.arm.getContainer()) {
     		if (takeRecyclingThisTime) {
     			Robot.arm.setStab(true);
-    			Robot.arm.deployArm(false);
+    			Robot.arm.setDeploy(false);
     			Robot.arm.setStab(false);
-    			Robot.arm.deployArm(true);
+    			Robot.arm.setDeploy(true);
     			containersTaken++;
     		}
     		takeRecyclingThisTime = !takeRecyclingThisTime;
