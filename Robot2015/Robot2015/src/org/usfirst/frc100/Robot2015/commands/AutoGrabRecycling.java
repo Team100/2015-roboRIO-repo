@@ -12,6 +12,7 @@ public class AutoGrabRecycling extends Command {
     private final int containers;
     private final int time;
     private int containersTaken = 0;
+    private boolean takeRecyclingThisTime = false;
     
     /**
      * 
@@ -24,27 +25,23 @@ public class AutoGrabRecycling extends Command {
     }
 
 	public void initialize() {
-    	try {
-			wait(time);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
+		Robot.arm.deployArm(true);
+		Robot.arm.setStab(true);
+		Robot.arm.deployArm(false);
+		Robot.arm.setStab(false);
+		Robot.arm.setStab(true);
+	}
     
     public void execute() {
     	if (Robot.arm.getContainer()) {
-    		Robot.arm.setStab(true);
-    		Robot.arm.deployArm(false);
-    		Robot.arm.setStab(false);
-    		Robot.arm.deployArm(true);
-    		try {
-				wait(time);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    		containersTaken++;
+    		if (takeRecyclingThisTime) {
+    			Robot.arm.setStab(true);
+    			Robot.arm.deployArm(false);
+    			Robot.arm.setStab(false);
+    			Robot.arm.deployArm(true);
+    			containersTaken++;
+    		}
+    		takeRecyclingThisTime = !takeRecyclingThisTime;
     	}
     }
     
