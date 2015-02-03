@@ -2,9 +2,7 @@ package org.usfirst.frc100.Robot2015.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc100.Robot2015.Preferences;
-import org.usfirst.frc100.Robot2015.Robot;
 
 /**
  * Read or writes the Preferences on either the SmartDashboard or the RoboRIO
@@ -15,8 +13,10 @@ public class  SyncPreferences extends Command {
 	private final boolean read;
 	private final boolean fromFile;
 	
-	// @param reading or writing preferences
-	// @param RoboRIO file or SmartDashboard
+	/**
+	 * @param read - Reading or writing preferences
+	 * @param fromFile - RoboRIO file or SmartDashboard
+	 */
     public SyncPreferences(boolean read, boolean fromFile) {
     	this.read = read;
     	this.fromFile = fromFile;
