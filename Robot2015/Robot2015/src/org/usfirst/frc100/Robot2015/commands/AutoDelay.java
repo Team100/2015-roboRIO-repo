@@ -3,8 +3,6 @@ package org.usfirst.frc100.Robot2015.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-import org.usfirst.frc100.Robot2015.Robot;
-
 /**
  * Terminates after an amount of time in seconds specified in the constructor.
  * This class is used by the autonomous command groups to delay the execution of

@@ -1,12 +1,10 @@
 package org.usfirst.frc100.Robot2015.commands;
 
 import org.usfirst.frc100.Robot2015.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * Triggers the auto arm when a container is detected.
  */
 public class AutoGrabRecycling extends Command {
     private final int containers;
@@ -15,9 +13,8 @@ public class AutoGrabRecycling extends Command {
     private boolean takeRecyclingThisTime = false;
     
     /**
-     * 
-     * @param containers the number of containers to take before exit
-     * @param time the time to wait before start
+     * @param containers - The number of containers to take before exit
+     * @param time - The time to wait before starting
      */
     public  AutoGrabRecycling(int containers, int time) {
     	this.containers = containers;

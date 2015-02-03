@@ -32,39 +32,53 @@ public class Elevator extends Subsystem {
 	private final double scoringPlatformHeight = 2.0; // inches
 	private final double stepHeight = 4.0; // inches, compensated for the standard +2 in for scoring
 
-	// No default command
 	public void initDefaultCommand() {
 	}
 
-	// Activates the brake
+	/**
+	 * Activates the brake and stops the motor
+	 */
 	public void activateBrake() {
 		motor.set(0);
 		brake.set(DoubleSolenoid.Value.kReverse);
 	}
 
-	// Deactivates the brake
+	/**
+	 * Deactivates the brake
+	 */
 	public void releaseBrake() {
 		brake.set(DoubleSolenoid.Value.kForward);
 	}
 
-	// Returns whether the elevator has reached the lower limit
+	/**
+	 * Getter method for the lower limit
+	 * @return Whether the elevator has reached the lower limit
+	 */
 	public boolean getLowerLimit() {
 		return lowerLimit.get();
 	}
 
-	// Zeroes the PID loop
+	/**
+	 * Zeroes the PID loop
+	 */
 	public void zeroPID() {
 		elevatorPID.update(encoder.getDistance());
 		elevatorPID.setRelativeLocation(0);
 	}
 
-	// Updates the PID loop
+	/**
+	 * Updates the PID loop
+	 */
 	public void updatePID() {
 		elevatorPID.update(encoder.getDistance());
 		manualControl(elevatorPID.getOutput());
 	}
 
-	// Moves the elevator to a preset position (see LiftToteToHeight command)
+	/**
+	 * Moves the elevator to a preset position
+	 * @param position - 1 is the lowest tote, 2 is the second tote on the stack,
+	 * 3 is the 3rd tote on the stack, etc.
+	 */
 	public void setPosition(int position) {
 		SmartDashboard.putNumber("Elevator Position", position);
 		double height = positionOne;
@@ -78,17 +92,26 @@ public class Elevator extends Subsystem {
 		elevatorPID.setTarget(height);
 	}
 
-	// Returns whether PID target has been reached
+	/**
+     * Determines if PID has reached the target
+     * @return Whether target has been reached
+     */
 	public boolean isInPosition() {
 		return elevatorPID.reachedTarget();
 	}
 
-	// Sets the PID value to a height in inches
+	/**
+	 * Sets the PID target
+	 * @param target - Height in inches
+	 */
 	public void setAutoTarget(double target) {
 		elevatorPID.setTarget(target);
 	}
 	
-	// Sets the motor output to the given value
+	/**
+	 * Sets the raw motor output unless limits are triggered
+	 * @param speed - The motor output
+	 */
 	public void manualControl(double speed) {
 		if (!upperLimit.get() && !lowerLimit.get()) {
 			releaseBrake();
@@ -111,7 +134,9 @@ public class Elevator extends Subsystem {
 		}
 	}
 	
-	// Updates the SmartDashboard
+	/**
+	 * Updates the SmartDashboard
+	 */
 	public void updateDashboard () {
 		SmartDashboard.putBoolean("Elevator Upper Limit", upperLimit.get());
 		SmartDashboard.putBoolean("Elevator Lower Limit", lowerLimit.get());
