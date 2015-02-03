@@ -39,15 +39,6 @@ public class Arm extends Subsystem {
     
     /**
      * @param raise Value for height motor
-     * @param extend Value for extension motor
-     */
-    public void manualControl(double raise) {
-    	raiseMotor.set(raise);
-    }
-    
-    /**
-     * 
-     * @param raise Value for height motor
      */
     public void manualControl(double raise) {
     	raiseMotor.set(raise);
@@ -74,7 +65,7 @@ public class Arm extends Subsystem {
      * Sets the arm to extend or retract the grabbing mechanism
      * @param extend whether the grabber should be extended or retracted
      */
-    public void deployArm(boolean extend) {
+    public void setDeploy(boolean extend) {
     	if (extend) {
     		deployPiston.set(DoubleSolenoid.Value.kForward);
     	} else {
