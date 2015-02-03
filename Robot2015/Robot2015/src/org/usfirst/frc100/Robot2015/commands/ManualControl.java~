@@ -32,7 +32,7 @@ public class  ManualControl extends Command {
     	} else if (Robot.oi.getManipulatorJoystick().getTwist() < -0.5) {
     		Robot.arm.manualControl(Robot.oi.getManipulatorJoystick().getThrottle(), false);
     	} else {
-    		Robot.arm.setArmHeight(Robot.oi.getManipulatorJoystick().getThrottle());
+    		Robot.arm.manualControl(Robot.oi.getManipulatorJoystick().getThrottle());
     	}
 		Robot.arm.setStab(Robot.oi.calibrateElevatorButton.get());
     }

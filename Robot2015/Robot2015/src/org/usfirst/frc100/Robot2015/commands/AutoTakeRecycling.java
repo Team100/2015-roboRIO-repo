@@ -1,6 +1,7 @@
 package org.usfirst.frc100.Robot2015.commands;
 import org.usfirst.frc100.Robot2015.Preferences;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -30,11 +31,6 @@ public class AutoTakeRecycling extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new DeployArm(true));
-    	addSequential(new StabRecycling(true));
-    	addParallel(new DeployArm(false));
-    	addSequential(new StabRecycling(false));
-    	addParallel(new DeployArm(true));
     	addParallel(new AutoFollowLine(DRIVE_LENGTH));
     	addSequential(new AutoGrabRecycling(3, 2));
     	addSequential(new AutoDrive(0, SLIDE_DISTANCE));
