@@ -200,12 +200,12 @@ public class Drivetrain extends Subsystem {
         	timer.stop();
         	right = false;
         	firstTime = true;
-        	turnTrack = -.5;
+        	turnTrack = -.3;
     	} else if(leftLineReadTrigger.getTriggerState() && !rightLineReadTrigger.getTriggerState()){
     		timer.stop();
     		right = true;
     		firstTime = true;
-    		turnTrack = .5;
+    		turnTrack = .3;
     	} else if(!rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()){
     		timer.stop();
             firstTime = true;
@@ -216,9 +216,9 @@ public class Drivetrain extends Subsystem {
                 firstTime = false;
     		}
     		if(right){
-                turnTrack = 2*timer.get();
+                turnTrack = 8*timer.get();
             } else{
-                turnTrack = -2*timer.get();
+                turnTrack = -8*timer.get();
             }
     	}
     	return turnTrack;     
@@ -231,7 +231,7 @@ public class Drivetrain extends Subsystem {
     		limit = (int)Preferences.getDouble("LineTrackerLimit");
     	} else{
     		limit = (leftLineReader.getValue() + rightLineReader.getValue())/2;
-    		SmartDashboard.putNumber("LineTracker Limit", limit);
+    		SmartDashboard.putNumber("LineTrackerLimit", limit);
     		Preferences.set("LineTrackerLimit", limit);
     	}
     	leftLineReadTrigger.setLimitsRaw(limit, limit);
