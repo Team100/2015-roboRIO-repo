@@ -7,7 +7,7 @@ import org.usfirst.frc100.Robot2015.Robot;
  * Autonomously turns to an angle in inches specified in the constructor
  * (relative to starting position). Uses PID.
  */
-public class  AutoTurn extends Command {
+public class AutoTurn extends Command {
 	
 	private final double angle;
 	

@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Uses line readers to follow the line autonomously.
  */
-public class  AutoFollowLine extends Command {
+public class AutoFollowLine extends Command {
 	
 	private final double distance;
 	

@@ -8,7 +8,7 @@ import org.usfirst.frc100.Robot2015.Preferences;
  * Read or writes the Preferences on either the SmartDashboard or the RoboRIO
  * file.
  */
-public class  SyncPreferences extends Command {
+public class SyncPreferences extends Command {
 
 	private final boolean read;
 	private final boolean fromFile;

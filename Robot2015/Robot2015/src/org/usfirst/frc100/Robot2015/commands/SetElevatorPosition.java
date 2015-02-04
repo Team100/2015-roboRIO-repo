@@ -8,7 +8,7 @@ import org.usfirst.frc100.Robot2015.Robot;
  * the lowest tote, 2 is the second tote on the stack, 3 is the 3rd tote on the
  * stack, etc. Uses PID.
  */
-public class  SetElevatorPosition extends Command {
+public class SetElevatorPosition extends Command {
 	
 	private int position;
 	

@@ -6,7 +6,7 @@ import org.usfirst.frc100.Robot2015.Robot;
 /**
  * Opens the claw and terminates immediately.
  */
-public class  OpenClaw extends Command {
+public class OpenClaw extends Command {
 
 	// Requires Claw subsystem
     public OpenClaw() {

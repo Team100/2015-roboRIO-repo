@@ -8,7 +8,7 @@ import org.usfirst.frc100.Robot2015.Robot;
 /**
  * Uses angle PID to slide in a straight line.
  */
-public class  SlideStraight extends Command {
+public class SlideStraight extends Command {
 
 	Joystick leftStick;
 	Joystick rightStick;
