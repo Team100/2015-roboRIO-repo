@@ -296,10 +296,7 @@ public class Drivetrain extends Subsystem {
     /**
      * Slides until the line is detected
      */
-    public void slideToLine(){
-    	boolean onLine;
-    	if(rightLineReadTrigger.getTriggerState()){
-    		
-    	}
+    public boolean onLine(){
+    	return !(rightLineReadTrigger.getTriggerState()|leftLineReadTrigger.getTriggerState());
     }
 }
