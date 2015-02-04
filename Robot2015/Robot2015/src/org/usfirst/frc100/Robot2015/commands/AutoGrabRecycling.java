@@ -16,7 +16,7 @@ public class AutoGrabRecycling extends Command {
      * @param containers - The number of containers to take before exit
      * @param time - The time to wait before starting
      */
-    public  AutoGrabRecycling(int containers, int time) {
+    public AutoGrabRecycling(int containers, int time) {
     	this.containers = containers;
     	this.time = time;
     }

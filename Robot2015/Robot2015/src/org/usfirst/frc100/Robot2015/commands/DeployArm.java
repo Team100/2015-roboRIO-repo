@@ -7,7 +7,7 @@ import org.usfirst.frc100.Robot2015.Robot;
  * Extends or retracts the autonomous arm, depending on the boolean value
  * specified in the constructor.
  */
-public class  DeployArm extends Command {
+public class DeployArm extends Command {
 	
 	private boolean extend;
     

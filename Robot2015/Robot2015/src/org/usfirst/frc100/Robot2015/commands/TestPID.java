@@ -9,7 +9,7 @@ import org.usfirst.frc100.Robot2015.Robot;
  * Causes the PID code for a specific subsystem to attempt to reach a value
  * specified on the SmartDashboard.
  */
-public class  TestPID extends Command {
+public class TestPID extends Command {
 	
 	private final System system;
 	private double target = 0;

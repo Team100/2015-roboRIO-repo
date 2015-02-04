@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * This class is used by the autonomous command groups to delay the execution of
  * commands.
  */
-public class  AutoDelay extends Command {
+public class AutoDelay extends Command {
 
 	private final double t;
 	private Timer timer = new Timer();

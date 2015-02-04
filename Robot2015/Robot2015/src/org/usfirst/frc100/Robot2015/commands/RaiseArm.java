@@ -9,7 +9,7 @@ import org.usfirst.frc100.Robot2015.Robot;
  * Raises or lowers the autonomous arm, depending on the boolean value
  * specified in the constructor.
  */
-public class  RaiseArm extends Command {
+public class RaiseArm extends Command {
 
 	private boolean isFinished = false;
 	private final boolean raise;
