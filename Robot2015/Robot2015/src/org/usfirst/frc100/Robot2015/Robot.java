@@ -61,12 +61,11 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
     	Scheduler.getInstance().removeAll();
-//        if(stealRecyclingDuringAuto){
-//        	new AutoTakeRecycling().start();
-//        } else {
-//        	new AutoStackTotes().start();
-//        }
-    	new AutoFollowLine(48).start();
+        if(stealRecyclingDuringAuto){
+        	new AutoTakeRecycling().start();
+        } else {
+        	new AutoStackTotes().start();
+        }
         new UpdateDashboard().start();
     }
 
