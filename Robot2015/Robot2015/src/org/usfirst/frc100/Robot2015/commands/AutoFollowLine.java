@@ -24,14 +24,14 @@ public class AutoFollowLine extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Preferences.set("LineTrackerLimit", 3600);
+    	Preferences.set("LineTrackLimit", 3550);
     	Robot.drivetrain.setLineTrackLimits();
     	Robot.drivetrain.setDistanceTarget(distance);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.drive(Robot.drivetrain.updateDistance(), 0, Robot.drivetrain.followLine());
+    	Robot.drivetrain.drive(-Robot.drivetrain.updateDistance(), 0, Robot.drivetrain.followLine());
     }
 
     // Make this return true when this Command no longer needs to run execute()

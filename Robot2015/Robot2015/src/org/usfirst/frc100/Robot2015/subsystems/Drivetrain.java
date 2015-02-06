@@ -43,6 +43,8 @@ public class Drivetrain extends Subsystem {
     private double previousTrueVelocity = 0;
     private double trueAcceleration = 0;
     private Timer timer = new Timer();
+    private boolean right = true;
+    private boolean firstTime = true;
     private PID distancePID = new PID("DriveDistance");
     private PID anglePID = new PID("DriveAngle");
     private PID slidePID = new PID("DriveSlide");
@@ -245,10 +247,11 @@ public class Drivetrain extends Subsystem {
      */
     public double followLine() {
         double turnTrack = 0;
-        boolean right = true;
-        boolean firstTime = true;
-        
-        if(rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()){
+        if(!rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()){
+    		timer.stop();
+            firstTime = true;
+    		turnTrack = 0;
+        } else if(rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()){
         	timer.stop();
         	right = false;
         	firstTime = true;
@@ -258,21 +261,18 @@ public class Drivetrain extends Subsystem {
     		right = true;
     		firstTime = true;
     		turnTrack = .3;
-    	} else if(!rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()){
-    		timer.stop();
-            firstTime = true;
-    		turnTrack = 0;
     	} else if(rightLineReadTrigger.getTriggerState() && leftLineReadTrigger.getTriggerState()){
     		if(firstTime){
                 timer.start();
                 firstTime = false;
     		}
     		if(right){
-                turnTrack = 8*timer.get();
+                turnTrack = 2*timer.get();
             } else{
-                turnTrack = -8*timer.get();
+                turnTrack = -2*timer.get();
             }
     	}
+        SmartDashboard.putNumber("TurnTrack", turnTrack);
     	return turnTrack;     
     }
     
@@ -282,12 +282,11 @@ public class Drivetrain extends Subsystem {
     public void setLineTrackLimits(){
     	int limit;
     	int diff = Math.abs(rightLineReader.getValue() - leftLineReader.getValue());
-    	if( diff < 50 ){
-    		limit = (int)Preferences.getDouble("LineTrackerLimit");
-    	} else{
+    	if( diff>80 && ((leftLineReader.getValue()+rightLineReader.getValue())/2)>3550){
     		limit = (leftLineReader.getValue() + rightLineReader.getValue())/2;
-    		SmartDashboard.putNumber("LineTrackerLimit", limit);
     		Preferences.set("LineTrackerLimit", limit);
+    	} else{
+    		limit = (int)Preferences.getDouble("LineTrackerLimit");
     	}
     	leftLineReadTrigger.setLimitsRaw(limit, limit);
     	rightLineReadTrigger.setLimitsRaw(limit, limit);
