@@ -7,12 +7,14 @@ import org.usfirst.frc100.Robot2015.Robot;
  * Autonomously drives a distance in inches specified in the constructor. Uses
  * PID.
  */
-public class  AutoDrive extends Command {
+public class AutoDrive extends Command {
 	
 	private final double distance;
 	private final double slide;
 
-	// Target distance in inches, requires Drivetrain
+	/**
+	 * @param distance - The distance to travel in inches
+	 */
     public AutoDrive(double distance) {
         this.distance = distance;
     	this.slide = 0;

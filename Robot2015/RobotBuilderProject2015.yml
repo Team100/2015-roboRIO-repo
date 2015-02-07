@@ -600,6 +600,30 @@ Children:
           default: '1'
           name: Button
           validators: null
+          value: '2'
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: *id023
+          value: AutoTurn
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id024
+          default: whileHeld
+          name: When to Run
+          validators: null
+          value: whileHeld
+      Base: Joystick Button
+      Name: QuickTurnButton
+    - Children: []
+      Properties:
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: RightJoystick}
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id022
+          default: '1'
+          name: Button
+          validators: null
           value: '1'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
@@ -760,7 +784,7 @@ Children:
           name: Command
           type: Command
           validators: *id023
-          value: ManualControl
+          value: ManipulatorManualControl
         When to Run: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id024
           default: whileHeld
@@ -973,27 +997,11 @@ Children:
   - Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: None}
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
-    Base: Command
-    Name: DropRecycling
-  - Children: []
-    Properties:
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Requires, type: Subsystem, validators: null, value: None}
-      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
-        name: Button on SmartDashboard, validators: null, value: true}
-    Base: Command
-    Name: GrabRecycling
-  - Children: []
-    Properties:
-      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Elevator}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
-    Name: ManualControl
+    Name: ManipulatorManualControl
   - Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
@@ -1042,12 +1050,42 @@ Children:
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
     Name: SyncPreferences
+  - Children: []
+    Properties:
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Drivetrain}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: AutoSlideToLine
+  - Children: []
+    Properties:
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: None}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: TestPID
+  - Children: []
+    Properties:
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Arm}
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: AutoGrabRecycling
+  - Children: []
+    Properties:
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command Group
+    Name: AutoDriveToMid
   Properties: {}
   Base: Commands
   Name: Commands
 Properties:
   Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: 'C:\Users\Fredrik\workspace',
-    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: 'Z:\Robotics\2015-roboRIO-repo\Robot2015'}
+    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: 'Z:\GitHub\2015-roboRIO-repo\Robot2015'}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
   Java Package: !!robotbuilder.data.properties.StringProperty {default: org.usfirst.frc0000,
