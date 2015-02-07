@@ -16,7 +16,7 @@ public class AutoTakeRecycling extends CommandGroup {
     	
     	addSequential(new AutoSlideToLine());
     	addParallel(new AutoFollowLine(DRIVE_LENGTH));
-    	addSequential(new AutoGrabRecycling(3, 0));
+    	addSequential(new AutoGrabRecycling(3));
     	addSequential(new AutoDrive(0, SLIDE_DISTANCE));
     }
 }

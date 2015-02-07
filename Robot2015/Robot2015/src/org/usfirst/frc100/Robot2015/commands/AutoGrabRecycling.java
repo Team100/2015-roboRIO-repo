@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutoGrabRecycling extends Command {
     private final int containers;
-    private final double time;
     private final double TIME_AFTER_INITIAL_DEPLOY;
     private final double TIME_AFTER_STAB;
     private final double TIME_AFTER_DEPLOY;
@@ -22,16 +21,14 @@ public class AutoGrabRecycling extends Command {
      * @param containers - The number of containers to take before exit
      * @param time - The time to wait before starting
      */
-    public  AutoGrabRecycling(int containers, int time) {
+    public  AutoGrabRecycling(int containers) {
     	TIME_AFTER_INITIAL_DEPLOY = Preferences.getDouble("AutoGrabRecycling_TIME_AFTER_1ST_DEPLOY");
     	TIME_AFTER_STAB = Preferences.getDouble("AutoGrabRecycling_TIME_AFTER_STAB");
     	TIME_AFTER_DEPLOY = Preferences.getDouble("AutoGrabRecycling_TIME_AFTER_2ND_DEPLOY");
     	this.containers = containers;
-    	this.time = time;
     }
 
 	public void initialize() {
-		Timer.delay(time);
 		Robot.arm.setDeploy(true);
 		Timer.delay(TIME_AFTER_INITIAL_DEPLOY);
 		Robot.arm.setStab(true);
