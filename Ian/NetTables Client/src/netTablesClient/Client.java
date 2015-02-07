@@ -20,10 +20,9 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 /**
  * A basic NetworkTables reading/file-writing client.
  * 
- * Make sure to look through the code and configure it. If the
- * client is only reading variables as "false" and "0.0", it's
- * probably not connected to the robot. This Program may take a
- * few seconds to start up.
+ * Make sure to look through the code and configure it. If the client is only
+ * reading variables as "false" and "0.0", it's probably not connected to the
+ * robot. This Program may take a few seconds to start up.
  * 
  * @Author Ian Smith
  */
@@ -37,13 +36,16 @@ public class Client {
 	// The default file name is "NetworkTables Data.csv".
 	public static final String CSV_FILE_NAME = "NetTables Csv Log";
 
+	// A boolean to turn off or on the GUI.
+	public static final boolean USE_GUI = true;
+
 	// The time between refreshes in milliseconds.
 	public static final long REFRESH_RATE = 1000;
 	// Put the roboRIO IP here.
 	public static final String IP = "10.1.0.2";
 	// Debug mode.
 	public static final boolean DEBUG_MODE = false;
-	
+
 	// GUI constants.
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 480;
@@ -77,10 +79,10 @@ public class Client {
 	// Constructs the .txt file writer.
 	FileWriter fCsvWriter;
 	BufferedWriter bCsvWriter;
-	
+
 	// Constructs PrintStream.
 	PrintStream printStream;
-	
+
 	// Constructs GUI components.
 	JFrame frame;
 	JTextArea textArea;
@@ -117,8 +119,10 @@ public class Client {
 
 		// If the files don't exist set their names, else change and repeat.
 		for (int copyNum = 1; txtFile.exists() && csvFile.exists(); copyNum++) {
-			txtFile = new File(FILE_PATH + TXT_FILE_NAME + " " + copyNum + ".txt");
-			csvFile = new File(FILE_PATH + CSV_FILE_NAME + " " + copyNum + ".csv");
+			txtFile = new File(FILE_PATH + TXT_FILE_NAME + " " + copyNum
+					+ ".txt");
+			csvFile = new File(FILE_PATH + CSV_FILE_NAME + " " + copyNum
+					+ ".csv");
 		}
 
 		try {
@@ -150,21 +154,22 @@ public class Client {
 
 	// Sets up the GUI and redirects the input streams.
 	public void setupGUI() {
-		
-		frame = new JFrame("NetTables Client");
-		textArea = new JTextArea();
-		
-		frame.add(new JScrollPane(textArea));
-		frame.setSize(WIDTH, HEIGHT);
-		textArea.setSize(WIDTH, HEIGHT);
-		textArea.setEditable(false);
-		textArea.setVisible(true);
-		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-		
-		printStream = new PrintStream(new CustomOutputStream(textArea));
-		System.setOut(printStream);
-		System.setErr(printStream);
+		if (USE_GUI) {
+			frame = new JFrame("NetTables Client");
+			textArea = new JTextArea();
+
+			frame.add(new JScrollPane(textArea));
+			frame.setSize(WIDTH, HEIGHT);
+			textArea.setSize(WIDTH, HEIGHT);
+			textArea.setEditable(false);
+			textArea.setVisible(true);
+			frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+			frame.setVisible(true);
+
+			printStream = new PrintStream(new CustomOutputStream(textArea));
+			System.setOut(printStream);
+			System.setErr(printStream);
+		}
 	}
 
 	// Prints the cycle and time.
@@ -253,7 +258,8 @@ public class Client {
 		try {
 			if (refreshCycle == 1) {
 				headerStr = Arrays.toString(csvHeader.toArray());
-				bCsvWriter.write(headerStr.substring(1, headerStr.length() - 1));
+				bCsvWriter
+						.write(headerStr.substring(1, headerStr.length() - 1));
 				bCsvWriter.newLine();
 			}
 			dataStr = Arrays.toString(csvData.toArray());
@@ -288,7 +294,7 @@ public class Client {
 
 		// Debug message.
 		debug("SETUP");
-		
+
 		// Sets up the GUI.
 		setupGUI();
 
@@ -308,7 +314,8 @@ public class Client {
 			try {
 				Thread.sleep(REFRESH_RATE);
 			} catch (InterruptedException ex) {
-				Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(Client.class.getName()).log(Level.SEVERE,
+						null, ex);
 			}
 
 			// Sets long currentTimeMillis.
@@ -339,15 +346,15 @@ public class Client {
 			// Gets data from the DriveTrain subsystem.
 			subsystem("DriveTrain");
 			getBool("DriveTrain High Gear");
-	        getNum("DriveTrain LeftEncoder");
-	        getNum("DriveTrain RightEncoder");
-	        getNum("DriveTrain Gyro");
-	        getNum("Left LineReader Value");
-	    	getNum("Right LineReader Value");        
-	        getBool("Left LineReader OnWhite");
-	    	getBool("Right LineReader OnWhite");
-	    	
-	    	// Acceleration code.
+			getNum("DriveTrain LeftEncoder");
+			getNum("DriveTrain RightEncoder");
+			getNum("DriveTrain Gyro");
+			getNum("Left LineReader Value");
+			getNum("Right LineReader Value");
+			getBool("Left LineReader OnWhite");
+			getBool("Right LineReader OnWhite");
+
+			// Acceleration code.
 			getNum("DriveTrain Acceleration Limit");
 			getNum("DriveTrain Interval");
 			getNum("DriveTrain Velocity"); // only applies to non-slide
