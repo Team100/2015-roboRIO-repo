@@ -255,21 +255,21 @@ public class Drivetrain extends Subsystem {
         	timer.stop();
         	right = false;
         	firstTime = true;
-        	turnTrack = -.3;
+        	turnTrack = -.5;
     	} else if(leftLineReadTrigger.getTriggerState() && !rightLineReadTrigger.getTriggerState()){
     		timer.stop();
     		right = true;
     		firstTime = true;
-    		turnTrack = .3;
+    		turnTrack = .5;
     	} else if(rightLineReadTrigger.getTriggerState() && leftLineReadTrigger.getTriggerState()){
     		if(firstTime){
                 timer.start();
                 firstTime = false;
     		}
     		if(right){
-                turnTrack = 2*timer.get();
+                turnTrack = .4*timer.get();
             } else{
-                turnTrack = -2*timer.get();
+                turnTrack = -.4*timer.get();
             }
     	}
         SmartDashboard.putNumber("TurnTrack", turnTrack);
