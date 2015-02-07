@@ -124,15 +124,17 @@ public class Elevator extends Subsystem {
 				activateBrake();
 			}
 		} else if (lowerLimit.get()) {
-			elevatorPID.setRelativeLocation(0);
 			if (speed > 0) {
 				releaseBrake();
 				motor.set(speed);
 			} else {
 				activateBrake();
 			}
+			elevatorPID.update(encoder.getDistance());
+			elevatorPID.setRelativeLocation(0);
 		}
 	}
+	
 	
 	/**
 	 * Updates the SmartDashboard
