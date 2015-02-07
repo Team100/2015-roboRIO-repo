@@ -4,15 +4,20 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
-/*
+/**
  * A basic NetworkTables reading/file-writing client.
  * 
  * Make sure to look through the code and configure it. If the
@@ -20,7 +25,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  * probably not connected to the robot. This Program may take a
  * few seconds to start up.
  * 
- * Code By Ian Smith
+ * @Author Ian Smith
  */
 public class Client {
 
@@ -38,6 +43,10 @@ public class Client {
 	public static final String IP = "10.1.0.2";
 	// Debug mode.
 	public static final boolean DEBUG_MODE = false;
+	
+	// GUI constants.
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 480;
 
 	// Data refresh cycle.
 	int refreshCycle = 1;
@@ -68,6 +77,13 @@ public class Client {
 	// Constructs the .txt file writer.
 	FileWriter fCsvWriter;
 	BufferedWriter bCsvWriter;
+	
+	// Constructs PrintStream.
+	PrintStream printStream;
+	
+	// Constructs GUI components.
+	JFrame frame;
+	JTextArea textArea;
 
 	// Runs the program.
 	public static void main(String[] args) {
@@ -101,10 +117,8 @@ public class Client {
 
 		// If the files don't exist set their names, else change and repeat.
 		for (int copyNum = 1; txtFile.exists() && csvFile.exists(); copyNum++) {
-			txtFile = new File(FILE_PATH + TXT_FILE_NAME + " " + copyNum
-					+ ".txt");
-			csvFile = new File(FILE_PATH + CSV_FILE_NAME + " " + copyNum
-					+ ".csv");
+			txtFile = new File(FILE_PATH + TXT_FILE_NAME + " " + copyNum + ".txt");
+			csvFile = new File(FILE_PATH + CSV_FILE_NAME + " " + copyNum + ".csv");
 		}
 
 		try {
@@ -132,6 +146,25 @@ public class Client {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	// Sets up the GUI and redirects the input streams.
+	public void setupGUI() {
+		
+		frame = new JFrame("NetTables Client");
+		textArea = new JTextArea();
+		
+		frame.add(new JScrollPane(textArea));
+		frame.setSize(WIDTH, HEIGHT);
+		textArea.setSize(WIDTH, HEIGHT);
+		textArea.setEditable(false);
+		textArea.setVisible(true);
+		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		
+		printStream = new PrintStream(new CustomOutputStream(textArea));
+		System.setOut(printStream);
+		System.setErr(printStream);
 	}
 
 	// Prints the cycle and time.
@@ -255,6 +288,9 @@ public class Client {
 
 		// Debug message.
 		debug("SETUP");
+		
+		// Sets up the GUI.
+		setupGUI();
 
 		// Sets up NetworkTable.
 		setupTable();
@@ -272,8 +308,7 @@ public class Client {
 			try {
 				Thread.sleep(REFRESH_RATE);
 			} catch (InterruptedException ex) {
-				Logger.getLogger(Client.class.getName()).log(Level.SEVERE,
-						null, ex);
+				Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
 			}
 
 			// Sets long currentTimeMillis.
