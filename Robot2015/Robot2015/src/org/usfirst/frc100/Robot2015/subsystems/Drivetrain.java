@@ -148,11 +148,15 @@ public class Drivetrain extends Subsystem {
     /**
      * Updates the drive PID
      */
-    public void updateAuto() {
+    public void updateAuto(boolean gradualDrive) {
     	distancePID.update((-leftEncoder.getDistance() + rightEncoder.getDistance()) /2);
     	slidePID.update(slideEncoder.getDistance());
     	anglePID.update(gyro.getAngle());
+    	if (gradualDrive) {
+    		gradualDrive(distancePID.getOutput(), slidePID.getOutput(), anglePID.getOutput());
+    	}else {
     	drive(distancePID.getOutput(), slidePID.getOutput(), anglePID.getOutput());
+    	}
     }
     
     /**
