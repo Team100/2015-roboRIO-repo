@@ -64,7 +64,7 @@ public class TestPID extends Command {
     	} else if(system == System.ARM) {
     		armDone = Robot.arm.updateArm();
     	} else {
-    		Robot.drivetrain.updateAuto();
+    		Robot.drivetrain.updateAuto(false);
     	}
     }
 
