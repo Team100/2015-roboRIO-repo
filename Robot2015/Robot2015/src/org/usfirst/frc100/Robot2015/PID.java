@@ -11,7 +11,8 @@ public class PID {
 
     private final String name; // The loop's unique identifier
     private double kP = 0.0, kI = 0.0, kD = 0.0, kF = 0.0; // PID constants
-    private double input = 0.0; // New value from sensor
+    private double input = 0.0; // Scaled value from sensor
+    private double sensorValue = 0.0; // Raw value from sensor
     private double target = 0.0; // Target for the PID loop
     private double offset = 0.0; // Offset from input value to the zero value
     private double error = 0.0; // Distance from target value
@@ -34,6 +35,8 @@ public class PID {
         SmartDashboard.putNumber(name + " kI", kI);
         SmartDashboard.putNumber(name + " kD", kD);
         SmartDashboard.putNumber(name + " kF", kF);
+    	SmartDashboard.putNumber(name + " TestTarget", 0);
+
         this.name = name;
         timer.start();
         displayData();
@@ -52,8 +55,9 @@ public class PID {
         Preferences.set(name + "_kI", kI);
         Preferences.set(name + "_kD", kD);
         Preferences.set(name + "_kF", kF);
+        sensorValue = newValue;
         interval = timer.get();
-        input = newValue * Preferences.getDouble(name + "SensorRatio") - offset;
+        input = sensorValue * Preferences.getDouble(name + "SensorRatio") - offset;
         lastError = error;
         error = target - input;
         if(Math.abs(output)<Preferences.getDouble(name + "IntegralLimit") && interval<1.0) totalError += error * interval;
@@ -127,6 +131,7 @@ public class PID {
         SmartDashboard.putNumber(name + " Output", output);
         SmartDashboard.putNumber(name + " Interval", interval);
         SmartDashboard.putNumber(name + " Rate", rate);
+        SmartDashboard.putNumber(name + " SensorValue", sensorValue);
         SmartDashboard.putNumber(name + " TotalError", totalError);
         SmartDashboard.putBoolean(name + " Reached Target", reachedTarget());
     }
