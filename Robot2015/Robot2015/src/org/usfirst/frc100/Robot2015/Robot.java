@@ -70,6 +70,9 @@ public class Robot extends IterativeRobot {
 		case 2:
 			new AutoTakeRecycling().start();
 			break;
+		default:
+			new AutoDrive(0, 0 , false).start();
+			break;
 //		case 15:
 //			new AutoDance(1).start();
 //			break;
