@@ -60,15 +60,20 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
     	Scheduler.getInstance().removeAll();
     	int modeSelect = oi.selector();
-    	switch(modeSelect) {
-    	case 0: new AutoTakeRecycling().start();
-    		break;
-    	case 1: new AutoStackTotes().start();
-    		break;
-    	case 2: new AutoDrive(24).start();	// the distance value might need to change
-    		break;
-    	case 3:
-    	}
+		switch (modeSelect) {
+		case 0:
+			new AutoDriveToMid().start();
+			break;
+		case 1:
+			new AutoStackTotes().start();
+			break;
+		case 2:
+			new AutoTakeRecycling().start();
+			break;
+//		case 15:
+//			new AutoDance(1).start();
+//			break;
+		}
 //        if(stealRecyclingDuringAuto){
 //        	new AutoTakeRecycling().start();
 //        } else {

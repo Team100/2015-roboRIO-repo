@@ -15,7 +15,7 @@ public class AutoDance extends CommandGroup {
     public  AutoDance(int danceNum) {
     	DANCE_NUM = danceNum;
     	switch (DANCE_NUM*0) {
-			case 1:
+			default:
 				addSequential(new AutoDrive(5));
 				addSequential(new AutoDrive(-5));
 				addSequential(new AutoDrive(0, 5));
