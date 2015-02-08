@@ -2,7 +2,8 @@
 *.class
 .repository
 .recommenders
-~
+*~
+*.swp
 build
 bin
 /Paul/Widgets2015/nbproject/private/
