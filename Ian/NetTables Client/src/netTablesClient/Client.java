@@ -28,6 +28,10 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  */
 public class Client {
 
+	/*
+	 * CONSTANTS HERE:
+	 */
+	
 	// Sets the place where the data file will be stored.//The default file name
 	// is "NetTables Data.txt".
 	public static final String FILE_PATH = "C:/Users/Public/Documents/";
@@ -35,7 +39,6 @@ public class Client {
 	public static final String TXT_FILE_NAME = "NetTables Txt Log";
 	// The default file name is "NetworkTables Data.csv".
 	public static final String CSV_FILE_NAME = "NetTables Csv Log";
-
 	// A boolean to turn off or on the GUI.
 	public static final boolean USE_GUI = true;
 
@@ -50,15 +53,16 @@ public class Client {
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 480;
 
+	/*
+	 * CHANGING VARIABLES HERE:
+	 */
+	
 	// Data refresh cycle.
 	int refreshCycle = 1;
 	// Current time in millis.
 	long currentTimeMillis;
 	// Current time in secs.
 	float currentTimeSecs;
-
-	// Constructs the table.
-	NetworkTable table;
 
 	// Creates a header array for the .csv file.
 	List<String> csvHeader = new ArrayList<String>();
@@ -68,7 +72,14 @@ public class Client {
 	List<String> csvData = new ArrayList<String>();
 	// Converts data array to string.
 	String dataStr;
-
+	
+	/*
+	 * CONSTRUCTORS HERE:
+	 */
+	
+	// Constructs the table.
+	NetworkTable table;
+	
 	// Constructs the .txt file.
 	File txtFile;
 	// Constructs the .csv file.
@@ -87,6 +98,10 @@ public class Client {
 	JFrame frame;
 	JTextArea textArea;
 
+	/* 
+	 * > PROGRAM METHODS HERE <
+	 */
+	
 	// Runs the program.
 	public static void main(String[] args) {
 		// Starts the desktop client.
