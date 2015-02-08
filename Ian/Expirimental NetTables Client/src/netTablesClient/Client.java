@@ -52,8 +52,8 @@ public class Client implements ITableListener {
 	public static final boolean DEBUG_MODE = false;
 
 	// GUI constants.
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 480;
+	public static final int WIDTH = 1000;
+	public static final int HEIGHT = 600;
 
 	/*
 	 * CHANGING VARIABLES HERE:
@@ -201,20 +201,6 @@ public class Client implements ITableListener {
 		}
 		dataArr.add(0, Integer.toString(refreshCycle));
 		dataArr.add(1, Float.toString(currentTimeSecs));
-		try {
-			// Writes the cycle to file.
-			bTxtWriter.write("Cycle: " + refreshCycle);
-			bTxtWriter.newLine();
-			// Writes secs since start to file.
-			bTxtWriter.write("Secs since start: " + currentTimeSecs);
-			bTxtWriter.newLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		// Print cycles.
-		System.out.println("Cycle: " + refreshCycle);
-		// Print secs since start.
-		System.out.println("Time (Secs): " + currentTimeSecs);
 	}
 
 	// Prints Current Subsystem.
@@ -236,7 +222,7 @@ public class Client implements ITableListener {
 		System.out.println(subsystem + " Subsystem:");
 	}
 
-	// Updates the files and consoles.
+	// Updates the files and console.
 	public void update() {
 		for (int i = 0; i < keyArr.size(); i++) {
 			try {
@@ -340,6 +326,8 @@ public class Client implements ITableListener {
 			cycleTime();
 
 			debug("CYCLE");
+			
+			update();
 
 			// Writes .csv arrays to the file.
 			writeCsv();
