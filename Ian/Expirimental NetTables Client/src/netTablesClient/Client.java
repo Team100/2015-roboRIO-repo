@@ -16,6 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.tables.ITable;
+import edu.wpi.first.wpilibj.tables.ITableListener;
 
 /**
  * A basic NetworkTables reading/file-writing client.
@@ -26,12 +28,12 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  * 
  * @Author Ian Smith
  */
-public class Client {
+public class Client implements ITableListener {
 
 	/*
 	 * CONSTANTS HERE:
 	 */
-	
+
 	// Sets the place where the data file will be stored.//The default file name
 	// is "NetTables Data.txt".
 	public static final String FILE_PATH = "C:/Users/Public/Documents/";
@@ -56,30 +58,32 @@ public class Client {
 	/*
 	 * CHANGING VARIABLES HERE:
 	 */
-	
+
 	// Data refresh cycle.
 	int refreshCycle = 1;
 	// Current time in millis.
 	long currentTimeMillis;
 	// Current time in secs.
 	float currentTimeSecs;
+	// set To True When running.
+	boolean isRunning = true;
 
 	// Creates a header array for the .csv file.
-	List<String> csvHeader = new ArrayList<String>();
+	List<String> keyArr = new ArrayList<String>();
 	// Converts header array to string.
-	String headerStr;
+	String keyStr;
 	// Creates a data array for the .csv file
-	List<String> csvData = new ArrayList<String>();
+	List<String> dataArr = new ArrayList<String>();
 	// Converts data array to string.
 	String dataStr;
-	
+
 	/*
 	 * CONSTRUCTORS HERE:
 	 */
-	
+
 	// Constructs the table.
 	NetworkTable table;
-	
+
 	// Constructs the .txt file.
 	File txtFile;
 	// Constructs the .csv file.
@@ -98,10 +102,10 @@ public class Client {
 	JFrame frame;
 	JTextArea textArea;
 
-	/* 
+	/*
 	 * > PROGRAM METHODS HERE <
 	 */
-	
+
 	// Runs the program.
 	public static void main(String[] args) {
 		// Starts the desktop client.
@@ -123,6 +127,8 @@ public class Client {
 		NetworkTable.setIPAddress(IP);
 		// Constructs a NetworkTable called "table".
 		table = NetworkTable.getTable("SmartDashboard");
+		// Adds a table listener.
+		table.addTableListener(Client.this, true);
 	}
 
 	// Sets up the files.
@@ -190,11 +196,11 @@ public class Client {
 	// Prints the cycle and time.
 	public void cycleTime() {
 		if (refreshCycle == 1) {
-			csvHeader.add("Cycle:");
-			csvHeader.add("Time (Secs):");
+			keyArr.add("Cycle:");
+			keyArr.add("Time (Secs):");
 		}
-		csvData.add(0, Integer.toString(refreshCycle));
-		csvData.add(1, Float.toString(currentTimeSecs));
+		dataArr.add(0, Integer.toString(refreshCycle));
+		dataArr.add(1, Float.toString(currentTimeSecs));
 		try {
 			// Writes the cycle to file.
 			bTxtWriter.write("Cycle: " + refreshCycle);
@@ -215,7 +221,7 @@ public class Client {
 	public void subsystem(String subsystem) {
 		// Adds subsystem to .csv file.
 		if (refreshCycle == 1) {
-			csvHeader.add(subsystem.toUpperCase() + " SUBSYSTEM");
+			keyArr.add(subsystem.toUpperCase() + " SUBSYSTEM");
 		}
 		try {
 			bTxtWriter.newLine();
@@ -224,63 +230,39 @@ public class Client {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		csvData.add("<" + subsystem.toUpperCase() + ">");
+		dataArr.add("<" + subsystem.toUpperCase() + ">");
 		debug(subsystem.toUpperCase() + " SUBSYSTEM");
 		System.out.println();
 		System.out.println(subsystem + " Subsystem:");
 	}
 
-	// Gets Dashboard booleans.
-	public void getBool(String key) {
-		if (refreshCycle == 1) {
-			csvHeader.add(key + ":");
+	// Updates the files and consoles.
+	public void update() {
+		for (int i = 0; i < keyArr.size(); i++) {
+			try {
+				// Write data to .txt file.
+				bTxtWriter.write(keyArr.get(i) + ": " + dataArr.get(i));
+				bTxtWriter.newLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			// Prints data.
+			System.out.println(keyArr.get(i) + ": " + dataArr.get(i));
 		}
-		boolean bool = table.getBoolean(key, false);
-		String strBool = Boolean.toString(bool);
-		csvData.add(strBool);
-		try {
-			// Write data to .txt file.
-			bTxtWriter.write(key + ": " + bool);
-			bTxtWriter.newLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		// Prints data.
-		System.out.println(key + ": " + bool);
-	}
-
-	// Gets Dashboard doubles.
-	public void getNum(String key) {
-		if (refreshCycle == 1) {
-			csvHeader.add(key + ":");
-		}
-		double num = table.getNumber(key, 0.0);
-		String strNum = Double.toString(num);
-		csvData.add(strNum);
-		try {
-			// Write data to .txt file.
-			bTxtWriter.write(key + ": " + num);
-			bTxtWriter.newLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		// Prints data.
-		System.out.println(key + ": " + num);
 	}
 
 	// Writes data to .csv file.
 	public void writeCsv() {
 		try {
 			if (refreshCycle == 1) {
-				headerStr = Arrays.toString(csvHeader.toArray());
-				bCsvWriter
-						.write(headerStr.substring(1, headerStr.length() - 1));
+				keyStr = Arrays.toString(keyArr.toArray());
+				bCsvWriter.write(keyStr.substring(1, keyStr.length() - 1));
 				bCsvWriter.newLine();
 			}
-			dataStr = Arrays.toString(csvData.toArray());
+			dataStr = Arrays.toString(dataArr.toArray());
 			bCsvWriter.write(dataStr.substring(1, dataStr.length() - 1));
-			// Resets csvData.
-			csvData.clear();
+			// Resets dataArr.
+			dataArr.clear();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -304,6 +286,16 @@ public class Client {
 		System.out.println();
 	}
 
+	// Automatically updates Dashboard values.
+	@Override
+	public void valueChanged(ITable source, String key, Object value, boolean isNew) {
+		if (isRunning && refreshCycle == 1) {
+			keyArr.add(key);
+		}
+
+		dataArr.set(keyArr.indexOf(key), (String) value);
+	}
+
 	// Method that runs the client.
 	public void run() {
 
@@ -321,6 +313,9 @@ public class Client {
 
 		// Start time.
 		final long START_TIME = System.currentTimeMillis();
+
+		// Sets is running to true.
+		isRunning = true;
 
 		// Refresh loop.
 		while (true) {
@@ -345,42 +340,6 @@ public class Client {
 			cycleTime();
 
 			debug("CYCLE");
-
-			// Gets data from the Arm subsystem.
-			subsystem("Arm");
-			getBool("Arm Grabbing");
-			getBool("Arm Container Sensor");
-			getBool("Arm Forward Limit");
-			getBool("Arm Back Limit");
-			getNum("Arm Potentiometer");
-
-			// Gets data from the Claw subsystem.
-			subsystem("Claw");
-			getBool("Claw Closed");
-
-			// Gets data from the DriveTrain subsystem.
-			subsystem("DriveTrain");
-			getBool("DriveTrain High Gear");
-			getNum("DriveTrain LeftEncoder");
-			getNum("DriveTrain RightEncoder");
-			getNum("DriveTrain Gyro");
-			getNum("Left LineReader Value");
-			getNum("Right LineReader Value");
-			getBool("Left LineReader OnWhite");
-			getBool("Right LineReader OnWhite");
-
-			// Acceleration code.
-			getNum("DriveTrain Acceleration Limit");
-			getNum("DriveTrain Interval");
-			getNum("DriveTrain Velocity"); // only applies to non-slide
-			getNum("DriveTrain Acceleration");
-
-			// Gets data from the Elevator subsystem.
-			subsystem("Elevator");
-			getBool("Elevator Upper Limit");
-			getBool("Elevator Lower Limit");
-			getBool("ELevator Brake");
-			getNum("Elevator Encoder");
 
 			// Writes .csv arrays to the file.
 			writeCsv();
