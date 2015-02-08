@@ -61,6 +61,14 @@ public class Arm extends Subsystem {
     	}
     }
     
+    public void toggleStab() {
+    	if (stabPiston.get() == DoubleSolenoid.Value.kForward) {
+    		stabPiston.set(DoubleSolenoid.Value.kReverse);
+    	} else {
+    		stabPiston.set(DoubleSolenoid.Value.kForward);
+    	}
+    }
+    
     /**
      * Sets the arm to extend or retract the grabbing mechanism
      * @param extend whether the grabber should be extended or retracted
@@ -70,6 +78,17 @@ public class Arm extends Subsystem {
     		deployPiston.set(DoubleSolenoid.Value.kForward);
     	} else {
     		deployPiston.set(DoubleSolenoid.Value.kReverse);
+    	}
+    }
+    
+    /**
+     * Toggles the deploy piston
+     */
+    public void toggleDeploy() {
+    	if (deployPiston.get() == DoubleSolenoid.Value.kForward) {
+    		deployPiston.set(DoubleSolenoid.Value.kReverse);
+    	} else {
+    		deployPiston.set(DoubleSolenoid.Value.kForward);
     	}
     }
     
