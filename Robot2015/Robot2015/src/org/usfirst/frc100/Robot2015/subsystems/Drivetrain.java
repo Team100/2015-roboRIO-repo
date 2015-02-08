@@ -246,11 +246,23 @@ public class Drivetrain extends Subsystem {
     }
     
     /**
-     * Follows the line of tape
+     * Calculates angle output based on current PID output
      * @return The calculated angle output
+     */
+    private double calculateLineTrackTurn(){
+    	double distOutput = distancePID.getOutput();
+    	if(distOutput > 1){
+    		distOutput = 1;
+    	}
+    	return (-.3*distOutput + .55);
+    }
+    /**
+     * Follows the line of tape
+     * @return The specific angle output for each case
      */
     public double followLine() {
         double turnTrack = 0;
+        double rawTurnValue = calculateLineTrackTurn();
         if(!rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()){
     		timer.stop();
             firstTime = true;
@@ -259,21 +271,21 @@ public class Drivetrain extends Subsystem {
         	timer.stop();
         	right = false;
         	firstTime = true;
-        	turnTrack = -.5;
+        	turnTrack = -rawTurnValue;
     	} else if(leftLineReadTrigger.getTriggerState() && !rightLineReadTrigger.getTriggerState()){
     		timer.stop();
     		right = true;
     		firstTime = true;
-    		turnTrack = .5;
+    		turnTrack = rawTurnValue;
     	} else if(rightLineReadTrigger.getTriggerState() && leftLineReadTrigger.getTriggerState()){
     		if(firstTime){
                 timer.start();
                 firstTime = false;
     		}
     		if(right){
-                turnTrack = .4*timer.get();
+                turnTrack = 2*rawTurnValue*timer.get();
             } else{
-                turnTrack = -.4*timer.get();
+                turnTrack = -2*rawTurnValue*timer.get();
             }
     	}
         SmartDashboard.putNumber("TurnTrack", turnTrack);
