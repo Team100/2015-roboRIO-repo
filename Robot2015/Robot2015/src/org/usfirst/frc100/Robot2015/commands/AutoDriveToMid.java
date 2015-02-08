@@ -15,7 +15,7 @@ import org.usfirst.frc100.Robot2015.Preferences;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * Tells the robot to drive to the middle using the drive motors and slide motor
  */
 public class AutoDriveToMid extends CommandGroup {
     
