@@ -1,0 +1,15 @@
+.metadata
+*.class
+.repository
+.recommenders
+~
+build
+bin
+<<<<<<< HEAD
+.project
+*~
+*.swp
+=======
+/Paul/Widgets2015/nbproject/private/
+/Paul/Widgets2015/dist/
+>>>>>>> origin/master
