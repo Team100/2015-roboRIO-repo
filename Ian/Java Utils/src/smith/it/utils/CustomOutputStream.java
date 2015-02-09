@@ -1,4 +1,4 @@
-package customOuttputStream;
+package smith.it.utils;
 
 import java.io.IOException;
 import java.io.OutputStream;
