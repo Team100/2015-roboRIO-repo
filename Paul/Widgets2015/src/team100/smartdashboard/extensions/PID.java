@@ -4,7 +4,6 @@ import java.awt.FlowLayout;
 import edu.wpi.first.smartdashboard.gui.StaticWidget;
 import edu.wpi.first.smartdashboard.gui.Widget;
 import edu.wpi.first.smartdashboard.gui.elements.BooleanBox;
-import edu.wpi.first.smartdashboard.gui.elements.Command;
 import edu.wpi.first.smartdashboard.gui.elements.LinePlot;
 import edu.wpi.first.smartdashboard.gui.elements.TextBox;
 import edu.wpi.first.smartdashboard.properties.Property;
@@ -52,7 +51,7 @@ public class PID extends StaticWidget {
             for(int i=0; i<boxes.length; i++){
                 TextBox box = new TextBox();
                 boxes[i] = box;
-                addWidget(box, name+boxNames[i], p1, DataType.NUMBER);
+                    addWidget(box, name+boxNames[i], p1, DataType.NUMBER);
                 if(t.containsKey(name+boxNames[i])){
                     box.setValue(t.getNumber(name+boxNames[i]));
                 } else {
@@ -78,7 +77,7 @@ public class PID extends StaticWidget {
 
     @Override
     public void init() {
-        setPreferredSize(new Dimension(850, 475));
+        setPreferredSize(new Dimension(825, 425));
         setLayout(new FlowLayout());
         GridLayout g = new GridLayout(4,4);
         g.setHgap(5);
@@ -113,9 +112,19 @@ public class PID extends StaticWidget {
         t.addTableListener(new ITableListener(){
             @Override
             public void valueChanged(ITable itable, String string, Object o, boolean bln) {
+                System.out.println("pidtable");
                 for(int i=0; i<boxes.length; i++){
                     if(string.equals(name+boxNames[i])){
                         boxes[i].setValue(o);
+                        if(i<4){
+                            try{
+                                if(t.getSubTable("Preferences").getNumber(name+boxNames[i])!=(double)o){
+                                    t.getSubTable("Preferences").putNumber(string, (double) o);
+                                }
+                            } catch (Exception e){
+                                t.getSubTable("Preferences").putNumber(string, 0);
+                            }
+                        }
                     }
                 }
                 if(string.equals(name+"Error")){
@@ -124,6 +133,19 @@ public class PID extends StaticWidget {
                     outputPlot.setValue(o);
                 } else if(string.equals(name+"ReachedTarget")){
                     reachedTarget.setValue(o);
+                }
+            }
+        });
+        t.getSubTable("Preferences").addTableListener(new ITableListener() {
+            @Override
+            public void valueChanged(ITable itable, String string, Object o, boolean bln) {
+                System.out.println("preftableinPID");
+                for(int i=0; i<4; i++){
+                    if(string.equals(name+boxNames[i])){
+                        
+                            boxes[i].setValue(o);
+                        
+                    }
                 }
             }
         });

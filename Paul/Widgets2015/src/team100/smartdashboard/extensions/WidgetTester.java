@@ -10,11 +10,11 @@ import javax.swing.JFrame;
 public class WidgetTester {
     public static void main(String[] args){
         JFrame f = new JFrame();
-        f.setSize(1000,1000);
+        f.setSize(450,100);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PID pid = new PID();
-        pid.init();
-        f.add(pid);
+        Preferences pref = new Preferences();
+        pref.init();
+        f.add(pref);
         f.setVisible(true);
     }
 }
