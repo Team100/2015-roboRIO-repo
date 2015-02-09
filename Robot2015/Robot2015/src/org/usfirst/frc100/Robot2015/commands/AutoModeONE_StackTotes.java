@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////////////
+//                     TEST ON MAIN ROBOT                     //
+////////////////////////////////////////////////////////////////
+
 package org.usfirst.frc100.Robot2015.commands;
 
 import org.usfirst.frc100.Robot2015.Preferences;
@@ -6,13 +10,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  * Autonomous mode that picks up all 3 yellow totes and stacks them in the auto zone.
  */
-public class AutoStackTotes extends CommandGroup {
+public class AutoModeONE_StackTotes extends CommandGroup {
 	
 	private final double DISTANCE_TO_TOTE;
 	private final double DISTANCE_FORWARD;
 	private final double DISTANCE_TO_SCORING;
 	
-    public AutoStackTotes() {
+    public AutoModeONE_StackTotes() {
     	DISTANCE_TO_TOTE = Preferences.getDouble("AutoStackTotesDistanceToTote");
     	DISTANCE_FORWARD = Preferences.getDouble("AutoStackTotesDistanceForward");
     	DISTANCE_TO_SCORING = Preferences.getDouble("AutoStackTotesDistanceToScoring");

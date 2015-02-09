@@ -1,3 +1,9 @@
+////////////////////////////////////////////////////////////////
+//                     TEST ON MAIN ROBOT                     //
+//  Find the fastest the robot can go while still being able  //
+//                  to detect the line                        //
+////////////////////////////////////////////////////////////////
+
 package org.usfirst.frc100.Robot2015.commands;
 
 import edu.wpi.first.wpilibj.command.Command;

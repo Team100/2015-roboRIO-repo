@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////////////
+//                     TEST ON MAIN ROBOT                     //
+////////////////////////////////////////////////////////////////
+
 package org.usfirst.frc100.Robot2015.commands;
 import org.usfirst.frc100.Robot2015.Preferences;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -5,12 +9,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  * Autonomous mode that moves all of the recycling bins onto our side of the field.
  */
-public class AutoTakeRecycling extends CommandGroup {
+public class AutoModeTWO_TakeRecycling extends CommandGroup {
     
 	private final double SLIDE_DISTANCE;
 	private final double DRIVE_LENGTH;
 	
-    public  AutoTakeRecycling() {
+    public  AutoModeTWO_TakeRecycling() {
     	DRIVE_LENGTH = Preferences.getDouble("AutoTakeRecycling_DriveLength");
     	SLIDE_DISTANCE = Preferences.getDouble("AutoTakeRecycling_SlideDistance");
     	

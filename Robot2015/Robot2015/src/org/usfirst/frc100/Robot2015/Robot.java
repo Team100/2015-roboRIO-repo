@@ -1,6 +1,7 @@
 package org.usfirst.frc100.Robot2015;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -62,13 +63,13 @@ public class Robot extends IterativeRobot {
     	int modeSelect = oi.selector();
 		switch (modeSelect) {
 		case 0:
-			new AutoDriveToMid().start();
+			new AutoDrive(12.0, 0.0, false).start(); //Actual arguments to be determined
 			break;
 		case 1:
-			new AutoStackTotes().start();
+			new AutoModeONE_StackTotes().start();
 			break;
 		case 2:
-			new AutoTakeRecycling().start();
+			new AutoModeTWO_TakeRecycling().start();
 			break;
 		default:
 			new AutoDrive(0, 0 , false).start();
