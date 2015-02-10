@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -33,7 +34,7 @@ public class Preferences {
         	keys.add(name);
         	values.add(value+"");
         }
-        SmartDashboard.putString("Preferences/" + name, value+"");
+        NetworkTable.getTable("Preferences").putString(name, value+"");
     }
 
     /**
@@ -124,11 +125,9 @@ public class Preferences {
 				}
 				if(line.contains(" ")){
 					int spaceIndex = line.indexOf(" ");
-					keys.add(line.substring(0, spaceIndex));
-					values.add(line.substring(spaceIndex+1, line.length()));
+					set(line.substring(0, spaceIndex), line.substring(spaceIndex+1, line.length()));
 				} else {
-					keys.add(line);
-					values.add("");
+					set(line, "");
 				}
 				if(DEBUG_MODE) System.out.println(line);
 			}

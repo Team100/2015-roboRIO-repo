@@ -117,7 +117,7 @@ public class Elevator extends Subsystem {
 	 * @param speed - The motor output
 	 */
 	public void manualControl(double speed) {
-		if (!upperLimit.get() && !lowerLimit.get()) {
+		if (upperLimit.get() && lowerLimit.get()) {
 			releaseBrake();
 			motor.set(speed);
 		} else if (upperLimit.get()) {

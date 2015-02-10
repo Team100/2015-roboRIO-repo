@@ -40,7 +40,8 @@ public class PID extends StaticWidget {
     
     private String name = "Default ";
     public final StringProperty loopName = new StringProperty(this, "LoopName", name);
-    private final  NetworkTable t = NetworkTable.getTable("SmartDashboard");
+    private final  NetworkTable sd = NetworkTable.getTable("SmartDashboard");
+    private final  NetworkTable prefs = NetworkTable.getTable("Preferences");
 
     @Override
     public void propertyChanged(Property prop) {
@@ -52,12 +53,13 @@ public class PID extends StaticWidget {
                 TextBox box = new TextBox();
                 boxes[i] = box;
                     addWidget(box, name+boxNames[i], p1, DataType.NUMBER);
-                if(t.containsKey(name+boxNames[i])){
-                    box.setValue(t.getNumber(name+boxNames[i]));
+                if(sd.containsKey(name+boxNames[i])){
+                    box.setValue(sd.getNumber(name+boxNames[i]));
                 } else {
                     box.setValue(0);
                 }
-                if(i>3&&i<12) box.editable.setValue(false);
+                if (i < 4) boxes[i].setValue(prefs.getNumber((name + boxNames[i]).replace(" ", "_")));
+                if (i>3&&i<12) box.editable.setValue(false);
             }
             
             p1.add(testPID);
@@ -65,8 +67,8 @@ public class PID extends StaticWidget {
 
             reachedTarget = new BooleanBox();
             addWidget(reachedTarget, name+"ReachedTarget", p1, DataType.BOOLEAN);
-            if(t.containsKey(name+"ReachedTarget")){
-                reachedTarget.setValue(t.getBoolean(name+"ReachedTarget"));
+            if(sd.containsKey(name+"ReachedTarget")){
+                reachedTarget.setValue(sd.getBoolean(name+"ReachedTarget"));
             } else {
                 reachedTarget.setValue(false);
             }
@@ -95,8 +97,8 @@ public class PID extends StaticWidget {
         testPID.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(t.containsSubTable("Test "+name+"PID")) {
-                    ITable t2 = t.getSubTable("Test "+name+"PID");
+                if(sd.containsSubTable("Test "+name+"PID")) {
+                    ITable t2 = sd.getSubTable("Test "+name+"PID");
                     t2.putBoolean("running", !t2.getBoolean("running"));
                     if(t2.getBoolean("running")){
                         testPID.setText("Cancel PID");
@@ -109,42 +111,36 @@ public class PID extends StaticWidget {
         add(p1);
         add(p2);
         propertyChanged(loopName);
-        t.addTableListener(new ITableListener(){
+        sd.addTableListener(new ITableListener(){
             @Override
-            public void valueChanged(ITable itable, String string, Object o, boolean bln) {
-                System.out.println("pidtable");
+            public void valueChanged(ITable itable, String key, Object value, boolean bln) {
                 for(int i=0; i<boxes.length; i++){
-                    if(string.equals(name+boxNames[i])){
-                        boxes[i].setValue(o);
-                        if(i<4){
+                    if(key.equals(name+boxNames[i])){
+                        boxes[i].setValue(value);
+                        if(i<4&&!value.equals(prefs.getNumber(key))){
                             try{
-                                if(t.getSubTable("Preferences").getNumber(name+boxNames[i])!=(double)o){
-                                    t.getSubTable("Preferences").putNumber(string, (double) o);
-                                }
+                                prefs.putNumber(key, (double) value);
                             } catch (Exception e){
-                                t.getSubTable("Preferences").putNumber(string, 0);
+                                prefs.putNumber(key, 0);
                             }
                         }
                     }
                 }
-                if(string.equals(name+"Error")){
-                    errorPlot.setValue(o);
-                } else if(string.equals(name+"Output")){
-                    outputPlot.setValue(o);
-                } else if(string.equals(name+"ReachedTarget")){
-                    reachedTarget.setValue(o);
+                if(key.equals(name+"Error")){
+                    errorPlot.setValue(value);
+                } else if(key.equals(name+"Output")){
+                    outputPlot.setValue(value);
+                } else if(key.equals(name+"ReachedTarget")){
+                    reachedTarget.setValue(value);
                 }
             }
         });
-        t.getSubTable("Preferences").addTableListener(new ITableListener() {
+        prefs.addTableListener(new ITableListener() {
             @Override
             public void valueChanged(ITable itable, String string, Object o, boolean bln) {
-                System.out.println("preftableinPID");
                 for(int i=0; i<4; i++){
-                    if(string.equals(name+boxNames[i])){
-                        
-                            boxes[i].setValue(o);
-                        
+                    if(string.equals((name+boxNames[i]).replace(" ", "_"))){
+                        boxes[i].setValue(o);
                     }
                 }
             }

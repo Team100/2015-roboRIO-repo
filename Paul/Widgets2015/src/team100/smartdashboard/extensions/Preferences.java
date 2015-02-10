@@ -23,7 +23,7 @@ public class Preferences extends StaticWidget {
     private final JComboBox box = new JComboBox();
     private final JTextField field = new JTextField();
     private final NetworkTable sd = NetworkTable.getTable("SmartDashboard");
-    private final ITable table = NetworkTable.getTable("SmartDashboard").getSubTable("Preferences");
+    private final ITable table = NetworkTable.getTable("Preferences");
 
     @Override
     public void init() {

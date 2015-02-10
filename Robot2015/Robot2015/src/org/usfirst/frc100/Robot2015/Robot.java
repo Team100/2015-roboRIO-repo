@@ -94,7 +94,7 @@ public class Robot extends IterativeRobot {
     public void teleopInit() {
     	Scheduler.getInstance().removeAll();
         new UpdateDashboard().start();
-        new AutoCalibrateElevator().start();
+//        new AutoCalibrateElevator().start();
     }
 
     public void teleopPeriodic() {
