@@ -18,6 +18,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -41,7 +43,7 @@ public class PID extends StaticWidget {
     private String name = "Default ";
     public final StringProperty loopName = new StringProperty(this, "LoopName", name);
     private final  NetworkTable sd = NetworkTable.getTable("SmartDashboard");
-    private final  NetworkTable prefs = NetworkTable.getTable("Preferences");
+//    private final  NetworkTable prefs = NetworkTable.getTable("Preferences");
 
     @Override
     public void propertyChanged(Property prop) {
@@ -58,7 +60,8 @@ public class PID extends StaticWidget {
                 } else {
                     box.setValue(0);
                 }
-                if (i < 4) boxes[i].setValue(prefs.getNumber((name + boxNames[i]).replace(" ", "_")));
+                String prefKey = (name + boxNames[i]).replace(" ", "_");
+//                if(prefs.containsKey(prefKey)&&i < 4) boxes[i].setValue(prefs.getValue(prefKey));
                 if (i>3&&i<12) box.editable.setValue(false);
             }
             
@@ -111,19 +114,22 @@ public class PID extends StaticWidget {
         add(p1);
         add(p2);
         propertyChanged(loopName);
+        // Listen for new SD data
         sd.addTableListener(new ITableListener(){
             @Override
             public void valueChanged(ITable itable, String key, Object value, boolean bln) {
                 for(int i=0; i<boxes.length; i++){
                     if(key.equals(name+boxNames[i])){
+//                        System.out.println("SD changed: "+key+" "+value);
                         boxes[i].setValue(value);
-                        if(i<4&&!value.equals(prefs.getNumber(key))){
-                            try{
-                                prefs.putNumber(key, (double) value);
-                            } catch (Exception e){
-                                prefs.putNumber(key, 0);
-                            }
-                        }
+//                        String prefKey = key.replace(" ", "_");
+//                        if(i<4&&prefs.containsKey(prefKey)&&!value.equals(prefs.getValue(prefKey))){
+//                            try {
+//                                prefs.putNumber(prefKey, (double) value);
+//                            } catch (Exception e){
+//                                prefs.putNumber(prefKey, 0);
+//                            }
+//                        }
                     }
                 }
                 if(key.equals(name+"Error")){
@@ -135,16 +141,22 @@ public class PID extends StaticWidget {
                 }
             }
         });
-        prefs.addTableListener(new ITableListener() {
-            @Override
-            public void valueChanged(ITable itable, String string, Object o, boolean bln) {
-                for(int i=0; i<4; i++){
-                    if(string.equals((name+boxNames[i]).replace(" ", "_"))){
-                        boxes[i].setValue(o);
-                    }
-                }
-            }
-        });
+//        //Listen for external preference modification
+//        prefs.addTableListener(new ITableListener() {
+//            @Override
+//            public void valueChanged(ITable itable, String string, Object o, boolean bln) {
+//                for(int i=0; i<4; i++){
+//                    System.out.println("Pref changed: "+string+" "+o);
+//                    System.out.println("prefKey: "+(name+boxNames[i]).replace(" ", "_"));
+//                    if(string.equals((name+boxNames[i]).replace(" ", "_"))&&!o.equals(sd.getValue(name+boxNames[i]))){
+//                        System.out.println("Made it!");
+//                        boxes[i].setValue(o);
+//                        sd.putNumber((name+boxNames[i]), Double.parseDouble(o+""));
+//                        System.out.println(sd.getNumber(name+boxNames[i]));
+//                    }
+//                }
+//            }
+//        });
     }
 
     @Override
