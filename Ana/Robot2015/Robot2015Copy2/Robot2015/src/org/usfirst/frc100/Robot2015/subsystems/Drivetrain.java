@@ -243,13 +243,14 @@ public class Drivetrain extends Subsystem {
     
     /**
      * Calculates angle output based on current PID output
+     * @return The calculated angle output
      */
     private double calculateLineTrackTurn(){
     	double distOutput = distancePID.getOutput();
     	if(distOutput > 1){
     		distOutput = 1;
     	}
-    	return (-.6 + Math.pow(distOutput + 1, -1/2));
+    	return (-.3*distOutput + .55);
     }
     /**
      * Follows the line of tape
