@@ -60,24 +60,24 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
     	Scheduler.getInstance().removeAll();
-    	int modeSelect = oi.selector();
-		switch (modeSelect) {
-		case 0:
-			new AutoDrive(12.0, 0.0, false).start(); //Actual arguments to be determined
-			break;
-		case 1:
-			new AutoModeONE_StackTotes().start();
-			break;
-		case 2:
-			new AutoModeTWO_TakeRecycling().start();
-			break;
-		default:
-			new AutoDrive(0, 0 , false).start();
-			break;
-//		case 15:
-//			new AutoDance(1).start();
+//    	int modeSelect = oi.selector();
+//		switch (modeSelect) {
+//		case 0:
+//			new AutoDrive(12.0, 0.0, false).start(); //Actual arguments to be determined
 //			break;
-		}
+//		case 1:
+//			new AutoModeONE_StackTotes().start();
+//			break;
+//		case 2:
+//			new AutoModeTWO_TakeRecycling().start();
+//			break;
+//		default:
+//			new AutoDrive(0, 0 , false).start();
+//			break;
+////		case 15:
+////			new AutoDance(1).start();
+////			break;
+//		}
 //        if(stealRecyclingDuringAuto){
 //        	new AutoTakeRecycling().start();
 //        } else {
