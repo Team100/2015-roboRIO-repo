@@ -42,7 +42,7 @@ public class PID extends StaticWidget {
     
     private String name = "Default ";
     public final StringProperty loopName = new StringProperty(this, "LoopName", name);
-    private final  NetworkTable sd = NetworkTable.getTable("SmartDashboard");
+    private final  NetworkTable sd = NetworkTable.getTable("SmartDashboard/PID");
 //    private final  NetworkTable prefs = NetworkTable.getTable("Preferences");
     
     private final Color team100orange = new Color(0xF4, 0x92, 0x07);

@@ -33,11 +33,11 @@ public class PID {
 		kI = Preferences.getDouble(name + "_kI");
 		kD = Preferences.getDouble(name + "_kD");
 		kF = Preferences.getDouble(name + "_kF");
-		SmartDashboard.putNumber(name + " kP", kP);
-		SmartDashboard.putNumber(name + " kI", kI);
-		SmartDashboard.putNumber(name + " kD", kD);
-		SmartDashboard.putNumber(name + " kF", kF);
-		SmartDashboard.putNumber(name + " TestTarget", 0);
+		SmartDashboard.putNumber("PID/"+name + " kP", kP);
+		SmartDashboard.putNumber("PID/"+name + " kI", kI);
+		SmartDashboard.putNumber("PID/"+name + " kD", kD);
+		SmartDashboard.putNumber("PID/"+name + " kF", kF);
+		SmartDashboard.putNumber("PID/"+name + " TestTarget", 0);
 
 		this.name = name;
 		timer.start();
@@ -51,10 +51,10 @@ public class PID {
 	 * @param newValue - The new input value from the sensor
 	 */
 	public void update(double newValue) {
-		kP = SmartDashboard.getNumber(name + " kP");
-		kI = SmartDashboard.getNumber(name + " kI");
-		kD = SmartDashboard.getNumber(name + " kD");
-		kF = SmartDashboard.getNumber(name + " kF");
+		kP = SmartDashboard.getNumber("PID/"+name + " kP");
+		kI = SmartDashboard.getNumber("PID/"+name + " kI");
+		kD = SmartDashboard.getNumber("PID/"+name + " kD");
+		kF = SmartDashboard.getNumber("PID/"+name + " kF");
 		Preferences.set(name + "_kP", kP);
 		Preferences.set(name + "_kI", kI);
 		Preferences.set(name + "_kD", kD);
@@ -140,14 +140,14 @@ public class PID {
 	 * Displays data on the SmartDashboard
 	 */
 	private void displayData() {
-		SmartDashboard.putNumber(name + " Error", error);
-		SmartDashboard.putNumber(name + " Target", target);
-		SmartDashboard.putNumber(name + " Input", input);
-		SmartDashboard.putNumber(name + " Output", output);
-		SmartDashboard.putNumber(name + " Interval", interval);
-		SmartDashboard.putNumber(name + " Rate", rate);
-		SmartDashboard.putNumber(name + " SensorValue", sensorValue);
-		SmartDashboard.putNumber(name + " TotalError", totalError);
-		SmartDashboard.putBoolean(name + " Reached Target", reachedTarget());
+		SmartDashboard.putNumber("PID/"+name + " Error", error);
+		SmartDashboard.putNumber("PID/"+name + " Target", target);
+		SmartDashboard.putNumber("PID/"+name + " Input", input);
+		SmartDashboard.putNumber("PID/"+name + " Output", output);
+		SmartDashboard.putNumber("PID/"+name + " Interval", interval);
+		SmartDashboard.putNumber("PID/"+name + " Rate", rate);
+		SmartDashboard.putNumber("PID/"+name + " SensorValue", sensorValue);
+		SmartDashboard.putNumber("PID/"+name + " TotalError", totalError);
+		SmartDashboard.putBoolean("PID/"+name + " Reached Target", reachedTarget());
 	}
 }
