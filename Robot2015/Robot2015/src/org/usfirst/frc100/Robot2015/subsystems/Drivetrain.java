@@ -105,12 +105,10 @@ public class Drivetrain extends Subsystem {
 						.getDouble("UpperTurnAccelerationLimit")) {
 			drive(driveLimit, slideLimit, turnLimit);
 
-		} else if (trueAcceleration < Preferences
-				.getDouble("LowerAccelerationLimit")
-				|| turnAcceleration < Preferences
-						.getDouble("LowerTurnAccelerationLimit")) {
+		} else if (trueAcceleration < Preferences.getDouble("LowerAccelerationLimit")
+				|| turnAcceleration < Preferences.getDouble("LowerTurnAccelerationLimit")) {
+			
 			drive(driveLimit, slideLimit, turnLimit);
-
 		} else {
 			if (speed > driveLimit) {
 				driveLimit += Preferences.getDouble("LimitStep");
@@ -141,12 +139,11 @@ public class Drivetrain extends Subsystem {
 	 * 
 	 * @param targetDistance - Forward/back
 	 * @param targetSlide - Left/right
-	 * @param targetAngle - Clockwise/counterclockwise
+	 * @param targetAngle
+	 *            - Clockwise/counterclockwise
 	 */
-	public void setAutoTarget(double targetDistance, double targetSlide,
-			double targetAngle) {
-		distancePID.update((-leftEncoder.getDistance() + rightEncoder
-				.getDistance()) / 2);
+	public void setAutoTarget(double targetDistance, double targetSlide, double targetAngle) {
+		distancePID.update((-leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
 		slidePID.update(slideEncoder.getDistance());
 		anglePID.update(gyro.getAngle());
 		distancePID.setRelativeLocation(0);
@@ -161,16 +158,13 @@ public class Drivetrain extends Subsystem {
 	 * Updates the drive PID
 	 */
 	public void updateAuto(boolean gradualDrive) {
-		distancePID.update((-leftEncoder.getDistance() + rightEncoder
-				.getDistance()) / 2);
+		distancePID.update((-leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
 		slidePID.update(slideEncoder.getDistance());
 		anglePID.update(gyro.getAngle());
 		if (gradualDrive) {
-			gradualDrive(distancePID.getOutput(), slidePID.getOutput(),
-					anglePID.getOutput());
+			gradualDrive(distancePID.getOutput(), slidePID.getOutput(), anglePID.getOutput());
 		} else {
-			drive(distancePID.getOutput(), slidePID.getOutput(),
-					anglePID.getOutput());
+			drive(distancePID.getOutput(), slidePID.getOutput(), anglePID.getOutput());
 		}
 	}
 
@@ -214,10 +208,9 @@ public class Drivetrain extends Subsystem {
 		SmartDashboard.putNumber("DriveTrain Acceleration Limit", driveLimit);
 		SmartDashboard.putNumber("DriveTrain Interval",
 				accelerationLoopInterval);
-		SmartDashboard.putNumber("DriveTrain Velocity", velocity); // only
-																	// applies
-																	// to
-																	// non-slide
+		// only applies to non-slide
+		SmartDashboard.putNumber("DriveTrain Velocity", velocity); 
+
 		SmartDashboard.putNumber("DriveTrain Acceleration", trueAcceleration);
 	}
 
@@ -343,10 +336,8 @@ public class Drivetrain extends Subsystem {
 	 */
 	public void setLineTrackLimits() {
 		int limit;
-		int diff = Math.abs(rightLineReader.getValue()
-				- leftLineReader.getValue());
-		if (diff > 80
-				&& ((leftLineReader.getValue() + rightLineReader.getValue()) / 2) > 3550) {
+		int diff = Math.abs(rightLineReader.getValue() - leftLineReader.getValue());
+		if (diff > 80 && ((leftLineReader.getValue() + rightLineReader.getValue()) / 2) > 3550) {
 			limit = (leftLineReader.getValue() + rightLineReader.getValue()) / 2;
 			Preferences.set("LineTrackerLimit", limit);
 		} else {

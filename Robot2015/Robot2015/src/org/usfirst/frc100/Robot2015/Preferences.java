@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  * Stores all changeable or arbitrary values in a file on the cRIO.
  */
 public class Preferences {
-	
+
 	private static final boolean DEBUG_MODE = false; // Whether to print out debugging info
     private static ArrayList<String> keys = new ArrayList<String>(); // The preference identifiers
     private static ArrayList<String> values = new ArrayList<String>(); // The preference values
@@ -26,8 +26,7 @@ public class Preferences {
 	public static void set(String name, Object value) {
 		if (keys.contains(name)) {
 			if (DEBUG_MODE)
-				System.out
-						.println("Preference modified: " + name + " " + value);
+				System.out.println("Preference modified: " + name + " " + value);
 			int index = keys.indexOf(name);
 			values.set(index, value + "");
 		} else {
