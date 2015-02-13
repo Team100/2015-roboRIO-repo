@@ -12,14 +12,14 @@ public class SyncPreferences extends Command {
 
 	private final boolean read;
 	private final boolean fromFile;
-	
+
 	/**
 	 * @param read - Reading or writing preferences
 	 * @param fromFile - RoboRIO file or SmartDashboard
 	 */
-    public SyncPreferences(boolean read, boolean fromFile) {
-    	this.read = read;
-    	this.fromFile = fromFile;
+	public SyncPreferences(boolean read, boolean fromFile) {
+		this.read = read;
+		this.fromFile = fromFile;
 	}
 
 	// Called just before this Command runs the first time
@@ -33,28 +33,30 @@ public class SyncPreferences extends Command {
 		} else {
 			String name = SmartDashboard.getString("Preference Name");
 			if (read) {
-				SmartDashboard.putString("Preference Value", Preferences.getString(name));
+				SmartDashboard.putString("Preference Value",
+						Preferences.getString(name));
 			} else {
-				Preferences.set(name, SmartDashboard.getString("Preference Value"));
+				Preferences.set(name,
+						SmartDashboard.getString("Preference Value"));
 			}
 		}
 	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return true;
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return true;
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+	}
 }
