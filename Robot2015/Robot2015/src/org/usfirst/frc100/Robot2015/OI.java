@@ -30,6 +30,7 @@ public class OI {
     public JoystickButton liftToteButton2;
     public JoystickButton liftToteButton1;
     public Joystick manipulatorJoystick;
+    //autoModeSelcet has not been added to the DriverStation yet
     public Joystick autoModeSelect;
 	public JoystickButton binary1;
 	public JoystickButton binary2;
@@ -161,7 +162,7 @@ public class OI {
         return manipulatorJoystick;
     }
 
-	
+	//the joyStick values have not been added for this yet
 	public int selector() {
 		boolean bin1Val = binary1.get();
     	boolean bin2Val = binary2.get();
