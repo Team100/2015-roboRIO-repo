@@ -58,13 +58,13 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 	}
 
-	public void autonomousInit() {
-		Scheduler.getInstance().removeAll();
-//		int modeSelect = oi.selector();
+    public void autonomousInit() {
+    	Scheduler.getInstance().removeAll();
+//		CHANGE THIS ONCE THE SWITCH HAS BEEN IMPLEMENTED
+//    	int modeSelect = oi.selector();
 //		switch (modeSelect) {
 //		case 0:
-//		new AutoDrive(12.0, 0.0, false).start(); //Actual arguments to be 
-//		determined
+//		new AutoDrive(12.0, 0.0, false).start(); //Actual arguments to be determined
 //		break;
 //		case 1:
 //		new AutoModeONE_StackTotes().start();

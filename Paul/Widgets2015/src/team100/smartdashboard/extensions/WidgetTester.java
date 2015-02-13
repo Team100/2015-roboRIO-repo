@@ -12,7 +12,7 @@ public class WidgetTester {
         JFrame f = new JFrame();
         f.setSize(450,100);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Preferences pref = new Preferences();
+        PID pref = new PID();
         pref.init();
         f.add(pref);
         f.setVisible(true);
