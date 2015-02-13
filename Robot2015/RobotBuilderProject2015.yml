@@ -963,13 +963,13 @@ Children:
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command Group
-    Name: AutoModeTWO_TakeRecycling
+    Name: AutoModeTwo_TakeRecycling
   - Children: []
     Properties:
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command Group
-    Name: AutoModeONE_StackTotes
+    Name: AutoModeOne_StackTotes
   - Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
@@ -1089,7 +1089,7 @@ Properties:
   Team Number: !!robotbuilder.data.properties.IntegerProperty {default: 0, name: Team Number,
     validators: null, value: 100}
   Export Subsystems: !!robotbuilder.data.properties.BooleanProperty {default: true,
-    name: Export Subsystems, validators: null, value: true}
+    name: Export Subsystems, validators: null, value: false}
   Wiring File: !!robotbuilder.data.properties.FileProperty {default: '', extension: html,
     folder: false, name: Wiring File, validators: null, value: WiringFile2015.html}
   Simulation World File: !!robotbuilder.data.properties.StringProperty {default: /usr/share/frcsim/worlds/GearsBotDemo.world,
@@ -1097,4 +1097,4 @@ Properties:
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: None}
 Base: Robot
-Name: Robot2015
+Name: SlideWinder

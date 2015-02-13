@@ -59,9 +59,9 @@ public class Drivetrain extends Subsystem {
 	/**
 	 * Drives the robot
 	 * 
-	 * @param speed - Forward/back
-	 * @param slide - Left/right
-	 * @param turn - Clockwise/counterclockwise
+	 * @param speed - Forward (+)/back (-)
+	 * @param slide - Right (+)/left (-)
+	 * @param turn - Clockwise (+)/counterclockwise (-)
 	 */
 	public void drive(double speed, double slide, double turn) {
 		robotDrive.arcadeDrive(-speed, turn);

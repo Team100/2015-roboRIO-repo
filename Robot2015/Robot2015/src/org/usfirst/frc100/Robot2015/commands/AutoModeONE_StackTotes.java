@@ -10,13 +10,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  * Autonomous mode that picks up all 3 yellow totes and stacks them in the auto zone.
  */
-public class AutoModeONE_StackTotes extends CommandGroup {
+public class AutoModeOne_StackTotes extends CommandGroup {
 	
 	private final double DISTANCE_TO_TOTE;
 	private final double DISTANCE_FORWARD;
 	private final double DISTANCE_TO_SCORING;
 	
-    public AutoModeONE_StackTotes() {
+    public AutoModeOne_StackTotes() {
     	DISTANCE_TO_TOTE = Preferences.getDouble("AutoStackTotesDistanceToTote");
     	DISTANCE_FORWARD = Preferences.getDouble("AutoStackTotesDistanceForward");
     	DISTANCE_TO_SCORING = Preferences.getDouble("AutoStackTotesDistanceToScoring");

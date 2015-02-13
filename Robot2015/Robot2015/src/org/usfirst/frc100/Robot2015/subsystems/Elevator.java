@@ -5,7 +5,7 @@
 package org.usfirst.frc100.Robot2015.subsystems;
 
 import org.usfirst.frc100.Robot2015.PID;
-import org.usfirst.frc100.Robot2015.Robot;
+import org.usfirst.frc100.Robot2015.SlideWinder;
 import org.usfirst.frc100.Robot2015.RobotMap;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -87,10 +87,10 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putNumber("Elevator Position", position);
 		double height = positionOne;
 		height += (position - 1) * toteHeight;
-		if (!Robot.oi.nonScoringButton.get()) {
+		if (!SlideWinder.oi.nonScoringButton.get()) {
 			height += scoringPlatformHeight;
 		}
-		if (Robot.oi.coopertitionButton.get()) {
+		if (SlideWinder.oi.coopertitionButton.get()) {
 			height += stepHeight;
 		}
 		elevatorPID.setTarget(height);

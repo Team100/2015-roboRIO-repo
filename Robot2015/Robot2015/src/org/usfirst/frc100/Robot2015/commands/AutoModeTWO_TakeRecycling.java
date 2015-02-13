@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  * Autonomous mode that moves all of the recycling bins onto our side of the field.
  */
-public class AutoModeTWO_TakeRecycling extends CommandGroup {
+public class AutoModeTwo_TakeRecycling extends CommandGroup {
     
 	private final double SLIDE_DISTANCE;
 	private final double DRIVE_LENGTH;
 	
-    public  AutoModeTWO_TakeRecycling() {
+    public  AutoModeTwo_TakeRecycling() {
     	DRIVE_LENGTH = Preferences.getDouble("AutoTakeRecycling_DriveLength");
     	SLIDE_DISTANCE = Preferences.getDouble("AutoTakeRecycling_SlideDistance");
     	
