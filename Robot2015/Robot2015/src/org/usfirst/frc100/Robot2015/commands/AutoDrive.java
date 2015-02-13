@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc100.Robot2015.Robot;
 
 /**
- * Autonomously drives a distance in INCHES specified in the constructor. Uses
+ * Autonomously drives a distance in inches specified in the constructor. Uses
  * PID.
  */
 public class AutoDrive extends Command {
@@ -19,7 +19,7 @@ public class AutoDrive extends Command {
 	/**
 	 * @param distance - The distance to travel in inches
 	 */
-    public AutoDrive(double distance) { // distance in inches
+    public AutoDrive(double distance) {
         this.distance = distance;
     	this.slide = 0;
     	gradualDrive = false;

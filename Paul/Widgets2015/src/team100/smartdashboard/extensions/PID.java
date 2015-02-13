@@ -44,6 +44,8 @@ public class PID extends StaticWidget {
     public final StringProperty loopName = new StringProperty(this, "LoopName", name);
     private final  NetworkTable sd = NetworkTable.getTable("SmartDashboard");
 //    private final  NetworkTable prefs = NetworkTable.getTable("Preferences");
+    
+    private final Color team100orange = new Color(0xF4, 0x92, 0x07);
 
     @Override
     public void propertyChanged(Property prop) {
@@ -60,7 +62,7 @@ public class PID extends StaticWidget {
                 } else {
                     box.setValue(0);
                 }
-                String prefKey = (name + boxNames[i]).replace(" ", "_");
+//                String prefKey = (name + boxNames[i]).replace(" ", "_");
 //                if(prefs.containsKey(prefKey)&&i < 4) boxes[i].setValue(prefs.getValue(prefKey));
                 if (i>3&&i<12) box.editable.setValue(false);
             }
@@ -88,9 +90,9 @@ public class PID extends StaticWidget {
         g.setHgap(5);
         g.setVgap(5);
         p1.setLayout(g);
-        p1.setBackground(Color.orange);
+        p1.setBackground(team100orange);
         p2.setLayout(new GridLayout(1,2));
-        p2.setBackground(Color.orange);
+        p2.setBackground(team100orange);
         reset.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -163,7 +165,7 @@ public class PID extends StaticWidget {
     // Orange background!!!
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.orange);
+        g.setColor(team100orange);
         g.fillRect(0, 0, getWidth(), getHeight());
     }
 
