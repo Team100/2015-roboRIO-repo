@@ -12,22 +12,10 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  * Stores all changeable or arbitrary values in a file on the cRIO.
  */
 public class Preferences {
-<<<<<<< HEAD
 	
 	private static final boolean DEBUG_MODE = false; // Whether to print out debugging info
     private static ArrayList<String> keys = new ArrayList<String>(); // The preference identifiers
     private static ArrayList<String> values = new ArrayList<String>(); // The preference values
-=======
->>>>>>> origin/master
-
-	private static final boolean DEBUG_MODE = true; // Whether to print out
-													// debugging info
-	private static ArrayList<String> keys = new ArrayList<String>(); // The
-																		// preference
-																		// identifiers
-	private static ArrayList<String> values = new ArrayList<String>(); // The
-																		// preference
-																		// values
 
 	/**
 	 * Sets a preference value, creating the preference if it does not exist
