@@ -60,6 +60,7 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
     	Scheduler.getInstance().removeAll();
+//		CHANGE THIS ONCE THE SWITCH HAS BEEN IMPLEMENTED
 //    	int modeSelect = oi.selector();
 //		switch (modeSelect) {
 //		case 0:
