@@ -28,7 +28,8 @@ public class Drive extends Command {
     	if(Math.abs(leftJoystickX) < Preferences.getDouble("SlideJoystickDeadband")) {
     		leftJoystickX = 0;
     	}
-    	Robot.drivetrain.drive(Robot.oi.getLeftJoystick().getY(), leftJoystickX, Robot.oi.getRightJoystick().getX());
+    	// Joystick forward is -1, back is +1
+    	Robot.drivetrain.drive(-Robot.oi.getLeftJoystick().getY(), leftJoystickX, Robot.oi.getRightJoystick().getX());
     }
 
     // Make this return true when this Command no longer needs to run execute()

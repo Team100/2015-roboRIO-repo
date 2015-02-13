@@ -1,11 +1,9 @@
 package org.usfirst.frc100.Robot2015;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc100.Robot2015.commands.*;
 import org.usfirst.frc100.Robot2015.subsystems.*;
 

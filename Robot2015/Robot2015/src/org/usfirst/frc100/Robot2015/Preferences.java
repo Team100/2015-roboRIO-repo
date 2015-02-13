@@ -6,16 +6,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Stores all changeable or arbitrary values in a file on the cRIO.
  */
 public class Preferences {
 	
-	private static final boolean DEBUG_MODE = true; // Whether to print out debugging info
+	private static final boolean DEBUG_MODE = false; // Whether to print out debugging info
     private static ArrayList<String> keys = new ArrayList<String>(); // The preference identifiers
     private static ArrayList<String> values = new ArrayList<String>(); // The preference values
 

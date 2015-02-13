@@ -63,7 +63,7 @@ public class Drivetrain extends Subsystem {
      * @param turn - Clockwise/counterclockwise
      */
     public void drive(double speed, double slide, double turn) {
-    	robotDrive.arcadeDrive(speed, turn);
+    	robotDrive.arcadeDrive(-speed, turn);
     	slideMotor.set(slide);
     }
     
