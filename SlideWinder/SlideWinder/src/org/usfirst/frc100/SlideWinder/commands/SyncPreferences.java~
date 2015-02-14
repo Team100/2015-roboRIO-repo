@@ -1,6 +1,7 @@
 package org.usfirst.frc100.SlideWinder.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc100.SlideWinder.Preferences;
@@ -34,9 +35,9 @@ public class SyncPreferences extends Command {
 		} else {
 			String name = SmartDashboard.getString("Preference Name");
 			if (read) {
-				SmartDashboard.putString("Preference Value", Preferences.getString(name));
+				NetworkTable.getTable("Preferences").putString(name, Preferences.getString(name));
 			} else {
-				Preferences.set(name, SmartDashboard.getString("Preference Value"));
+				Preferences.set(name, NetworkTable.getTable("Preferences").getString(name));
 			}
 		}
 	}

@@ -29,6 +29,7 @@ public class UpdateDashboard extends Command {
 		Robot.claw.updateDashboard();
 		Robot.drivetrain.updateDashboard();
 		Robot.elevator.updateDashboard();
+		Robot.cameraVision.updateDashboard();
 
 		SmartDashboard.putNumber("PDP Voltage", pdp.getVoltage());
 		for (int i = 0; i < 16; i++) {
