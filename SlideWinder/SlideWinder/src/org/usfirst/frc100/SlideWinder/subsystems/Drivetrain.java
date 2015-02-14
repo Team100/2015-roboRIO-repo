@@ -253,7 +253,6 @@ public class Drivetrain extends Subsystem {
 	public void setDistanceTarget(double targetDistance) {
 		distancePID.update((-leftEncoder.getDistance() + rightEncoder
 				.getDistance()) / 2);
-		distancePID.setTarget(targetDistance);
 		distancePID.setRelativeLocation(0);
 		distancePID.setTarget(targetDistance);
 	}
@@ -354,5 +353,17 @@ public class Drivetrain extends Subsystem {
 	public boolean onLine() {
 		return !(rightLineReadTrigger.getTriggerState() | leftLineReadTrigger
 				.getTriggerState());
+	}
+
+	/**
+	 * Follows the line using the camera
+	 * 
+	 * @param lineError - The distance from the line
+	 */
+	public void visionFollowLine(double lineError){
+		distancePID.update((-leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
+		anglePID.update(lineError);
+		slidePID.update(slideEncoder.getDistance());
+		drive(distancePID.getOutput(), slidePID.getOutput(), anglePID.getOutput());
 	}
 }
