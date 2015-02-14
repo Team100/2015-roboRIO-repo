@@ -27,11 +27,13 @@ public class AutoFollowLine extends Command {
     protected void initialize() {
     	Robot.drivetrain.setLineTrackLimits();
     	Robot.drivetrain.setDistanceTarget(distance);
+    	Robot.drivetrain.setAngleTarget(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.drive(-Robot.drivetrain.updateDistance(), 0, Robot.drivetrain.followLine());
+    	Robot.drivetrain.drive(Robot.drivetrain.updateDistance(), Robot.drivetrain.followLine(),
+				Robot.drivetrain.updateAngle());
     }
 
     // Make this return true when this Command no longer needs to run execute()

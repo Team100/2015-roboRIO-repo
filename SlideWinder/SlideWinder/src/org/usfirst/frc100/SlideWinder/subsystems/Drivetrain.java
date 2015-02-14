@@ -45,7 +45,6 @@ public class Drivetrain extends Subsystem {
 	private double trueAcceleration = 0;
 	private Timer timer = new Timer();
 	private boolean right = true;
-	private boolean firstTime = true;
 	private PID distancePID = new PID("DriveDistance");
 	private PID anglePID = new PID("DriveAngle");
 	private PID slidePID = new PID("DriveSlide");
@@ -251,8 +250,7 @@ public class Drivetrain extends Subsystem {
 	 * @param targetDistance - The target distance in inches
 	 */
 	public void setDistanceTarget(double targetDistance) {
-		distancePID.update((-leftEncoder.getDistance() + rightEncoder
-				.getDistance()) / 2);
+		distancePID.update((-leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
 		distancePID.setRelativeLocation(0);
 		distancePID.setTarget(targetDistance);
 	}
@@ -287,7 +285,11 @@ public class Drivetrain extends Subsystem {
 		if (distOutput > 1) {
 			distOutput = 1;
 		}
-		return (-.3 * distOutput + .55);
+		if (distOutput == 0){
+			return 0;
+		} else{
+			return (-.2*distOutput + .4);
+		}
 	}
 
 	/**
@@ -300,31 +302,20 @@ public class Drivetrain extends Subsystem {
 		double rawTurnValue = calculateLineTrackTurn();
 		if (!rightLineReadTrigger.getTriggerState()
 				&& !leftLineReadTrigger.getTriggerState()) {
-			timer.stop();
-			firstTime = true;
 			turnTrack = 0;
 		} else if (rightLineReadTrigger.getTriggerState()
 				&& !leftLineReadTrigger.getTriggerState()) {
-			timer.stop();
 			right = false;
-			firstTime = true;
 			turnTrack = -rawTurnValue;
 		} else if (leftLineReadTrigger.getTriggerState()
 				&& !rightLineReadTrigger.getTriggerState()) {
-			timer.stop();
 			right = true;
-			firstTime = true;
 			turnTrack = rawTurnValue;
-		} else if (rightLineReadTrigger.getTriggerState()
-				&& leftLineReadTrigger.getTriggerState()) {
-			if (firstTime) {
-				timer.start();
-				firstTime = false;
-			}
+		} else if (rightLineReadTrigger.getTriggerState() && leftLineReadTrigger.getTriggerState()) {
 			if (right) {
-				turnTrack = 2 * rawTurnValue * timer.get();
+				turnTrack = .4;
 			} else {
-				turnTrack = -2 * rawTurnValue * timer.get();
+				turnTrack = -.4;
 			}
 		}
 		SmartDashboard.putNumber("TurnTrack", turnTrack);
@@ -337,7 +328,7 @@ public class Drivetrain extends Subsystem {
 	public void setLineTrackLimits() {
 		int limit;
 		int diff = Math.abs(rightLineReader.getValue() - leftLineReader.getValue());
-		if (diff > 80 && ((leftLineReader.getValue() + rightLineReader.getValue()) / 2) > 3550) {
+		if (diff > 80 ) {
 			limit = (leftLineReader.getValue() + rightLineReader.getValue()) / 2;
 			Preferences.set("LineTrackerLimit", limit);
 		} else {
@@ -351,7 +342,7 @@ public class Drivetrain extends Subsystem {
 	 * Slides until the line is detected
 	 */
 	public boolean onLine() {
-		return !(rightLineReadTrigger.getTriggerState() | leftLineReadTrigger
+		return !(rightLineReadTrigger.getTriggerState() || leftLineReadTrigger
 				.getTriggerState());
 	}
 

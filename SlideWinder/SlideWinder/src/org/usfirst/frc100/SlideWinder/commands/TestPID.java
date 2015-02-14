@@ -40,19 +40,19 @@ public class TestPID extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		if (system == System.DRIVEDISTANCE) {
-			target = SmartDashboard.getNumber("DriveDistance TestTarget");
+			target = SmartDashboard.getNumber("PID/DriveDistance TestTarget");
 			Robot.drivetrain.setAutoTarget(target, 0, 0);
 		} else if (system == System.DRIVESLIDE) {
-			target = SmartDashboard.getNumber("DriveSlide TestTarget");
+			target = SmartDashboard.getNumber("PID/DriveSlide TestTarget");
 			Robot.drivetrain.setAutoTarget(0, target, 0);
 		} else if (system == System.DRIVEANGLE) {
-			target = SmartDashboard.getNumber("DriveAngle TestTarget");
+			target = SmartDashboard.getNumber("PID/DriveAngle TestTarget");
 			Robot.drivetrain.setAutoTarget(0, 0, target);
 		} else if (system == System.ELEVATOR) {
-			target = SmartDashboard.getNumber("Elevator TestTarget");
+			target = SmartDashboard.getNumber("PID/Elevator TestTarget");
 			Robot.elevator.setAutoTarget(target);
 		} else if (system == System.ARM) {
-			target = SmartDashboard.getNumber("Arm TestTarget");
+			target = SmartDashboard.getNumber("PID/Arm TestTarget");
 			Robot.arm.setArmHeight(target);
 		}
 	}
