@@ -45,7 +45,7 @@ public class Client {
 	// The time between refreshes in milliseconds.
 	public static final long REFRESH_RATE = 1000;
 	// Put the roboRIO IP here.
-	public static final String IP = "10.1.0.2";
+	public static final String IP = "roboRIO-100.local";
 	// Debug mode.
 	public static final boolean DEBUG_MODE = false;
 
