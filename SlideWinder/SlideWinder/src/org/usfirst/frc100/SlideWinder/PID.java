@@ -73,7 +73,6 @@ public class PID {
 		output = kP * error + kI * totalError + kD * rate;
 		timer.reset();
 		displayData();
-		System.out.println(Preferences.getDouble(name + "SensorRatio"));
 	}
 
 	/**

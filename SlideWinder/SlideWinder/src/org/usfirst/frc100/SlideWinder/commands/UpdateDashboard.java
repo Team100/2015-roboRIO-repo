@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc100.SlideWinder.Robot;
+import org.usfirst.frc100.SlideWinder.SlideWinder;
 
 /**
  * Updates the SmartDashboard for all of the subsystems.
@@ -25,11 +25,11 @@ public class UpdateDashboard extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.arm.updateDashboard();
-		Robot.claw.updateDashboard();
-		Robot.drivetrain.updateDashboard();
-		Robot.elevator.updateDashboard();
-		Robot.cameraVision.updateDashboard();
+		SlideWinder.arm.updateDashboard();
+		SlideWinder.claw.updateDashboard();
+		SlideWinder.drivetrain.updateDashboard();
+		SlideWinder.elevator.updateDashboard();
+		SlideWinder.cameraVision.updateDashboard();
 
 		SmartDashboard.putNumber("PDP Voltage", pdp.getVoltage());
 		for (int i = 0; i < 16; i++) {
