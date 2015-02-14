@@ -30,7 +30,7 @@ public class CameraVision extends Subsystem {
 	 */
 	public CameraVision() {
 		SmartDashboard.putNumber("CycleTime", cycleTime);
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		System.load("/usr/local/lib/lib_OpenCV/java/libopencv_java2410.so");
 		VideoCapture camera = new VideoCapture("http://10.1.0.11/axis-cgi/mjpg/video.cgi?dummy=video.mjpg");
 		// Initialization code here
 	}

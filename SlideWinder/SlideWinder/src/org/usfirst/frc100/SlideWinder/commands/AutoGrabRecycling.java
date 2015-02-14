@@ -1,7 +1,7 @@
 package org.usfirst.frc100.SlideWinder.commands;
 
 import org.usfirst.frc100.SlideWinder.Preferences;
-import org.usfirst.frc100.SlideWinder.Robot;
+import org.usfirst.frc100.SlideWinder.SlideWinder;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -32,25 +32,25 @@ public class AutoGrabRecycling extends Command {
 	}
 
 	public void initialize() {
-		Robot.arm.setDeploy(true);
+		SlideWinder.arm.setDeploy(true);
 		Timer.delay(TIME_AFTER_INITIAL_DEPLOY);
-		Robot.arm.setStab(true);
+		SlideWinder.arm.setStab(true);
 		Timer.delay(TIME_AFTER_STAB);
-		Robot.arm.setDeploy(false);
+		SlideWinder.arm.setDeploy(false);
 		Timer.delay(TIME_AFTER_DEPLOY);
-		Robot.arm.setStab(false);
-		Robot.arm.setDeploy(true);
+		SlideWinder.arm.setStab(false);
+		SlideWinder.arm.setDeploy(true);
 	}
 
 	public void execute() {
-		if (Robot.arm.getContainer()) {
+		if (SlideWinder.arm.getContainer()) {
 			if (takeRecyclingThisTime) {
-				Robot.arm.setStab(true);
+				SlideWinder.arm.setStab(true);
 				Timer.delay(TIME_AFTER_STAB);
-				Robot.arm.setDeploy(false);
+				SlideWinder.arm.setDeploy(false);
 				Timer.delay(TIME_AFTER_DEPLOY);
-				Robot.arm.setStab(false);
-				Robot.arm.setDeploy(true);
+				SlideWinder.arm.setStab(false);
+				SlideWinder.arm.setDeploy(true);
 				containersTaken++;
 			}
 			takeRecyclingThisTime = !takeRecyclingThisTime;
