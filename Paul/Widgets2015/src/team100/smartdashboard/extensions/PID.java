@@ -41,7 +41,7 @@ public class PID extends StaticWidget {
     private final JPanel p2 = new JPanel();
     
     private String name = "Default ";
-    public final StringProperty loopName = new StringProperty(this, "LoopName", name);
+    public final StringProperty loopName = new StringProperty(this, "LoopName", "Default");
     private final  NetworkTable sd = NetworkTable.getTable("SmartDashboard/PID");
 //    private final  NetworkTable prefs = NetworkTable.getTable("Preferences");
     
