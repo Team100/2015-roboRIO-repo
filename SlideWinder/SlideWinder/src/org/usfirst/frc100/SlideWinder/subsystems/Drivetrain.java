@@ -297,26 +297,41 @@ public class Drivetrain extends Subsystem {
 	 * 
 	 * @return The specific angle output for each case
 	 */
+//	public double followLine() {
+//		double turnTrack = 0;
+//		double rawTurnValue = calculateLineTrackTurn();
+//		if (!rightLineReadTrigger.getTriggerState()
+//				&& !leftLineReadTrigger.getTriggerState()) {
+//			turnTrack = 0;
+//		} else if (rightLineReadTrigger.getTriggerState()
+//				&& !leftLineReadTrigger.getTriggerState()) {
+//			right = false;
+//			turnTrack = -rawTurnValue;
+//		} else if (leftLineReadTrigger.getTriggerState()
+//				&& !rightLineReadTrigger.getTriggerState()) {
+//			right = true;
+//			turnTrack = rawTurnValue;
+//		} else if (rightLineReadTrigger.getTriggerState() && leftLineReadTrigger.getTriggerState()) {
+//			if (right) {
+//				turnTrack = .4;
+//			} else {
+//				turnTrack = -.4;
+//			}
+//		}
+//		SmartDashboard.putNumber("TurnTrack", turnTrack);
+//		return turnTrack;
+//	}
 	public double followLine() {
 		double turnTrack = 0;
 		double rawTurnValue = calculateLineTrackTurn();
-		if (!rightLineReadTrigger.getTriggerState()
-				&& !leftLineReadTrigger.getTriggerState()) {
+		if (!rightLineReadTrigger.getTriggerState() && leftLineReadTrigger.getTriggerState()) {
 			turnTrack = 0;
-		} else if (rightLineReadTrigger.getTriggerState()
-				&& !leftLineReadTrigger.getTriggerState()) {
-			right = false;
+		} else if (!rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()) {
 			turnTrack = -rawTurnValue;
-		} else if (leftLineReadTrigger.getTriggerState()
-				&& !rightLineReadTrigger.getTriggerState()) {
-			right = true;
-			turnTrack = rawTurnValue;
 		} else if (rightLineReadTrigger.getTriggerState() && leftLineReadTrigger.getTriggerState()) {
-			if (right) {
-				turnTrack = .4;
-			} else {
-				turnTrack = -.4;
-			}
+			turnTrack = rawTurnValue;
+		} else if (rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()) {
+			turnTrack = -rawTurnValue;
 		}
 		SmartDashboard.putNumber("TurnTrack", turnTrack);
 		return turnTrack;

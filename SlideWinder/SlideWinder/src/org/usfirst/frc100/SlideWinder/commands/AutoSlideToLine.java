@@ -32,6 +32,7 @@ public class AutoSlideToLine extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		SlideWinder.drivetrain.setLineTrackLimits();
 	}
 
 	// Called when another command which requires one or more of the same
