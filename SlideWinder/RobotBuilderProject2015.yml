@@ -1081,7 +1081,7 @@ Children:
   Name: Commands
 Properties:
   Eclipse Workspace: !!robotbuilder.data.properties.FileProperty {default: /home/argarevarg/workspace,
-    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: 'C:\Users\Student\Documents\GitHub\2015-roboRIO-repo\SlideWinder'}
+    extension: null, folder: true, name: Eclipse Workspace, validators: null, value: /home/argarevarg/Projects/2015-roboRIO-repo/SlideWinder}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
   Java Package: !!robotbuilder.data.properties.StringProperty {default: org.usfirst.frc0000,
