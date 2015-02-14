@@ -30,8 +30,7 @@ public class RobotMap {
     public static DigitalInput elevatorUpperLimit;
     public static DigitalInput elevatorLowerLimit;
     public static SpeedController armRaiseMotor;
-    public static DoubleSolenoid armStabPiston;
-    public static DigitalInput armContainerSensor;
+    public static DoubleSolenoid armGrabPiston;
     public static AnalogPotentiometer armPotentiometer;
     public static DigitalInput armForwardLimit;
     public static DigitalInput armBackLimit;
@@ -110,11 +109,8 @@ public class RobotMap {
         armRaiseMotor = new VictorSP(5);
         LiveWindow.addActuator("Arm", "RaiseMotor", (VictorSP) armRaiseMotor);
         
-        armStabPiston = new DoubleSolenoid(0, 4, 5);      
-        LiveWindow.addActuator("Arm", "StabPiston", armStabPiston);
-        
-        armContainerSensor = new DigitalInput(10);
-        LiveWindow.addSensor("Arm", "ContainerSensor", armContainerSensor);
+        armGrabPiston = new DoubleSolenoid(0, 4, 5);      
+        LiveWindow.addActuator("Arm", "GrabPiston", armGrabPiston);
         
         armPotentiometer = new AnalogPotentiometer(1, 1.0, 0.0);
         LiveWindow.addSensor("Arm", "Potentiometer", armPotentiometer);

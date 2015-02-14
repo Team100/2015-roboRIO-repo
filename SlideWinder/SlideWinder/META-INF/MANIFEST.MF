@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: SlideWinder
+Bundle-SymbolicName: SlideWinder
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: SlideWinder.jar,
+ C:/Users/student/wpilib/java/current/lib/WPILib.jar,
+ C:/Users/student/wpilib/java/current/lib/NetworkTables.jar,
+ C:/Users/student/wpilib/java/current/lib/NetworkTables-sources.jar,
+ C:/Users/student/wpilib/java/current/lib/WPILib-sources.jar
