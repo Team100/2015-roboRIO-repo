@@ -47,5 +47,7 @@ public class ManipulatorManualControl extends Command {
 	// subsystems is scheduled to run
 	protected void interrupted() {
 		end();
+		if(SlideWinder.oi.coopertitionButton.get()) 
+			new RaiseArm(true).start();
 	}
 }
