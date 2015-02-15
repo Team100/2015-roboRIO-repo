@@ -1,10 +1,13 @@
 
+import static com.oracle.jrockit.jfr.DataType.INTEGER;
 import static com.sun.javafx.font.FontConstants.nameTag;
 import edu.wpi.first.smartdashboard.gui.elements.bindings.AbstractTableWidget;
 import edu.wpi.first.smartdashboard.properties.Property;
 import edu.wpi.first.smartdashboard.types.DataType;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import javax.swing.JLabel;
 import static sun.font.TrueTypeFont.nameTag;
 
@@ -20,7 +23,7 @@ import static sun.font.TrueTypeFont.nameTag;
  */
 public class PDPWidget extends AbstractTableWidget{
     
-    public static final DataType TYPES = {PDP_Type.get()};
+    public static final DataType[] TYPES = {PDP_Type.get()};
     
     public AbstractTableWidget.NumberTableField xField;
     public AbstractTableWidget.NumberTableField yField;
@@ -29,7 +32,7 @@ public class PDPWidget extends AbstractTableWidget{
     private JLabel yLabel;
     
     public PDPWidget() {
-        setLayout(new GridBagLayout());
+        setLayout(new GridLayout());
         xLabel = new JLabel("X:");
         yLabel = new JLabel("Y:");
         xLabel.setHorizontalAlignment(JLabel.RIGHT);
@@ -64,18 +67,19 @@ public class PDPWidget extends AbstractTableWidget{
         c.gridy = 2;
         add(yField, c);
         
-        setMaximumSize(new Dimension());
-                
+        setMaximumSize(new Dimension(Integer.MAX_VALUE, getPreferredSize().height));
+        
+        revalidate();
+        repaint();
     }
 
     @Override
     public void init() {
-        
+        nameTag.setText(getFieldName());
     }
 
     @Override
     public void propertyChanged(Property prprt) {
-        
     }
     
 }
