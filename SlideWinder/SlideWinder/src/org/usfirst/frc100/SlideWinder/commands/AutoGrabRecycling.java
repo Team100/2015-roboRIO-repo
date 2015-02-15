@@ -35,7 +35,6 @@ public class AutoGrabRecycling extends Command {
 		SlideWinder.arm.setDeploy(false);
 		Timer.delay(TIME_AFTER_RETRACT);
 		SlideWinder.arm.setStab(false);
-		SlideWinder.arm.setDeploy(true);
 	}
 
 	public void execute() {
