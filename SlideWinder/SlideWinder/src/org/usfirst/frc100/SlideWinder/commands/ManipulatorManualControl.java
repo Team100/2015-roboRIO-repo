@@ -24,8 +24,8 @@ public class ManipulatorManualControl extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		SlideWinder.elevator.manualControl(SlideWinder.oi.getManipulatorJoystick().getY());
-		SlideWinder.arm.manualControl(SlideWinder.oi.getManipulatorJoystick().getThrottle());
+		SlideWinder.elevator.manualControl(-SlideWinder.oi.getManipulatorJoystick().getY());
+		SlideWinder.arm.manualControl(-SlideWinder.oi.getManipulatorJoystick().getThrottle());
 		if (SlideWinder.oi.liftToteButton1.get())
 			SlideWinder.arm.toggleStab();
 		if (SlideWinder.oi.liftToteButton2.get())
