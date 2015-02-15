@@ -1,7 +1,9 @@
 package org.usfirst.frc100.SlideWinder.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+
 import org.usfirst.frc100.SlideWinder.SlideWinder;
+import org.usfirst.frc100.SlideWinder.subsystems.CameraVision;
 
 /**
  * Autonomously follow the line using vision.
@@ -28,7 +30,9 @@ public class  AutoVisionFollowLine extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	SlideWinder.cameraVision.updateCamera();
+    	if(CameraVision.cameraIsOpened){
     	SlideWinder.drivetrain.visionFollowLine(SlideWinder.cameraVision.getLineOffset());
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
