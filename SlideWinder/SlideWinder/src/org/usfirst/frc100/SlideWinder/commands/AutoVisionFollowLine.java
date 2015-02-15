@@ -24,6 +24,9 @@ public class  AutoVisionFollowLine extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	SlideWinder.cameraVision.initCamera();
+    	SlideWinder.cameraVision.setScanLine(120);
+    	SlideWinder.cameraVision.setLineReference(160);
+    	SlideWinder.cameraVision.setThreshold(1200);
         SlideWinder.drivetrain.setDistanceTarget(distance);
     }
 
