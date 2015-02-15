@@ -21,6 +21,7 @@ public class UpdateDashboard extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		SmartDashboard.putString("PDP/~TYPE~", "PDP Current");
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -31,9 +32,9 @@ public class UpdateDashboard extends Command {
 		SlideWinder.elevator.updateDashboard();
 		SlideWinder.cameraVision.updateDashboard();
 
-		SmartDashboard.putNumber("PDP Voltage", pdp.getVoltage());
+		SmartDashboard.putNumber("PDP/PDP Voltage", pdp.getVoltage());
 		for (int i = 0; i < 16; i++) {
-			SmartDashboard.putNumber("PDP Port" + i, pdp.getCurrent(i));
+			SmartDashboard.putNumber("PDP/PDP Port " + i, pdp.getCurrent(i));
 		}
 	}
 

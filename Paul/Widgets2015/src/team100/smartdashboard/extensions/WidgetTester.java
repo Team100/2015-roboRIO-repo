@@ -5,16 +5,16 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author Student
+ * @author Me
  */
 public class WidgetTester {
     public static void main(String[] args){
         JFrame f = new JFrame();
-        f.setSize(450,100);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        PID pref = new PID();
+        PDP_Widget pref = new PDP_Widget();
         pref.init();
         f.add(pref);
+        f.pack();
         f.setVisible(true);
     }
 }
