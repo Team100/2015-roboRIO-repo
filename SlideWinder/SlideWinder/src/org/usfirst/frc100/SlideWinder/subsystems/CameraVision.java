@@ -10,7 +10,6 @@ import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.Imgproc;
 
 public class CameraVision extends Subsystem {
-	public static boolean cameraIsOpened;
 	// private double cycleTime = 0; // Default value
 	Timer timer = new Timer();
 	VideoCapture camera;
@@ -28,16 +27,13 @@ public class CameraVision extends Subsystem {
 	int midTapeCoordinate;
 	int offset;
 	double visionProcessingTime;
+	public static boolean cameraIsOpened;
 
 	/**
 	 * Called once when robot turns on
 	 */
 	public CameraVision() {
 		System.load("/usr/local/lib/lib_OpenCV/java/libopencv_java2410.so");
-		// //SmartDashboard.putNumber("CycleTime", cycleTime);
-		// System.load("/usr/local/lib/lib_OpenCV/java/libopencv_java2410.so");
-		// VideoCapture camera = new
-		// VideoCapture("http://10.1.0.11/axis-cgi/mjpg/video.cgi?dummy=video.mjpg");
 		// // Initialization code here
 	}
 
@@ -49,7 +45,6 @@ public class CameraVision extends Subsystem {
 	 * Called once in auto init
 	 */
 	public void initCamera() {
-		System.out.println("It was here.");
 		camera = new VideoCapture("http://10.1.0.11/axis-cgi/mjpg/video.cgi?dummy=video.mjpg");
 		if (!camera.isOpened()) {
 			System.out.println("CAMERA NOT FOUND:");
@@ -113,7 +108,13 @@ public class CameraVision extends Subsystem {
 			// Calculate offset from line
 			return offset;
 		} else {
+			/**
+			 * If there is no camera: cameraIsOpened = false.
+			 * Therefore the offset will always be zero.
+			 * We do not want any interference with other PID loops.
+			 */
 			cameraIsOpened = false;
+			offset = 0;
 			return offset;
 		}
 	}
