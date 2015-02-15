@@ -21,7 +21,12 @@ public class UpdateDashboard extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		SmartDashboard.putString("PDP/~TYPE~", "PDP Current");
+		SmartDashboard.putString("PDP/~TYPE~", "SubSystem");
+		SmartDashboard.putString("Arm/~TYPE~", "SubSystem");
+		SmartDashboard.putString("Claw/~TYPE~", "SubSystem");
+		SmartDashboard.putString("Drivetrain/~TYPE~", "SubSystem");
+		SmartDashboard.putString("Elevator/~TYPE~", "SubSystem");
+		SmartDashboard.putString("CameraVision/~TYPE~", "SubSystem");
 	}
 
 	// Called repeatedly when this Command is scheduled to run

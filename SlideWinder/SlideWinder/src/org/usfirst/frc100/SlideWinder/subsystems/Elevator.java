@@ -84,7 +84,7 @@ public class Elevator extends Subsystem {
 	 *     is the 3rd tote on the stack, etc.
 	 */
 	public void setPosition(int position) {
-		SmartDashboard.putNumber("Elevator Position", position);
+		SmartDashboard.putNumber("Elevator/Position", position);
 		double height = positionOne;
 		height += (position - 1) * toteHeight;
 		if (!SlideWinder.oi.nonScoringButton.get()) {
@@ -147,10 +147,10 @@ public class Elevator extends Subsystem {
 	 * Updates the SmartDashboard
 	 */
 	public void updateDashboard() {
-		SmartDashboard.putBoolean("Elevator Upper Limit", upperLimit.get());
-		SmartDashboard.putBoolean("Elevator Lower Limit", lowerLimit.get());
-		SmartDashboard.putBoolean("ELevator Brake",
+		SmartDashboard.putBoolean("Elevator/Upper Limit", upperLimit.get());
+		SmartDashboard.putBoolean("Elevator/Lower Limit", lowerLimit.get());
+		SmartDashboard.putBoolean("ELevator/Brake",
 				brake.get() == DoubleSolenoid.Value.kReverse);
-		SmartDashboard.putNumber("Elevator Encoder", encoder.getDistance());
+		SmartDashboard.putNumber("Elevator/Encoder", encoder.getDistance());
 	}
 }

@@ -12,9 +12,9 @@ import edu.wpi.first.smartdashboard.types.NamedDataType;
  * @author Student
  */
 public class SubsystemType extends NamedDataType{
-    public static final String LABEL = "Point";
+    public static final String LABEL = "SubSystem";
     private SubsystemType() {
-        super(LABEL, PDPWidget.class);
+        super(LABEL, AllWidget.class);
     }
     public static NamedDataType get() {
         if(NamedDataType.get(LABEL) != null){
