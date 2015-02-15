@@ -44,7 +44,6 @@ public class Drivetrain extends Subsystem {
 	private double previousTrueVelocity = 0;
 	private double trueAcceleration = 0;
 	private Timer timer = new Timer();
-	private boolean right = true;
 	private PID distancePID = new PID("DriveDistance");
 	private PID anglePID = new PID("DriveAngle");
 	private PID slidePID = new PID("DriveSlide");
@@ -273,6 +272,31 @@ public class Drivetrain extends Subsystem {
 	 */
 	public boolean reachedDistance() {
 		return distancePID.reachedTarget();
+	}
+	
+	public void setSlideTarget(double targetSlideDistance) {
+		slidePID.update((-leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
+		slidePID.setRelativeLocation(0);
+		slidePID.setTarget(targetSlideDistance);
+	}
+
+	/**
+	 * Updates only the distance PID
+	 * 
+	 * @return The distance PID output
+	 */
+	public double updateSlide() {
+		slidePID.update(slideEncoder.getDistance());
+		return distancePID.getOutput();
+	}
+
+	/**
+	 * Determines if the distance PID has reached the target
+	 * 
+	 * @return Whether distance target has been reached
+	 */
+	public boolean reachedSlideDistance() {
+		return slidePID.reachedTarget();
 	}
 
 	/**

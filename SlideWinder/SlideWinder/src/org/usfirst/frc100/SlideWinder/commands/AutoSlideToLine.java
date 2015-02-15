@@ -18,16 +18,22 @@ public class AutoSlideToLine extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		SlideWinder.drivetrain.setSlideTarget(0);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		SlideWinder.drivetrain.drive(0, -1.0, 0);
+		if(SlideWinder.drivetrain.onLine()){
+			SlideWinder.drivetrain.drive(0, SlideWinder.drivetrain.updateSlide(), 0);
+		} else {
+			SlideWinder.drivetrain.drive(0, -1.0, 0);
+		}
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return SlideWinder.drivetrain.onLine();
+		return SlideWinder.drivetrain.reachedSlideDistance();
 	}
 
 	// Called once after isFinished returns true
