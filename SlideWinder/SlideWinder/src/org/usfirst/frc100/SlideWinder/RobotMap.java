@@ -100,11 +100,17 @@ public class RobotMap {
         elevatorEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //        elevatorBrake = new DoubleSolenoid(0, 2, 3);      
 //        LiveWindow.addActuator("Elevator", "Brake", elevatorBrake);
         
 =======
 >>>>>>> origin/master
+=======
+        elevatorBrake = new DoubleSolenoid(0, 2, 3);      
+        LiveWindow.addActuator("Elevator", "Brake", elevatorBrake);
+        
+>>>>>>> parent of b5091a2... Put DeployPiston in the correct position & removed ElevatorBrake
 =======
         elevatorBrake = new DoubleSolenoid(0, 2, 3);      
         LiveWindow.addActuator("Elevator", "Brake", elevatorBrake);
@@ -136,10 +142,14 @@ public class RobotMap {
         
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         armDeployPiston = new DoubleSolenoid(0, 0, 1);      
 =======
         armDeployPiston = new DoubleSolenoid(0, 2, 3);      
 >>>>>>> origin/master
+=======
+        armDeployPiston = new DoubleSolenoid(1, 0, 1);      
+>>>>>>> parent of b5091a2... Put DeployPiston in the correct position & removed ElevatorBrake
 =======
         armDeployPiston = new DoubleSolenoid(1, 0, 1);      
 >>>>>>> parent of b5091a2... Put DeployPiston in the correct position & removed ElevatorBrake
