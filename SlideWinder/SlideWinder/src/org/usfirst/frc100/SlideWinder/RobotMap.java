@@ -26,6 +26,7 @@ public class RobotMap {
     public static AnalogInput drivetrainRightLineReader;
     public static SpeedController elevatorMotor;
     public static Encoder elevatorEncoder;
+    public static DoubleSolenoid elevatorBrake;
     public static DigitalInput elevatorUpperLimit;
     public static DigitalInput elevatorLowerLimit;
     public static SpeedController armRaiseMotor;
@@ -98,11 +99,17 @@ public class RobotMap {
         elevatorEncoder.setDistancePerPulse(1.0);
         elevatorEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
 <<<<<<< HEAD
+<<<<<<< HEAD
 //        elevatorBrake = new DoubleSolenoid(0, 2, 3);      
 //        LiveWindow.addActuator("Elevator", "Brake", elevatorBrake);
         
 =======
 >>>>>>> origin/master
+=======
+        elevatorBrake = new DoubleSolenoid(0, 2, 3);      
+        LiveWindow.addActuator("Elevator", "Brake", elevatorBrake);
+        
+>>>>>>> parent of b5091a2... Put DeployPiston in the correct position & removed ElevatorBrake
         elevatorUpperLimit = new DigitalInput(8);
         LiveWindow.addSensor("Elevator", "UpperLimit", elevatorUpperLimit);
         
@@ -128,10 +135,14 @@ public class RobotMap {
         LiveWindow.addSensor("Arm", "BackLimit", armBackLimit);
         
 <<<<<<< HEAD
+<<<<<<< HEAD
         armDeployPiston = new DoubleSolenoid(0, 0, 1);      
 =======
         armDeployPiston = new DoubleSolenoid(0, 2, 3);      
 >>>>>>> origin/master
+=======
+        armDeployPiston = new DoubleSolenoid(1, 0, 1);      
+>>>>>>> parent of b5091a2... Put DeployPiston in the correct position & removed ElevatorBrake
         LiveWindow.addActuator("Arm", "DeployPiston", armDeployPiston);
         
         pneumaticsCompressor = new Compressor(0);
