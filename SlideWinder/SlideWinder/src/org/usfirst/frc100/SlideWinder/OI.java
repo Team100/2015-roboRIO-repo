@@ -52,13 +52,13 @@ public class OI {
         manipulatorJoystick = new Joystick(2);
         
         liftToteButton1 = new JoystickButton(manipulatorJoystick, 1);
-        liftToteButton1.whenPressed(new SetElevatorPosition(1));
+        liftToteButton1.whenPressed(new SetElevatorPosition());
         liftToteButton2 = new JoystickButton(manipulatorJoystick, 2);
-        liftToteButton2.whenPressed(new SetElevatorPosition(2));
+        liftToteButton2.whenPressed(new SetElevatorPosition());
         liftToteButton3 = new JoystickButton(manipulatorJoystick, 3);
-        liftToteButton3.whenPressed(new SetElevatorPosition(3));
+        liftToteButton3.whenPressed(new SetElevatorPosition());
         liftToteButton4 = new JoystickButton(manipulatorJoystick, 4);
-        liftToteButton4.whenPressed(new SetElevatorPosition(4));
+        liftToteButton4.whenPressed(new SetElevatorPosition());
         manualControlButton = new JoystickButton(manipulatorJoystick, 5);
         manualControlButton.whileHeld(new ManipulatorManualControl());
         closeClawButton = new JoystickButton(manipulatorJoystick, 6);
@@ -68,13 +68,15 @@ public class OI {
         openClawButton = new JoystickButton(manipulatorJoystick, 8);
         openClawButton.whenPressed(new OpenClaw());
         coopertitionButton = new JoystickButton(manipulatorJoystick, 9);
+        coopertitionButton.whileHeld(new AutoDelay());
         nonScoringButton = new JoystickButton(manipulatorJoystick, 10);
+        nonScoringButton.whileHeld(new AutoDelay());
         rightJoystick = new Joystick(1);
         
         shiftButton = new JoystickButton(rightJoystick, 1);
         shiftButton.whileHeld(new Shift());
         quickTurnButton = new JoystickButton(rightJoystick, 2);
-        quickTurnButton.whileHeld(new AutoTurn(180));
+        quickTurnButton.whileHeld(new AutoTurn());
         leftJoystick = new Joystick(0);
         
         slideButton = new JoystickButton(leftJoystick, 1);
@@ -82,7 +84,7 @@ public class OI {
         gradualDriveButton = new JoystickButton(leftJoystick, 2);
         gradualDriveButton.whileHeld(new GradualDrive());
 
-	    /*
+	    
         // SmartDashboard Buttons
         SmartDashboard.putData("SetElevatorPosition", new SetElevatorPosition());
 

@@ -19,14 +19,18 @@ public class AutoModeTwo_TakeRecycling extends CommandGroup {
 		SLIDE_DISTANCE = Preferences
 				.getDouble("AutoTakeRecycling_SlideDistance");
 		DRIVE_LENGTH2 = Preferences.getDouble("AutoTakeRecycling_DriveLength2");
-
+		addParallel(new RaiseArm(false));
 		addSequential(new AutoSlideToLine());
+		addParallel(new Immobilize());
 		addSequential(new AutoGrabRecycling());
 		addSequential(new AutoFollowLine(DRIVE_LENGTH));
+		addParallel(new Immobilize());
 		addSequential(new AutoGrabRecycling());
 		addSequential(new AutoFollowLine(DRIVE_LENGTH2));
+		addParallel(new Immobilize());
 		addSequential(new AutoGrabRecycling());
 		addSequential(new AutoFollowLine(DRIVE_LENGTH));
+		addParallel(new Immobilize());
 		addSequential(new AutoGrabRecycling());
 		addSequential(new AutoDrive(0, SLIDE_DISTANCE));
 	}

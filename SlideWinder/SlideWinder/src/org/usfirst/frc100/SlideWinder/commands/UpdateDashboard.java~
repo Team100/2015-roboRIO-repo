@@ -21,7 +21,12 @@ public class UpdateDashboard extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		SmartDashboard.putString("PDP/~TYPE~", "PDP Current");
+		SmartDashboard.putString("PDP/~TYPE~", "SubSystem");
+		SmartDashboard.putString("Arm/~TYPE~", "SubSystem");
+		SmartDashboard.putString("Claw/~TYPE~", "SubSystem");
+		SmartDashboard.putString("Drivetrain/~TYPE~", "SubSystem");
+		SmartDashboard.putString("Elevator/~TYPE~", "SubSystem");
+		SmartDashboard.putString("CameraVision/~TYPE~", "SubSystem");
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -34,7 +39,11 @@ public class UpdateDashboard extends Command {
 
 		SmartDashboard.putNumber("PDP/PDP Voltage", pdp.getVoltage());
 		for (int i = 0; i < 16; i++) {
-			SmartDashboard.putNumber("PDP/PDP Port " + i, pdp.getCurrent(i));
+			if(i<10){
+				SmartDashboard.putNumber("PDP/PDP Port 0" + i, pdp.getCurrent(i));
+			} else {
+				SmartDashboard.putNumber("PDP/PDP Port " + i, pdp.getCurrent(i));
+			}
 		}
 	}
 
