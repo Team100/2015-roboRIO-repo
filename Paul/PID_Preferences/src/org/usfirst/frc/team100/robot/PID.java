@@ -77,11 +77,6 @@ public class PID {
         }
     }
 
-    // The current error of the loop
-    public double getError(){
-    	return error;
-    }
-    
     // Returns the current output value
     public double getOutput() {
         if (enabled) {
@@ -114,7 +109,6 @@ public class PID {
     // Sets the current location to be a specified value, but does NOT reset the target
     public void setRelativeLocation(double value) {
     	offset += target - error - value;
-    	error = target - value;
     	reset();
     }
     
