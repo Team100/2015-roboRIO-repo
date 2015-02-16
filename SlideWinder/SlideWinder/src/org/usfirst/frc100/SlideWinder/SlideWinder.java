@@ -60,13 +60,19 @@ public class SlideWinder extends IterativeRobot {
     	int modeSelect = oi.selector();
 		switch (modeSelect) {
 			case 0:
-				new AutoDrive(12.0, 0.0, false).start(); //Actual arguments to be determined
+				new AutoDrive(Preferences.getDouble("AutoDriveForward_Distance"), 0.0, false).start();
 				break;
 			case 1:
 				new AutoModeOne_StackTotes().start();
 				break;
 			case 2:
 				new AutoModeTwo_TakeRecycling().start();
+				break;
+			case 3:
+				new AutoModeThree_TakeRecyclingWithVision().start();
+				break;
+			case 4:
+				new AutoModeFour_TakeRecyclingWithLineReaders().start();
 				break;
 			default:
 				new AutoDrive(0, 0 , false).start();

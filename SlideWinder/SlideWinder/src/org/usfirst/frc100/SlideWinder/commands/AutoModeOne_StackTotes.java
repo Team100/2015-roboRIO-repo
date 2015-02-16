@@ -16,18 +16,18 @@ public class AutoModeOne_StackTotes extends CommandGroup {
 
 	public AutoModeOne_StackTotes() {
 		DISTANCE_TO_TOTE = Preferences
-				.getDouble("AutoStackTotesDistanceToTote");
+				.getDouble("AutoStackTotes_DistanceToTote");
 		DISTANCE_FORWARD = Preferences
-				.getDouble("AutoStackTotesDistanceForward");
+				.getDouble("AutoStackTotes_DistanceForward");
 		DISTANCE_TO_SCORING = Preferences
-				.getDouble("AutoStackTotesDistanceToScoring");
+				.getDouble("AutoStackTotes_DistanceToScoring");
 
 		addSequential(new AutoCalibrateElevator());
 		addSequential(new OpenClaw());
 		addSequential(new AutoDrive(DISTANCE_FORWARD, 0));
 		addSequential(new SetElevatorPosition(1));
 		addSequential(new CloseClaw());
-		addSequential(new SetElevatorPosition(3));
+		addSequential(new SetElevatorPosition(4));
 		addSequential(new AutoDrive(0, DISTANCE_TO_TOTE));
 		addSequential(new SetElevatorPosition(2));
 		addSequential(new OpenClaw());
