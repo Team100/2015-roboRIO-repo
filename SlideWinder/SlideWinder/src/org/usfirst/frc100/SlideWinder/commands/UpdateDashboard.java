@@ -39,7 +39,11 @@ public class UpdateDashboard extends Command {
 
 		SmartDashboard.putNumber("PDP/PDP Voltage", pdp.getVoltage());
 		for (int i = 0; i < 16; i++) {
-			SmartDashboard.putNumber("PDP/PDP Port " + i, pdp.getCurrent(i));
+			if(i<10){
+				SmartDashboard.putNumber("PDP/PDP Port 0" + i, pdp.getCurrent(i));
+			} else {
+				SmartDashboard.putNumber("PDP/PDP Port " + i, pdp.getCurrent(i));
+			}
 		}
 	}
 

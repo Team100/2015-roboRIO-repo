@@ -8,35 +8,41 @@ import edu.wpi.first.wpilibj.tables.ITableListener;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JLabel;
 
 /**
  * One widget to rule them all.
- * @author Gefen
+ * @author Team100
  */
 public class AllWidget extends AbstractTableWidget{
     
     public static final DataType[] TYPES = {SubsystemType.get()};
+    public static final String NAME = "OmniWidget";
     GridLayout layout;
     
     private ITable prefs;
-    private final ArrayList<JLabel> labelArrayList = new ArrayList<>();
-    private final ArrayList<AbstractTableWidget.NumberTableField> fieldArrayList = new ArrayList<>();
+    private ArrayList<Object> labels = new ArrayList<>();
+    private ArrayList<NumberTableField> fields = new ArrayList<>();
 
     @Override
     public void setValue(Object o) {
-        add(new JLabel("Subsystem: "));
-        add(new JLabel(this.getFieldName()));
         prefs = (ITable)o;
         prefs.addTableListener(new ITableListener() {
             @Override
             public void valueChanged(ITable itable, String key, Object value, boolean isNew) {
                 if(isNew&&!key.equals("~TYPE~")) {
-                    labelArrayList.add(new JLabel(key));
-                    fieldArrayList.add(new AbstractTableWidget.NumberTableField(key));
-                    add(labelArrayList.get(labelArrayList.size()-1));
-                    add(fieldArrayList.get(labelArrayList.size()-1));
-                    fieldArrayList.get(labelArrayList.size()-1).setText(value+"");
+                    removeAll();
+                    labels.add(key);
+                    fields.add(new NumberTableField(key));
+                    fields.get(fields.size()-1).setText(value+"");
+                    sort();
+                    add(new JLabel("Subsystem "));
+                    add(new JLabel(getFieldName()));
+                    for(int i=0; i<labels.size();i++){
+                        add(new JLabel(labels.get(i)+""));
+                        add(fields.get(i));
+                    }
                     revalidate();
                     repaint();
                 }
@@ -54,5 +60,21 @@ public class AllWidget extends AbstractTableWidget{
 
     @Override
     public void propertyChanged(Property prprt) {
+    }
+    
+    public void sort() {
+        Object[] temp = labels.toArray();
+        ArrayList<NumberTableField> tempfields = new ArrayList(fields);
+        Arrays.sort(temp);
+        for(int a = 0 ; a < labels.size(); a++){
+            for(int b = 0 ; b < labels.size(); b++) {
+                if((temp[b]+"").equals(labels.get(a)+"")) {
+                    tempfields.set(b, fields.get(a));
+                }
+            }
+        }
+        fields = tempfields;
+        labels = new ArrayList<>(Arrays.asList(temp));
+        
     }
 }

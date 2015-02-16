@@ -45,10 +45,6 @@ public class SlideWinder extends IterativeRobot {
         oi = new OI();
         
         SmartDashboard.putData(Scheduler.getInstance());
-        SmartDashboard.putData(SlideWinder.drivetrain);
-        SmartDashboard.putData(SlideWinder.elevator);
-        SmartDashboard.putData(SlideWinder.arm);
-        SmartDashboard.putData(SlideWinder.claw);
     }
 
     public void disabledInit(){
