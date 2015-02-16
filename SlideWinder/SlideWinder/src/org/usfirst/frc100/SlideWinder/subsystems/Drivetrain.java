@@ -201,7 +201,7 @@ public class Drivetrain extends Subsystem {
 		SmartDashboard.putBoolean("Drivetrain/Right LineReader OnWhite",
 				!rightLineReadTrigger.getTriggerState());
 		SmartDashboard.putNumber("Drivetrain/LineTrackerLimit",
-				Preferences.getDouble("Drivetrain/LineTrackerLimit"));
+				Preferences.getDouble("LineTrackerLimit"));
 
 		// Acceleration code
 		SmartDashboard.putNumber("DriveTrain/Acceleration Limit", driveLimit);
