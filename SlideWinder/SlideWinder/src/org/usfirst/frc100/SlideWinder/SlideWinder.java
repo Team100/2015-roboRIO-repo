@@ -76,10 +76,6 @@ public class SlideWinder extends IterativeRobot {
 //		default:
 //			new AutoDrive(0, 0 , false).start();
 //			break;
-////		case 15:
-////			new AutoDance(1).start();
-////			break;
-//		}
 //        if(stealRecyclingDuringAuto){
 //        	new AutoTakeRecycling().start();
 //        } else {
