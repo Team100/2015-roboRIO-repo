@@ -10,6 +10,6 @@
 	<classpathentry kind="lib" path="C:/Users/Student/wpilib/java/current/lib/NetworkTables.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Student/wpilib/java/current/lib/NetworkTables-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Student/wpilib/java/current/lib/WPILib-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Student/Downloads/opencv/build/java/opencv-2410.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Student/Documents/GitHub/2015-roboRIO-repo/SlideWinder/opencv-2410.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

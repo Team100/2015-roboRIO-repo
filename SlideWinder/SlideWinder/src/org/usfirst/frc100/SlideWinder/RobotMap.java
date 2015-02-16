@@ -26,7 +26,6 @@ public class RobotMap {
     public static AnalogInput drivetrainRightLineReader;
     public static SpeedController elevatorMotor;
     public static Encoder elevatorEncoder;
-    public static DoubleSolenoid elevatorBrake;
     public static DigitalInput elevatorUpperLimit;
     public static DigitalInput elevatorLowerLimit;
     public static SpeedController armRaiseMotor;
@@ -98,9 +97,6 @@ public class RobotMap {
         LiveWindow.addSensor("Elevator", "Encoder", elevatorEncoder);
         elevatorEncoder.setDistancePerPulse(1.0);
         elevatorEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
-        elevatorBrake = new DoubleSolenoid(0, 2, 3);      
-        LiveWindow.addActuator("Elevator", "Brake", elevatorBrake);
-        
         elevatorUpperLimit = new DigitalInput(8);
         LiveWindow.addSensor("Elevator", "UpperLimit", elevatorUpperLimit);
         
@@ -125,7 +121,7 @@ public class RobotMap {
         armBackLimit = new DigitalInput(12);
         LiveWindow.addSensor("Arm", "BackLimit", armBackLimit);
         
-        armDeployPiston = new DoubleSolenoid(1, 0, 1);      
+        armDeployPiston = new DoubleSolenoid(0, 2, 3);      
         LiveWindow.addActuator("Arm", "DeployPiston", armDeployPiston);
         
         pneumaticsCompressor = new Compressor(0);
