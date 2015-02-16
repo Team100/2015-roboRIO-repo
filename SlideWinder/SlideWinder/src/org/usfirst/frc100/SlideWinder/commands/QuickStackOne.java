@@ -12,6 +12,7 @@ public class QuickStackOne extends CommandGroup {
 		addSequential(new OpenClaw());
 		addSequential(new SetElevatorPosition(1));
 		addSequential(new CloseClaw());
+		addSequential(new SetElevatorPosition(2));
 	}
 
 }
