@@ -128,10 +128,10 @@ public class Elevator extends Subsystem {
 		if (!upperLimit.get()) {
 			topTriggered = true;
 		}
-		if (topTriggered && lowerLimit.get()) {
+		if (!topTriggered && lowerLimit.get()) {
 			releaseBrake();
 			motor.set(speed);
-		} else if (!topTriggered) {
+		} else if (topTriggered) {
 			if (speed < 0) {
 				releaseBrake();
 				motor.set(speed);
