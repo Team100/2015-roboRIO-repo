@@ -35,6 +35,7 @@ Elevator_kF 0.0
 ElevatorErrorTolerance 1.0
 ElevatorRateTolerance 0.1
 ElevatorIntegralLimit 0.0
+ElevatorPositionOne 1.0
 
 ArmSensorRatio 1.0
 Arm_kP 0.0
