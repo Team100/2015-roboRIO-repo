@@ -1,6 +1,7 @@
 package org.usfirst.frc100.SlideWinder.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc100.SlideWinder.SlideWinder;
 import org.usfirst.frc100.SlideWinder.subsystems.CameraVision;
@@ -24,18 +25,19 @@ public class  AutoVisionFollowLine extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	SlideWinder.cameraVision.initCamera();
-    	SlideWinder.cameraVision.setScanLine(120);
-    	SlideWinder.cameraVision.setLineReference(160);
-    	SlideWinder.cameraVision.setThreshold(1200);
+//    	SlideWinder.cameraVision.setScanLine((int) SmartDashboard.getNumber("Scan Line", 100));
+//    	SlideWinder.cameraVision.setLineReference((int) SmartDashboard.getNumber("Line Reference", 160));
+//    	SlideWinder.cameraVision.setThreshold((int) SmartDashboard.getNumber("Threshold", 1000));
         SlideWinder.drivetrain.setDistanceTarget(distance);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	SlideWinder.cameraVision.updateCamera();
+    	//SlideWinder.cameraVision.updateCamera();
     	if(CameraVision.cameraIsOpened){
     	SlideWinder.drivetrain.visionFollowLine(SlideWinder.cameraVision.getLineOffset());
     	}
+    	SlideWinder.cameraVision.updateDashboard();
     }
 
     // Make this return true when this Command no longer needs to run execute()

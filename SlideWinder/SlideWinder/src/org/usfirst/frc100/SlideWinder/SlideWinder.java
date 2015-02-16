@@ -88,11 +88,13 @@ public class SlideWinder extends IterativeRobot {
         new UpdateDashboard().start();
         drivetrain.shift(true);
         cameraVision.initCamera();
+        
     }
 
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         pneumatics.run();
+        System.out.println("It got to auto periodic");
         cameraVision.getLineOffset();
         cameraVision.updateDashboard();
     }

@@ -33,7 +33,9 @@ public class CameraVision extends Subsystem {
 	 * Called once when robot turns on
 	 */
 	public CameraVision() {
+		System.out.println("It started the camera constructor.");
 		System.load("/usr/local/lib/lib_OpenCV/java/libopencv_java2410.so");
+		camera = new VideoCapture("http://10.1.0.11/axis-cgi/mjpg/video.cgi?dummy=video.mjpg");
 		// // Initialization code here
 	}
 
@@ -45,7 +47,7 @@ public class CameraVision extends Subsystem {
 	 * Called once in auto init
 	 */
 	public void initCamera() {
-		camera = new VideoCapture("http://10.1.0.11/axis-cgi/mjpg/video.cgi?dummy=video.mjpg");
+		System.out.println("It got to init camera.");
 		if (!camera.isOpened()) {
 			System.out.println("CAMERA NOT FOUND:");
 			cameraIsOpened = false;
@@ -54,9 +56,9 @@ public class CameraVision extends Subsystem {
 		greyFrame = new Mat();
 		blurFrame = new Mat();
 		roiFrame = new Mat();
-		scharrFrame = new Mat(3, 640, CvType.CV_16S);
+		scharrFrame = new Mat(3, 320, CvType.CV_16S);
 		endFrame = new Mat();
-		scanRow = 80;
+		scanRow = 100;
 		threshold = 1000;
 		target = 160;
 		// cycleTime = SmartDashboard.getNumber("CyleTime");
@@ -69,6 +71,7 @@ public class CameraVision extends Subsystem {
 	 * @return The offset in pixels
 	 */
 	public int getLineOffset() {
+		System.out.println("It got to line offset.");
 		timer.reset();
 		timer.start();
 		if (camera.isOpened()) {
@@ -156,9 +159,9 @@ public class CameraVision extends Subsystem {
 	 * Updates the dashboard
 	 */
 	public void updateDashboard() {
-		SmartDashboard.putNumber("First Edge", firstEdge);
-		SmartDashboard.putNumber("Second Edge", secondEdge);
-		SmartDashboard.putNumber("Offset", offset);
-		SmartDashboard.putNumber("Vision Proc Time", visionProcessingTime);
+		SmartDashboard.putNumber("CameraVision/First Edge", firstEdge);
+		SmartDashboard.putNumber("CameraVision/Second Edge", secondEdge);
+		SmartDashboard.putNumber("CameraVision/Offset", offset);
+		SmartDashboard.putNumber("CameraVision/Vision Proc Time", visionProcessingTime);
 	}
 }
