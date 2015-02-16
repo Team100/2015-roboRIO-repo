@@ -59,7 +59,7 @@ public class Elevator extends Subsystem {
 	 * @return Whether the elevator has reached the lower limit
 	 */
 	public boolean getLowerLimit() {
-		return lowerLimit.get();
+		return !lowerLimit.get();
 	}
 
 	/**
@@ -128,7 +128,7 @@ public class Elevator extends Subsystem {
 		if (!upperLimit.get()) {
 			topTriggered = true;
 		}
-		if (!topTriggered && lowerLimit.get()) {
+		if (!topTriggered && !getLowerLimit()) {
 			releaseBrake();
 			motor.set(speed);
 		} else if (topTriggered) {
@@ -138,7 +138,7 @@ public class Elevator extends Subsystem {
 			} else {
 				activateBrake();
 			}
-		} else if (!lowerLimit.get()) {
+		} else if (getLowerLimit()) {
 			if (speed > 0) {
 				releaseBrake();
 				motor.set(speed);
