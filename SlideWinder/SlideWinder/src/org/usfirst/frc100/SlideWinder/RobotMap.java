@@ -98,8 +98,8 @@ public class RobotMap {
         LiveWindow.addSensor("Elevator", "Encoder", elevatorEncoder);
         elevatorEncoder.setDistancePerPulse(1.0);
         elevatorEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
-        elevatorBrake = new DoubleSolenoid(0, 2, 3);      
-        LiveWindow.addActuator("Elevator", "Brake", elevatorBrake);
+//        elevatorBrake = new DoubleSolenoid(0, 2, 3);      
+//        LiveWindow.addActuator("Elevator", "Brake", elevatorBrake);
         
         elevatorUpperLimit = new DigitalInput(8);
         LiveWindow.addSensor("Elevator", "UpperLimit", elevatorUpperLimit);
@@ -125,13 +125,13 @@ public class RobotMap {
         armBackLimit = new DigitalInput(12);
         LiveWindow.addSensor("Arm", "BackLimit", armBackLimit);
         
-        armDeployPiston = new DoubleSolenoid(1, 0, 1);      
+        armDeployPiston = new DoubleSolenoid(0, 0, 1);      
         LiveWindow.addActuator("Arm", "DeployPiston", armDeployPiston);
         
         pneumaticsCompressor = new Compressor(0);
         
         
-        clawPiston = new DoubleSolenoid(0, 6, 7);      
+        clawPiston = new DoubleSolenoid(0, 2, 3);      
         LiveWindow.addActuator("Claw", "Piston", clawPiston);
         
 

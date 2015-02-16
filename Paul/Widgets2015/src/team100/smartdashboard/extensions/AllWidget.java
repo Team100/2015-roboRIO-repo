@@ -23,7 +23,7 @@ public class AllWidget extends AbstractTableWidget{
     
     private ITable prefs;
     private ArrayList<Object> labels = new ArrayList<>();
-    private ArrayList<NumberTableField> fields = new ArrayList<>();
+    private ArrayList<EditorTextField> fields = new ArrayList<>();
 
     @Override
     public void setValue(Object o) {
@@ -34,7 +34,15 @@ public class AllWidget extends AbstractTableWidget{
                 if(isNew&&!key.equals("~TYPE~")) {
                     removeAll();
                     labels.add(key);
-                    fields.add(new NumberTableField(key));
+                    if(Double.class.equals(value.getClass())){
+                        fields.add(new NumberTableField(key));
+                    } else if(String.class.equals(value.getClass())){
+                        fields.add(new StringTableField(key));
+                    } else if(Boolean.class.equals(value.getClass())){
+                        fields.add(new BooleanTableField(key));
+                    } else {
+                        labels.remove(key);
+                    }
                     fields.get(fields.size()-1).setText(value+"");
                     sort();
                     add(new JLabel("Subsystem "));
@@ -64,7 +72,7 @@ public class AllWidget extends AbstractTableWidget{
     
     public void sort() {
         Object[] temp = labels.toArray();
-        ArrayList<NumberTableField> tempfields = new ArrayList(fields);
+        ArrayList<EditorTextField> tempfields = new ArrayList(fields);
         Arrays.sort(temp);
         for(int a = 0 ; a < labels.size(); a++){
             for(int b = 0 ; b < labels.size(); b++) {

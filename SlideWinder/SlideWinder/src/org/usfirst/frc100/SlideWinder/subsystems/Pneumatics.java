@@ -50,7 +50,8 @@ public class Pneumatics extends Subsystem {
 	 * @return - Whether there is enough current to run the compressor
 	 */
 	public boolean availableCompressorCurrent() {
-		return (120.0 - pdp.getTotalCurrent() > compressor
-				.getCompressorCurrent());
+		return true;
+		//return (120.0 - pdp.getTotalCurrent() > compressor
+			//.getCompressorCurrent());
 	}
 }

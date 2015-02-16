@@ -3,11 +3,13 @@ package org.usfirst.frc100.SlideWinder.subsystems;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.Imgproc;
+import org.usfirst.frc100.SlideWinder.Preferences;
 
 public class CameraVision extends Subsystem {
 	// private double cycleTime = 0; // Default value
@@ -37,6 +39,7 @@ public class CameraVision extends Subsystem {
 		System.load("/usr/local/lib/lib_OpenCV/java/libopencv_java2410.so");
 		camera = new VideoCapture("http://10.1.0.11/axis-cgi/mjpg/video.cgi?dummy=video.mjpg");
 		// // Initialization code here
+		SmartDashboard.putNumber("CameraVision/PID_Ratio", Preferences.getDouble("CameraVisionPID_Ratio"));
 	}
 
 	@Override

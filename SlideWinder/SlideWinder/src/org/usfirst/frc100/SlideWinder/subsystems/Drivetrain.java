@@ -367,9 +367,10 @@ public class Drivetrain extends Subsystem {
 	 * @param lineError - The distance from the line
 	 */
 	public void visionFollowLine(double lineError){
+		double ratio = SmartDashboard.getNumber("CameraVision/PID_Ratio");
 		distancePID.update((-leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
-		anglePID.update(lineError);
-		slidePID.update(slideEncoder.getDistance());
+		anglePID.update(gyro.getAngle());
+		slidePID.update(ratio*lineError);
 		drive(distancePID.getOutput(), slidePID.getOutput(), anglePID.getOutput());
 	}
 }
