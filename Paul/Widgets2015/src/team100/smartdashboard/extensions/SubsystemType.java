@@ -1,3 +1,5 @@
+package team100.smartdashboard.extensions;
+
 
 import edu.wpi.first.smartdashboard.types.NamedDataType;
 
@@ -11,16 +13,16 @@ import edu.wpi.first.smartdashboard.types.NamedDataType;
  *
  * @author Student
  */
-public class PDP_Type extends NamedDataType{
-    public static final String LABEL = "Point";
-    private PDP_Type() {
-        super(LABEL, PDPWidget.class);
+public class SubsystemType extends NamedDataType{
+    public static final String LABEL = "SubSystem";
+    private SubsystemType() {
+        super(LABEL, AllWidget.class);
     }
     public static NamedDataType get() {
         if(NamedDataType.get(LABEL) != null){
             return NamedDataType.get(LABEL);
         }else{
-            return new PDP_Type();
+            return new SubsystemType();
         }
     }
 }

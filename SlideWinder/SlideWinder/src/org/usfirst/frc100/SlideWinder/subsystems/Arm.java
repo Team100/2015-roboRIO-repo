@@ -112,10 +112,10 @@ public class Arm extends Subsystem {
 
 	// Updates the SmartDashboard
 	public void updateDashboard() {
-		SmartDashboard.putBoolean("Arm Grabbing", isGrabbing());
-		SmartDashboard.putBoolean("Arm Container Sensor", containerSensor.get());
-		SmartDashboard.putBoolean("Arm Forward Limit", forwardLimit.get());
-		SmartDashboard.putBoolean("Arm Back Limit", backLimit.get());
-		SmartDashboard.putNumber("Arm Potentiometer", potentiometer.get());
+		SmartDashboard.putBoolean("Arm/Grabbing", isGrabbing());
+		SmartDashboard.putBoolean("Arm/Container Sensor", containerSensor.get());
+		SmartDashboard.putBoolean("Arm/Forward Limit", forwardLimit.get());
+		SmartDashboard.putBoolean("Arm/Back Limit", backLimit.get());
+		SmartDashboard.putNumber("Arm/Potentiometer", potentiometer.get());
 	}
 }

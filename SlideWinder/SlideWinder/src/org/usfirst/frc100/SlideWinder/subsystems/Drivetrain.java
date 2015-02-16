@@ -181,36 +181,36 @@ public class Drivetrain extends Subsystem {
 	 * Updates the SmartDashboard
 	 */
 	public void updateDashboard() {
-		SmartDashboard.putBoolean("DriveTrain High Gear",
+		SmartDashboard.putBoolean("Drivetrain/High Gear",
 				shifter.get() == DoubleSolenoid.Value.kForward);
-		SmartDashboard.putNumber("DriveTrain LeftEncoder Raw",
+		SmartDashboard.putNumber("Drivetrain/LeftEncoder Raw",
 				leftEncoder.getRaw());
-		SmartDashboard.putNumber("DriveTrain RightEncoder Raw",
+		SmartDashboard.putNumber("Drivetrain/RightEncoder Raw",
 				rightEncoder.getRaw());
-		SmartDashboard.putNumber("DriveTrain LeftEncoder",
+		SmartDashboard.putNumber("Drivetrain/LeftEncoder",
 				leftEncoder.getDistance());
-		SmartDashboard.putNumber("DriveTrain RightEncoder",
+		SmartDashboard.putNumber("Drivetrain/RightEncoder",
 				rightEncoder.getDistance());
-		SmartDashboard.putNumber("DriveTrain Gyro", gyro.getAngle());
-		SmartDashboard.putNumber("Left LineReader Value",
+		SmartDashboard.putNumber("Drivetrain/Gyro", gyro.getAngle());
+		SmartDashboard.putNumber("Drivetrain/Left LineReader Value",
 				leftLineReader.getValue());
-		SmartDashboard.putNumber("Right LineReader Value",
+		SmartDashboard.putNumber("Drivetrain/Right LineReader Value",
 				rightLineReader.getValue());
-		SmartDashboard.putBoolean("Left LineReader OnWhite",
+		SmartDashboard.putBoolean("Drivetrain/Left LineReader OnWhite",
 				!leftLineReadTrigger.getTriggerState());
-		SmartDashboard.putBoolean("Right LineReader OnWhite",
+		SmartDashboard.putBoolean("Drivetrain/Right LineReader OnWhite",
 				!rightLineReadTrigger.getTriggerState());
-		SmartDashboard.putNumber("LineTrackerLimit",
-				Preferences.getDouble("LineTrackerLimit"));
+		SmartDashboard.putNumber("Drivetrain/LineTrackerLimit",
+				Preferences.getDouble("Drivetrain/LineTrackerLimit"));
 
 		// Acceleration code
-		SmartDashboard.putNumber("DriveTrain Acceleration Limit", driveLimit);
-		SmartDashboard.putNumber("DriveTrain Interval",
+		SmartDashboard.putNumber("DriveTrain/Acceleration Limit", driveLimit);
+		SmartDashboard.putNumber("DriveTrain/Interval",
 				accelerationLoopInterval);
 		// only applies to non-slide
-		SmartDashboard.putNumber("DriveTrain Velocity", velocity); 
+		SmartDashboard.putNumber("DriveTrain/Velocity", velocity); 
 
-		SmartDashboard.putNumber("DriveTrain Acceleration", trueAcceleration);
+		SmartDashboard.putNumber("DriveTrain/Acceleration", trueAcceleration);
 	}
 
 	/**
@@ -333,7 +333,7 @@ public class Drivetrain extends Subsystem {
 		} else if (rightLineReadTrigger.getTriggerState() && !leftLineReadTrigger.getTriggerState()) {
 			turnTrack = -rawTurnValue;
 		}
-		SmartDashboard.putNumber("TurnTrack", turnTrack);
+		SmartDashboard.putNumber("Drivetrain/TurnTrack", turnTrack);
 		return turnTrack;
 	}
 
