@@ -1,4 +1,4 @@
-package org.usfirst.frc.team100.robot;
+package org.usfirst.frc100.Robot2015;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
