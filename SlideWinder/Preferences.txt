@@ -42,12 +42,12 @@ ArmErrorTolerance 0.0
 ArmRateTolerance 0.0
 ArmIntegralLimit 0.0
 AutoDriveForward_Distance
-AutoStackTotes_DistanceToTote
 AutoStackTotes_DistanceForward
+AutoStackTotes_DistanceToTote 51.0
 AutoStackTotes_DistanceToScoring
-AutoTakeRecycling_DriveDistance1
-AutoTakeRecycling_SlideDistance
-AutoTakeRecycling_DriveDistance2
+AutoTakeRecycling_DriveDistance1 68.0
+AutoTakeRecycling_SlideDistance 0.0
+AutoTakeRecycling_DriveDistance2 98.06
 LineTrackerLimit 3600.0
 SlideJoystickDeadband 0.0
 CameraVisionPID_Ratio 0.0

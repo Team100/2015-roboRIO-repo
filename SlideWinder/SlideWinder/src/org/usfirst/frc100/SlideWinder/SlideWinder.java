@@ -74,21 +74,26 @@ public class SlideWinder extends IterativeRobot {
 			case 4:
 				new AutoModeFour_TakeRecyclingWithLineReaders().start();
 				break;
+			case 5:
+				new AutoFollowLine(48).start();
+				break;
+			case 6:
+				new AutoSlideToLine().start();
+				break;
+			case 7:
+				new AutoVisionFollowLine(48).start();
+				break;
 			default:
-				new AutoDrive(0, 0 , false).start();
+				new Immobilize().start();
 				break;
 		}
         new UpdateDashboard().start();
-        drivetrain.shift(true);
-//        cameraVision.initCamera();
-        
+        drivetrain.shift(true);        
     }
 
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         pneumatics.run();
-        System.out.println("It got to auto periodic");
-//        cameraVision.getLineOffset();
     }
 
     public void teleopInit() {
