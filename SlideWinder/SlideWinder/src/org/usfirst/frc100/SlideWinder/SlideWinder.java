@@ -94,7 +94,7 @@ public class SlideWinder extends IterativeRobot {
     public void teleopInit() {
     	Scheduler.getInstance().removeAll();
         new UpdateDashboard().start();
-//        new AutoCalibrateElevator().start();
+        new AutoCalibrateElevator().start();
         drivetrain.shift(true);
     }
 

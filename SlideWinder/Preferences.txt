@@ -1,51 +1,46 @@
 SLIDEWINDER PREFERENCES
 
-DriveDistanceSensorRatio 0.024882
 DriveDistance_kP 0.07
 DriveDistance_kI 0.0
 DriveDistance_kD 0.01
 DriveDistance_kF 0.0
+DriveDistanceSensorRatio 0.024882
 DriveDistanceErrorTolerance 2.0
 DriveDistanceRateTolerance 0.1
 DriveDistanceIntegralLimit 0.0
-
-DriveAngleSensorRatio -1.0
 DriveAngle_kP 0.02
 DriveAngle_kI 0.0
 DriveAngle_kD 0.002
 DriveAngle_kF 0.0
+DriveAngleSensorRatio -1.0
 DriveAngleErrorTolerance 2.0
 DriveAngleRateTolerance 0.1
 DriveAngleIntegralLimit 0.0
-
-DriveSlideSensorRatio 1.0
 DriveSlide_kP 0.0
 DriveSlide_kI 0.0
 DriveSlide_kD 0.0
 DriveSlide_kF 0.0
+DriveSlideSensorRatio 1.0
 DriveSlideErrorTolerance 2.0
 DriveSlideRateTolerance 0.1
 DriveSlideIntegralLimit 0.0
-
-ElevatorSensorRatio 0.251838
 Elevator_kP 0.3
 Elevator_kI 0.01
 Elevator_kD 0.01
 Elevator_kF 0.0
+ElevatorSensorRatio 0.251838
 ElevatorErrorTolerance 1.0
 ElevatorRateTolerance 0.1
 ElevatorIntegralLimit 0.0
-ElevatorPositionOne 1.0
-
-ArmSensorRatio 1.0
+ElevatorPositionOne -2.0
 Arm_kP 0.0
 Arm_kI 0.0
 Arm_kD 0.0
 Arm_kF 0.0
+ArmSensorRatio 1.0
 ArmErrorTolerance 0.0
 ArmRateTolerance 0.0
 ArmIntegralLimit 0.0
-
 AutoDriveForward_Distance
 AutoStackTotes_DistanceToTote
 AutoStackTotes_DistanceForward
@@ -53,9 +48,6 @@ AutoStackTotes_DistanceToScoring
 AutoTakeRecycling_DriveDistance1
 AutoTakeRecycling_SlideDistance
 AutoTakeRecycling_DriveDistance2
-
 LineTrackerLimit 3600.0
-
 SlideJoystickDeadband 0.0
-
 CameraVisionPID_Ratio 0.0

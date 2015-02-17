@@ -26,7 +26,7 @@ public class AutoCalibrateElevator extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		SlideWinder.elevator.manualControl(-0.42);
+		SlideWinder.elevator.manualControl(-0.6);
 		if (SlideWinder.elevator.getLowerLimit()) {
 			SlideWinder.elevator.manualControl(0.2);
 			limitTrigger = true;
@@ -43,7 +43,6 @@ public class AutoCalibrateElevator extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		SlideWinder.elevator.activateBrake();
-		;
 		SlideWinder.elevator.zeroPID();
 	}
 
