@@ -26,7 +26,6 @@ public class RobotMap {
     public static AnalogInput drivetrainRightLineReader;
     public static SpeedController elevatorMotor;
     public static Encoder elevatorEncoder;
-    public static DoubleSolenoid elevatorBrake;
     public static DigitalInput elevatorUpperLimit;
     public static DigitalInput elevatorLowerLimit;
     public static SpeedController armRaiseMotor;
@@ -73,15 +72,15 @@ public class RobotMap {
         drivetrainLeftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
         LiveWindow.addSensor("Drivetrain", "LeftEncoder", drivetrainLeftEncoder);
         drivetrainLeftEncoder.setDistancePerPulse(1.0);
-        drivetrainLeftEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+//        drivetrainLeftEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
         drivetrainRightEncoder = new Encoder(2, 3, false, EncodingType.k4X);
         LiveWindow.addSensor("Drivetrain", "RightEncoder", drivetrainRightEncoder);
         drivetrainRightEncoder.setDistancePerPulse(1.0);
-        drivetrainRightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+//        drivetrainRightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
         drivetrainSlideEncoder = new Encoder(4, 5, false, EncodingType.k4X);
         LiveWindow.addSensor("Drivetrain", "SlideEncoder", drivetrainSlideEncoder);
         drivetrainSlideEncoder.setDistancePerPulse(1.0);
-        drivetrainSlideEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+//        drivetrainSlideEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
         drivetrainGyro = new Gyro(0);
         LiveWindow.addSensor("Drivetrain", "Gyro", drivetrainGyro);
         drivetrainGyro.setSensitivity(0.007);
@@ -97,11 +96,8 @@ public class RobotMap {
         elevatorEncoder = new Encoder(6, 7, false, EncodingType.k4X);
         LiveWindow.addSensor("Elevator", "Encoder", elevatorEncoder);
         elevatorEncoder.setDistancePerPulse(1.0);
-        elevatorEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+//        elevatorEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
 
-//        elevatorBrake = new DoubleSolenoid(0, 2, 3);      
-//        LiveWindow.addActuator("Elevator", "Brake", elevatorBrake);
-        
         elevatorUpperLimit = new DigitalInput(8);
         LiveWindow.addSensor("Elevator", "UpperLimit", elevatorUpperLimit);
         

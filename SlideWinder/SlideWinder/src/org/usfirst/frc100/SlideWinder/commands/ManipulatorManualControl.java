@@ -30,6 +30,9 @@ public class ManipulatorManualControl extends Command {
 			SlideWinder.arm.toggleStab();
 		if (SlideWinder.oi.liftToteButton2.get())
 			SlideWinder.arm.toggleDeploy();
+		if(SlideWinder.oi.coopertitionButton.get()||SlideWinder.oi.nonScoringButton.get()) {
+			this.cancel();
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -49,5 +52,7 @@ public class ManipulatorManualControl extends Command {
 		end();
 		if(SlideWinder.oi.coopertitionButton.get()) 
 			new RaiseArm(true).start();
+		else if(SlideWinder.oi.nonScoringButton.get()) 
+			new RaiseArm(false).start();
 	}
 }
