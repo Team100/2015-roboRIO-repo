@@ -169,7 +169,6 @@ public class PID extends StaticWidget {
 
     // Adds widget to dashboard
     private void addWidget(Widget w, String s, JComponent p, DataType d) {
-        w.setFieldName("PID/"+s);
         w.setType(d);
         w.init();
         p.add(w);
