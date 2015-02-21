@@ -51,18 +51,13 @@ public class PID {
 	 * @param newValue - The new input value from the sensor
 	 */
 	public void update(double newValue) {
-		kP = SmartDashboard.getNumber("PID/"+name + " kP");
-		kI = SmartDashboard.getNumber("PID/"+name + " kI");
-		kD = SmartDashboard.getNumber("PID/"+name + " kD");
-		kF = SmartDashboard.getNumber("PID/"+name + " kF");
-		Preferences.set(name + "_kP", kP);
-		Preferences.set(name + "_kI", kI);
-		Preferences.set(name + "_kD", kD);
-		Preferences.set(name + "_kF", kF);
+		kP = Preferences.getDouble(name + "_kP");
+		kI = Preferences.getDouble(name + "_kI");
+		kD = Preferences.getDouble(name + "_kD");
+		kF = Preferences.getDouble(name + "_kF");
 		sensorValue = newValue;
 		interval = timer.get();
-		input = sensorValue * Preferences.getDouble(name + "SensorRatio")
-				- offset;
+		input = sensorValue * Preferences.getDouble(name + "SensorRatio") - offset;
 		lastError = error;
 		error = target - input;
 		if (Math.abs(output) < Preferences.getDouble(name + "IntegralLimit")

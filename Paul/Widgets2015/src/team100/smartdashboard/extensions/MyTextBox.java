@@ -4,9 +4,12 @@ import edu.wpi.first.smartdashboard.gui.elements.bindings.AbstractValueWidget;
 import javax.swing.*;
 import edu.wpi.first.smartdashboard.properties.*;
 import edu.wpi.first.smartdashboard.types.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusListener;
 
 /**
- * Implements a simple text box UI element with a name label, but allows for a different label and field name
+ * Implements a simple text box UI element with a name label, but allows for a 
+ * different label and field name
  */
 public class MyTextBox extends AbstractValueWidget {
 
@@ -52,5 +55,13 @@ public class MyTextBox extends AbstractValueWidget {
         } else if (property == editable) {
             valueField.setEditable(editable.getValue());
         }
+    }
+
+    public String getText() {
+        return valueField.getText();
+    }
+
+    public void addSpecialListener(FocusListener l) {
+        valueField.addFocusListener(l);
     }
 }

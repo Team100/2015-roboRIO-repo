@@ -13,32 +13,21 @@ import org.usfirst.frc100.SlideWinder.Preferences;
 public class SyncPreferences extends Command {
 
 	private final boolean read;
-	private final boolean fromFile;
 	
 	/**
 	 * @param read - Reading or writing preferences
 	 * @param fromFile - RoboRIO file or SmartDashboard
 	 */
-    public SyncPreferences(boolean read, boolean fromFile) {
+    public SyncPreferences(boolean read) {
     	this.read = read;
-    	this.fromFile = fromFile;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		if (fromFile) {
-			if (read) {
-				Preferences.read();
-			} else {
-				Preferences.write();
-			}
+		if (read) {
+			Preferences.read();
 		} else {
-			String name = SmartDashboard.getString("Preference Name");
-			if (read) {
-				NetworkTable.getTable("Preferences").putString(name, Preferences.getString(name));
-			} else {
-				Preferences.set(name, NetworkTable.getTable("Preferences").getString(name));
-			}
+			Preferences.write();
 		}
 	}
 

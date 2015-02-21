@@ -3,7 +3,6 @@ package team100.smartdashboard.extensions;
 import java.awt.FlowLayout;
 import edu.wpi.first.smartdashboard.gui.StaticWidget;
 import edu.wpi.first.smartdashboard.gui.Widget;
-import edu.wpi.first.smartdashboard.gui.elements.BooleanBox;
 import edu.wpi.first.smartdashboard.gui.elements.LinePlot;
 import edu.wpi.first.smartdashboard.properties.Property;
 import edu.wpi.first.smartdashboard.properties.StringProperty;
@@ -11,17 +10,14 @@ import edu.wpi.first.smartdashboard.types.DataType;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.tables.ITableListener;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+/**
+ * Widget that helps with PID tuning.
+ * @author Paul
+ */
 
 public class PID extends StaticWidget {
 
@@ -41,7 +37,7 @@ public class PID extends StaticWidget {
     private String name = "Default ";
     public final StringProperty loopName = new StringProperty(this, "LoopName", "Default");
     private final  NetworkTable sd = NetworkTable.getTable("SmartDashboard/PID");
-//    private final  NetworkTable prefs = NetworkTable.getTable("Preferences");
+    private final  NetworkTable prefs = NetworkTable.getTable("Preferences");
     
     private final Color team100orange = new Color(0xF4, 0x92, 0x07);
 
@@ -53,7 +49,7 @@ public class PID extends StaticWidget {
             p1.removeAll();
             
             for(int i=0; i<boxes.length; i++){
-                MyTextBox box = new MyTextBox("PID/"+name);
+                final MyTextBox box = new MyTextBox("PID/"+name);
                 boxes[i] = box;
                     addWidget(box, boxNames[i], p1, DataType.NUMBER);
                 if(sd.containsKey(name+boxNames[i])){
@@ -61,13 +57,24 @@ public class PID extends StaticWidget {
                 } else {
                     box.setValue(0);
                 }
-//                String prefKey = (name + boxNames[i]).replace(" ", "_");
-//                if(prefs.containsKey(prefKey)&&i < 4) boxes[i].setValue(prefs.getValue(prefKey));
-                if (i>4) box.editable.setValue(false);
+                final String prefKey = (name + boxNames[i]).replace(" ", "_");
+                if (i>4) {
+                    box.editable.setValue(false);
+                } else if(i<4){
+                    if(prefs.containsKey(prefKey)){
+                        boxes[i].setValue(prefs.getValue(prefKey));
+                    }
+                    box.addSpecialListener(new FocusAdapter(){
+                        @Override
+                        public void focusLost(FocusEvent e) {
+                            prefs.putString(prefKey, box.getText());
+                        }
+                    });
+                }
             }
             
             p1.add(testPID);
-            p1.add(reset);            
+            p1.add(reset);
             
             resetGraphs();
         }
@@ -84,7 +91,7 @@ public class PID extends StaticWidget {
         p1.setBackground(team100orange);
         p2.setLayout(new GridLayout(1,2));
         p2.setBackground(team100orange);
-        reset.addActionListener(new ActionListener(){
+        reset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 resetGraphs();
@@ -116,16 +123,7 @@ public class PID extends StaticWidget {
             public void valueChanged(ITable itable, String key, Object value, boolean bln) {
                 for(int i=0; i<boxes.length; i++){
                     if(key.equals(name+boxNames[i])){
-//                        System.out.println("SD changed: "+key+" "+value);
                         boxes[i].setValue(value);
-//                        String prefKey = key.replace(" ", "_");
-//                        if(i<4&&prefs.containsKey(prefKey)&&!value.equals(prefs.getValue(prefKey))){
-//                            try {
-//                                prefs.putNumber(prefKey, (double) value);
-//                            } catch (Exception e){
-//                                prefs.putNumber(prefKey, 0);
-//                            }
-//                        }
                     }
                 }
                 if(key.equals(name+"Error")){
@@ -135,22 +133,18 @@ public class PID extends StaticWidget {
                 }
             }
         });
-//        //Listen for external preference modification
-//        prefs.addTableListener(new ITableListener() {
-//            @Override
-//            public void valueChanged(ITable itable, String string, Object o, boolean bln) {
-//                for(int i=0; i<4; i++){
-//                    System.out.println("Pref changed: "+string+" "+o);
-//                    System.out.println("prefKey: "+(name+boxNames[i]).replace(" ", "_"));
-//                    if(string.equals((name+boxNames[i]).replace(" ", "_"))&&!o.equals(sd.getValue(name+boxNames[i]))){
-//                        System.out.println("Made it!");
-//                        boxes[i].setValue(o);
-//                        sd.putNumber((name+boxNames[i]), Double.parseDouble(o+""));
-//                        System.out.println(sd.getNumber(name+boxNames[i]));
-//                    }
-//                }
-//            }
-//        });
+        //Listen for external preference modification
+        prefs.addTableListener(new ITableListener() {
+            @Override
+            public void valueChanged(ITable itable, String string, Object o, boolean bln) {
+                for(int i=0; i<4; i++){
+                    if(string.equals((name+boxNames[i]).replace(" ", "_"))){
+                        boxes[i].setValue(o);
+                        sd.putNumber((name+boxNames[i]), Double.parseDouble(o+""));
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -174,6 +168,7 @@ public class PID extends StaticWidget {
         p2.removeAll();
         errorPlot = new LinePlot();
         outputPlot = new LinePlot();
+        // The graphs don't need to set the field name to the proper SD path
         addWidget(errorPlot, "Error", p2, DataType.NUMBER);
         addWidget(outputPlot, "Output", p2, DataType.NUMBER);
         revalidate();

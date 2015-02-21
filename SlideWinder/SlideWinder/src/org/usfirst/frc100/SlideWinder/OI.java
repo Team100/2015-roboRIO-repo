@@ -143,14 +143,8 @@ public class OI {
         quickStackButton2 = new JoystickButton(manipulatorJoystick, 12);
         quickStackButton2.whenPressed(new QuickStackTwo());
         
-		SmartDashboard.putData("Load Preferences", new SyncPreferences(true,
-				true));
-		SmartDashboard.putData("Save Preferences", new SyncPreferences(false,
-				true));
-		SmartDashboard.putData("Read Preference", new SyncPreferences(true,
-				false));
-		SmartDashboard.putData("Write Preference", new SyncPreferences(false,
-				false));
+		SmartDashboard.putData("Load Preferences", new SyncPreferences(true));
+		SmartDashboard.putData("Save Preferences", new SyncPreferences(false));
 		SmartDashboard.putData("PID/Test DriveDistance PID", new TestPID(
 				TestPID.System.DRIVEDISTANCE));
 		SmartDashboard.putData("PID/Test DriveSlide PID", new TestPID(
