@@ -21,15 +21,16 @@ public class BufferedFileWriter {
 	 * 
 	 * @param file
 	 *            The file that will be written to.
+	 * @throws IOException
 	 */
 	BufferedFileWriter(File file) {
+
 		try {
 			fWriter = new FileWriter(file.getAbsoluteFile());
-			bWriter = new BufferedWriter(fWriter);
-			status("Ready!");
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
+		bWriter = new BufferedWriter(fWriter);
+		status("Ready!");
 	}
 
 	/**
@@ -37,15 +38,16 @@ public class BufferedFileWriter {
 	 * 
 	 * @param str
 	 *            Message to be written.
+	 * @throws IOException
 	 */
 	public void write(String str) {
 		status("Writing \"" + str + "\" To File");
+
 		try {
 			bWriter.write(str);
-			status("Done!");
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
+		status("Done!");
 	}
 
 	/**
@@ -53,55 +55,61 @@ public class BufferedFileWriter {
 	 * 
 	 * @param str
 	 *            Message to be written.
+	 * @throws IOException
 	 */
 	public void writeLine(String str) {
 		status("Writing \"" + str + "\" To File!");
+
 		try {
 			bWriter.write(str);
 			bWriter.newLine();
-			status("Done!");
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
+		status("Done!");
 	}
 
 	/**
 	 * Writes a new line.
+	 * 
+	 * @throws IOException
 	 */
 	public void newLine() {
 		status("Writing Return To File!");
 		try {
 			bWriter.newLine();
-			status("Done!");
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
+		status("Done!");
 	}
 
 	/**
 	 * Saves written file.
+	 * 
+	 * @throws IOException
 	 */
 	public void flush() {
 		status("Flushing!");
+
 		try {
 			bWriter.flush();
-			status("Done!");
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
+		status("Done!");
 	}
 
 	/**
 	 * Closes the writer.
+	 * 
+	 * @throws IOException
 	 */
 	public void close() {
 		status("Closing!");
+
 		try {
 			bWriter.close();
-			status("Done!");
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
+		status("Done!");
 	}
 
 	/**
