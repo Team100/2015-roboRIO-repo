@@ -5,7 +5,6 @@ import edu.wpi.first.smartdashboard.gui.StaticWidget;
 import edu.wpi.first.smartdashboard.gui.Widget;
 import edu.wpi.first.smartdashboard.gui.elements.BooleanBox;
 import edu.wpi.first.smartdashboard.gui.elements.LinePlot;
-import edu.wpi.first.smartdashboard.gui.elements.TextBox;
 import edu.wpi.first.smartdashboard.properties.Property;
 import edu.wpi.first.smartdashboard.properties.StringProperty;
 import edu.wpi.first.smartdashboard.types.DataType;
@@ -14,12 +13,14 @@ import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.tables.ITableListener;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class PID extends StaticWidget {
@@ -27,13 +28,12 @@ public class PID extends StaticWidget {
     public static final String NAME = "PID Tuner";
 
     private final JButton reset = new JButton("Reset Graphs");
-    private BooleanBox reachedTarget;
     private final JButton testPID = new JButton("Start PID");
     private LinePlot errorPlot = new LinePlot();
     private LinePlot outputPlot = new LinePlot();
-
-    private final TextBox[] boxes = new TextBox[13];
-    private final String[] boxNames = {"kP", "kI", "kD", "kF", "Input", "Error","Target", "Output", "Interval", "Rate", "TotalError", "SensorValue", "TestTarget"};
+    private final MyTextBox[] boxes = new MyTextBox[13];
+    private final String[] boxNames = {"kP", "kI", "kD", "kF", "TestTarget", "SensorValue", "Input", "Error", "Target", "Output", "Interval", "Rate", "TotalError"};
+    private JLabel j;
     
     private final JPanel p1 = new JPanel();
     private final JPanel p2 = new JPanel();
@@ -49,12 +49,13 @@ public class PID extends StaticWidget {
     public void propertyChanged(Property prop) {
         if (prop == loopName) {
             name = loopName.getValue()+" ";
+            j.setText(name+"PID");
             p1.removeAll();
             
             for(int i=0; i<boxes.length; i++){
-                TextBox box = new TextBox();
+                MyTextBox box = new MyTextBox("PID/"+name);
                 boxes[i] = box;
-                    addWidget(box, name+boxNames[i], p1, DataType.NUMBER);
+                    addWidget(box, boxNames[i], p1, DataType.NUMBER);
                 if(sd.containsKey(name+boxNames[i])){
                     box.setValue(sd.getNumber(name+boxNames[i]));
                 } else {
@@ -62,19 +63,11 @@ public class PID extends StaticWidget {
                 }
 //                String prefKey = (name + boxNames[i]).replace(" ", "_");
 //                if(prefs.containsKey(prefKey)&&i < 4) boxes[i].setValue(prefs.getValue(prefKey));
-                if (i>3&&i<12) box.editable.setValue(false);
+                if (i>4) box.editable.setValue(false);
             }
             
             p1.add(testPID);
             p1.add(reset);            
-
-            reachedTarget = new BooleanBox();
-            addWidget(reachedTarget, name+"ReachedTarget", p1, DataType.BOOLEAN);
-            if(sd.containsKey(name+"ReachedTarget")){
-                reachedTarget.setValue(sd.getBoolean(name+"ReachedTarget"));
-            } else {
-                reachedTarget.setValue(false);
-            }
             
             resetGraphs();
         }
@@ -82,9 +75,9 @@ public class PID extends StaticWidget {
 
     @Override
     public void init() {
-        setPreferredSize(new Dimension(825, 425));
+        setPreferredSize(new Dimension(825, 444));
         setLayout(new FlowLayout());
-        GridLayout g = new GridLayout(4,4);
+        GridLayout g = new GridLayout(3,5);
         g.setHgap(5);
         g.setVgap(5);
         p1.setLayout(g);
@@ -111,6 +104,9 @@ public class PID extends StaticWidget {
                 }
             }
         });
+        j = new JLabel(name+"PID");
+        j.setFont(new Font(j.getFont().getFontName(), Font.BOLD, 30));
+        add(j);
         add(p1);
         add(p2);
         propertyChanged(loopName);
@@ -136,8 +132,6 @@ public class PID extends StaticWidget {
                     errorPlot.setValue(value);
                 } else if(key.equals(name+"Output")){
                     outputPlot.setValue(value);
-                } else if(key.equals(name+"ReachedTarget")){
-                    reachedTarget.setValue(value);
                 }
             }
         });
@@ -169,6 +163,7 @@ public class PID extends StaticWidget {
 
     // Adds widget to dashboard
     private void addWidget(Widget w, String s, JComponent p, DataType d) {
+        w.setFieldName(s);
         w.setType(d);
         w.init();
         p.add(w);
