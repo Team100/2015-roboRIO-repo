@@ -1,5 +1,0 @@
-# Project specific information
-package=org.usfirst.frc100.SlideWinder
-robot.class=${package}.SlideWinder
-simulation.world.file=/usr/share/frcsim/worlds/GearsBotDemo.world
-
