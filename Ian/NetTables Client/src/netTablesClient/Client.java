@@ -31,7 +31,7 @@ public class Client {
 	/*
 	 * CONSTANTS HERE:
 	 */
-	
+
 	// Sets the place where the data file will be stored.//The default file name
 	// is "NetTables Data.txt".
 	public static final String FILE_PATH = "C:/Users/Public/Documents/";
@@ -45,7 +45,7 @@ public class Client {
 	// The time between refreshes in milliseconds.
 	public static final long REFRESH_RATE = 1000;
 	// Put the roboRIO IP here.
-	public static final String IP = "roboRIO-100.local";
+	public static final String IP = "10.1.0.2";
 	// Debug mode.
 	public static final boolean DEBUG_MODE = false;
 
@@ -56,7 +56,7 @@ public class Client {
 	/*
 	 * CHANGING VARIABLES HERE:
 	 */
-	
+
 	// Data refresh cycle.
 	int refreshCycle = 1;
 	// Current time in millis.
@@ -72,14 +72,14 @@ public class Client {
 	List<String> csvData = new ArrayList<String>();
 	// Converts data array to string.
 	String dataStr;
-	
+
 	/*
 	 * CONSTRUCTORS HERE:
 	 */
-	
+
 	// Constructs the table.
 	NetworkTable table;
-	
+
 	// Constructs the .txt file.
 	File txtFile;
 	// Constructs the .csv file.
@@ -98,10 +98,10 @@ public class Client {
 	JFrame frame;
 	JTextArea textArea;
 
-	/* 
+	/*
 	 * > PROGRAM METHODS HERE <
 	 */
-	
+
 	// Runs the program.
 	public static void main(String[] args) {
 		// Starts the desktop client.
@@ -181,7 +181,7 @@ public class Client {
 			frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 			frame.setVisible(true);
 
-			printStream = new PrintStream(new CustomOutputStream(textArea));
+			printStream = new PrintStream(new OutputStreamToTextArea(textArea));
 			System.setOut(printStream);
 			System.setErr(printStream);
 		}
