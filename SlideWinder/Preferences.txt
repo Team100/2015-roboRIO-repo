@@ -41,10 +41,9 @@ ArmSensorRatio 1.0
 ArmErrorTolerance 0.0
 ArmRateTolerance 0.0
 ArmIntegralLimit 0.0
-AutoDriveForward_Distance
-AutoStackTotes_DistanceForward
+AutoStackTotes_DistanceForward 12.0
 AutoStackTotes_DistanceToTote 51.0
-AutoStackTotes_DistanceToScoring
+AutoStackTotes_DistanceToScoring 107.0
 AutoTakeRecycling_DriveDistance1 68.0
 AutoTakeRecycling_SlideDistance 0.0
 AutoTakeRecycling_DriveDistance2 98.06
