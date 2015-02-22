@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoModeFive_PullBinBack extends CommandGroup {
 
 	public AutoModeFive_PullBinBack() {
+		addSequential(new AutoCalibrateElevator());
 		if( SlideWinder.claw.isClosed() ){
 			addSequential(new OpenClaw());
 			addSequential(new AutoDrive(12));
