@@ -14,7 +14,7 @@ public class AutoDelay extends Command {
 	private Timer timer = new Timer();
 
 	/**
-	 * @param time - The delay before the command terminates
+	 * @param time - The delay in seconds before the command terminates
 	 */
 	public AutoDelay(double time) {
 		t = time;
