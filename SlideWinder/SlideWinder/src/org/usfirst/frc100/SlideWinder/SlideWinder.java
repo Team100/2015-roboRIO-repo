@@ -106,6 +106,7 @@ public class SlideWinder extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         pneumatics.run();
+        oi.updateDPad();
     }
 
     public void testPeriodic() {

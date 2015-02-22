@@ -28,7 +28,7 @@ public class SetElevatorPosition extends Command {
 	}
 	
 	/**
-	 * @param position - The height to which the elevator should be moved, relative to the lower limit switch
+	 * @param position - The height in inches to which the elevator should be moved, relative to the lower hall effect
 	 * @param presetPosition - Whether the given position is one of the presets
 	 */
 	public SetElevatorPosition(double position, boolean presetPosition) {
