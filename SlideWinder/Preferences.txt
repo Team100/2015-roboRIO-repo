@@ -41,9 +41,12 @@ ArmSensorRatio 1.0
 ArmErrorTolerance 0.0
 ArmRateTolerance 0.0
 ArmIntegralLimit 0.0
+AutoStackTotes_StartPosition 1.0
 AutoStackTotes_DistanceForward 12.0
 AutoStackTotes_DistanceToTote 51.0
 AutoStackTotes_DistanceToScoring 107.0
+AutoStackTotes_DistanceToLandmark 80.5
+AutoStackTotes_LandmarkStackOrder 1.0
 AutoTakeRecycling_DriveDistance1 68.0
 AutoTakeRecycling_SlideDistance 0.0
 AutoTakeRecycling_DriveDistance2 98.06
