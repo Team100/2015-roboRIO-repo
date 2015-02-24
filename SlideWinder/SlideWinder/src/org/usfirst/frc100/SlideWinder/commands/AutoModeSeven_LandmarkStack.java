@@ -6,13 +6,13 @@ import org.usfirst.frc100.SlideWinder.SlideWinder;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * Places a stack on one tote and picks up the whole stack
+ * Stacks tote on landmark for cooperation during autonomous
  */
 public class AutoModeSeven_LandmarkStack extends CommandGroup {
-	private final double startPosition;
+	private final int startPosition;
 	
 	public AutoModeSeven_LandmarkStack() {
-		startPosition = Preferences.getDouble("AutoStackTotes_StartPosition");
+		startPosition = (int)Preferences.getDouble("AutoStackTotes_StartPosition");
 		
 		addSequential(new AutoCalibrateElevator());
 		addSequential(new OpenClaw());
@@ -22,9 +22,13 @@ public class AutoModeSeven_LandmarkStack extends CommandGroup {
 		addSequential(new AutoDelay(1.0));
 		addSequential(new SetElevatorPosition(4));
 		addSequential(new AutoDrive(Preferences.getDouble("AutoStackTotes_DistanceToScoring")+8));
-		if (startPosition % 2 == 1.0) {
+		if (startPosition % 2 == 1) {
 			addSequential(new AutoTurn((2 - startPosition)*90));
-			addSequential(new AutoDrive(Preferences.getDouble("AutoStackTotes_DistanceToLandmark")));
+			if(startPosition == 1){
+				addSequential(new AutoDrive(Preferences.getDouble("AutoStackTotes_DistanceToLandmark") - 21));
+			} else {
+				addSequential(new AutoDrive(Preferences.getDouble("AutoStackTotes_DistanceToLandmark")));
+			}		
 		}
 
 		addSequential(new SetElevatorPosition((int)Preferences.getDouble("AutoStackTotes_LandmarkStackOrder")));

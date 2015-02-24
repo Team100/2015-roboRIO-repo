@@ -5,7 +5,7 @@ import org.usfirst.frc100.SlideWinder.Preferences;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * Places a stack on one tote and picks up the whole stack
+ * Pushes both a bin and a tote into the auto zone during autonomous
  */
 public class AutoModeSix_PushBinAndTote extends CommandGroup {
 

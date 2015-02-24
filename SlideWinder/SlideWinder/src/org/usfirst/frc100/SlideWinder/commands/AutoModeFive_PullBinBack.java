@@ -6,7 +6,7 @@ import org.usfirst.frc100.SlideWinder.SlideWinder;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * Places a stack on one tote and picks up the whole stack
+ * Pulls a bin back into the auto zone to get out of the way
  */
 public class AutoModeFive_PullBinBack extends CommandGroup {
 
