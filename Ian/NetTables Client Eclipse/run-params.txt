@@ -1,0 +1,7 @@
+SUBSYSTEM Arm
+GETBOOL Is up
+GETNUM Position of arm
+
+SUBSYSTEM Drive Train
+GETNUM Velocity
+GETBOOL High gear
