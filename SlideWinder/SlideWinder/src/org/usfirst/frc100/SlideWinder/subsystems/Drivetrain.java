@@ -64,7 +64,7 @@ public class Drivetrain extends Subsystem {
 	 */
 	public void drive(double speed, double slide, double turn) {
 		robotDrive.arcadeDrive(-speed, turn);
-		slideMotor.set(slide*0.5);
+		slideMotor.set(slide);
 	}
 
 	/**
