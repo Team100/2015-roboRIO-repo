@@ -1,6 +1,7 @@
 package team100.smartdashboard.extensions;
 
 import edu.wpi.first.smartdashboard.gui.StaticWidget;
+import edu.wpi.first.smartdashboard.gui.Widget;
 import edu.wpi.first.smartdashboard.properties.Property;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.tables.ITable;
@@ -10,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
@@ -20,15 +23,19 @@ import javax.swing.JTextField;
 public class Preferences extends StaticWidget {
 
     public static final String NAME = "Preference Viewer";
-    private final JComboBox keyBox = new JComboBox();
+    private JComboBox keyBox = new JComboBox();
     private final JTextField valueField = new JTextField();
     private final ITable prefs = NetworkTable.getTable("Preferences");
+    private ArrayList<Object> labels = new ArrayList<>();
+    private ArrayList<Widget.EditorTextField> fields = new ArrayList<>();
 
     @Override
     public void init() {
         setPreferredSize(new Dimension(415, 40));
         keyBox.setPreferredSize(new Dimension(200, 25));
         valueField.setPreferredSize(new Dimension(200, 25));
+        
+        keyBox.addItem("Generate Preference");
 
         // If the user changes the JComboBox, update the value field
         keyBox.addActionListener(new ActionListener() {
@@ -44,7 +51,12 @@ public class Preferences extends StaticWidget {
         valueField.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
-                prefs.putString(keyBox.getSelectedItem() + "", valueField.getText());
+                if(keyBox.getSelectedItem().equals("Generate Preference") && !valueField.getText().equals("") 
+                        && !prefs.containsKey(valueField.getText())){
+                    prefs.putString(valueField.getText(), "");
+                } else {
+                    prefs.putString(keyBox.getSelectedItem() + "", valueField.getText());
+                }
             }
         });
 
@@ -53,8 +65,10 @@ public class Preferences extends StaticWidget {
         prefs.addTableListener(new ITableListener() {
             @Override
             public void valueChanged(ITable itable, String key, Object value, boolean isNew) {
-                if (isNew) {
+                if (isNew && !key.equals("Generate Preference")) {
+                    System.out.println("Added pref");
                     keyBox.addItem(key);
+                    sort();
                 }
                 if (key.equals(keyBox.getSelectedItem())) {
                     valueField.setText(value + "");
@@ -68,5 +82,23 @@ public class Preferences extends StaticWidget {
 
     @Override
     public void propertyChanged(Property prprt) {
+    }
+    
+    //Organizes the JComboBox display alphabetically
+    public void sort() {
+        System.out.println("sort");
+        int size = keyBox.getItemCount() - 1;
+        Object[] temp = new String[size];
+        for(int i = 0; i < size; i++) {
+            temp[i] = keyBox.getItemAt(i+1);
+        }      
+        Arrays.sort(temp);
+        
+        keyBox.removeAllItems();
+        keyBox.addItem("Generate Preference");
+        for(int i = 0; i < size; i++){
+            keyBox.addItem(temp[i]);
+        }
+        
     }
 }
