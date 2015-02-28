@@ -1,10 +1,8 @@
 package org.usfirst.frc100.SlideWinder.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc100.SlideWinder.Preferences;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Read or writes the Preferences on either the SmartDashboard or the RoboRIO

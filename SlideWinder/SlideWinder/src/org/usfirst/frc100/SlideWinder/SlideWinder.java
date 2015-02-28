@@ -75,16 +75,15 @@ public class SlideWinder extends IterativeRobot {
 				new AutoModeFour_TakeRecyclingWithLineReaders().start();
 				break;
 			case 5:
-				new AutoFollowLine(48).start();
+				new AutoModeFive_PullBinBack().start();
 				break;
 			case 6:
-				new AutoSlideToLine().start();
+				new AutoModeSix_PushBinAndTote().start();
 				break;
 			case 7:
-				new AutoVisionFollowLine(48).start();
+				new AutoModeSeven_LandmarkStack().start();
 				break;
 			default:
-				new Immobilize().start();
 				break;
 		}
         new UpdateDashboard().start();

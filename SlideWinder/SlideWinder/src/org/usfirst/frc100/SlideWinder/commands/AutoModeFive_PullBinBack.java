@@ -18,7 +18,7 @@ public class AutoModeFive_PullBinBack extends CommandGroup {
 		} 
 		addSequential(new CloseClaw());
 		addSequential(new AutoDelay(1.0));
-		addSequential(new SetElevatorPosition(2));
+		addSequential(new SetElevatorPosition(3));
 		addSequential(new AutoDrive(-Preferences.getDouble("AutoStackTotes_DistanceToScoring") + 4, 0));
 		addSequential(new SetElevatorPosition(1));
 		addSequential(new OpenClaw());

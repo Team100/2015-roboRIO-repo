@@ -28,7 +28,7 @@ public class Elevator extends Subsystem {
 	private PID elevatorPID = new PID("Elevator"); // the elevator PID loop
 	private final double TOTE_HEIGHT = 11.75; // inches, compensated for 0.35 difference between lip and actual
 	private final double SCORING_PLATFORM_HEIGHT = 2.0; // inches
-	private final double STEP_HEIGHT = 4.0; // inches, compensated for the standard +2 inches for scoring
+	private final double STEP_HEIGHT = 6.0; // inches, compensated for the standard +2 inches for scoring
 	private boolean topTriggered = false; 
 
 	public void initDefaultCommand() {
@@ -82,7 +82,7 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putNumber("Elevator/Position", position);
 		double height = Preferences.getDouble("ElevatorPositionOne");
 		height += (position - 1) * TOTE_HEIGHT;
-		if (!SlideWinder.oi.nonScoringButton.get()) {
+		if (SlideWinder.oi.scoringButton.get()) {
 			height += SCORING_PLATFORM_HEIGHT;
 		}
 		if (SlideWinder.oi.coopertitionButton.get()) {
@@ -124,18 +124,18 @@ public class Elevator extends Subsystem {
 		}
 		if (!topTriggered && !getLowerLimit()) {
 			releaseBrake();
-			motor.set(speed);
+			motor.set(-speed);
 		} else if (topTriggered) {
 			if (speed < 0) {
 				releaseBrake();
-				motor.set(speed);
+				motor.set(-speed);
 			} else {
 				activateBrake();
 			}
 		} else if (getLowerLimit()) {
 			if (speed > 0) {
 				releaseBrake();
-				motor.set(speed);
+				motor.set(-speed);
 			} else {
 				activateBrake();
 			}

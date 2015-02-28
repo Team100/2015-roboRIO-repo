@@ -64,7 +64,7 @@ public class Drivetrain extends Subsystem {
 	 */
 	public void drive(double speed, double slide, double turn) {
 		robotDrive.arcadeDrive(-speed, turn);
-		slideMotor.set(slide);
+		slideMotor.set(slide*0.5);
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class Drivetrain extends Subsystem {
 	 *            - Clockwise/counterclockwise
 	 */
 	public void setAutoTarget(double targetDistance, double targetSlide, double targetAngle) {
-		distancePID.update((-leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
+		distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
 		slidePID.update(slideEncoder.getDistance());
 		anglePID.update(gyro.getAngle());
 		distancePID.setRelativeLocation(0);
@@ -157,7 +157,7 @@ public class Drivetrain extends Subsystem {
 	 * Updates the drive PID
 	 */
 	public void updateAuto(boolean gradualDrive) {
-		distancePID.update((-leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
+		distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
 		slidePID.update(slideEncoder.getDistance());
 		anglePID.update(gyro.getAngle());
 		if (gradualDrive) {
@@ -249,7 +249,7 @@ public class Drivetrain extends Subsystem {
 	 * @param targetDistance - The target distance in inches
 	 */
 	public void setDistanceTarget(double targetDistance) {
-		distancePID.update((-leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
+		distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
 		distancePID.setRelativeLocation(0);
 		distancePID.setTarget(targetDistance);
 	}
@@ -260,7 +260,7 @@ public class Drivetrain extends Subsystem {
 	 * @return The distance PID output
 	 */
 	public double updateDistance() {
-		distancePID.update((-leftEncoder.getDistance() + rightEncoder
+		distancePID.update((leftEncoder.getDistance() + rightEncoder
 				.getDistance()) / 2);
 		return distancePID.getOutput();
 	}
@@ -275,7 +275,7 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	public void setSlideTarget(double targetSlideDistance) {
-		slidePID.update((-leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
+		slidePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
 		slidePID.setRelativeLocation(0);
 		slidePID.setTarget(targetSlideDistance);
 	}

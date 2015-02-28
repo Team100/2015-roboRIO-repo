@@ -30,7 +30,7 @@ public class OI {
 	    public JoystickButton calibrateElevatorButton;
 	    public JoystickButton openClawButton;
 	    public JoystickButton coopertitionButton;
-	    public JoystickButton nonScoringButton;
+	    public JoystickButton scoringButton;
 	    public InternalButton rightDPadButton;	// Right D-Pad
 	    public InternalButton feedFirstToteButton;	// Up D-Pad 
 	    public InternalButton leftDPadButton;	// Left D-Pad
@@ -88,7 +88,7 @@ public class OI {
 
 	        coopertitionButton = new JoystickButton(manipulatorJoystick, 9);
 
-	        nonScoringButton = new JoystickButton(manipulatorJoystick, 10);
+	        scoringButton = new JoystickButton(manipulatorJoystick, 10);
 
 	        quickStackButton1 = new JoystickButton(manipulatorJoystick, 11);
 	        quickStackButton1.whenPressed(new QuickStackOne());

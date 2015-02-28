@@ -32,7 +32,7 @@ ElevatorSensorRatio 0.251838
 ElevatorErrorTolerance 1.0
 ElevatorRateTolerance 0.1
 ElevatorIntegralLimit 0.0
-ElevatorPositionOne -2.0
+ElevatorPositionOne 0.0
 Arm_kP 0.0
 Arm_kI 0.0
 Arm_kD 0.0
