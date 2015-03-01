@@ -153,4 +153,8 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putBoolean("Elevator/Top Triggered", topTriggered);
 		SmartDashboard.putNumber("Elevator/Encoder", encoder.getDistance());
 	}
+
+	public boolean getUpperLimit() {
+		return topTriggered;
+	}
 }

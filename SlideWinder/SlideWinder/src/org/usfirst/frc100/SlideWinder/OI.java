@@ -13,12 +13,14 @@ import edu.wpi.first.wpilibj.buttons.*;
 public class OI {
 
     public Joystick leftJoystick;
-        public JoystickButton slideButton;
+        public JoystickButton lowerElevatorButton;
         public JoystickButton gradualDriveButton;
         
     public Joystick rightJoystick;
-    	public JoystickButton shiftButton;
+    	public JoystickButton raiseElevatorButton;
     	public JoystickButton quickTurnButton;
+    	public JoystickButton openClawButton2;
+    	public JoystickButton closeClawButton2;
 
     public Joystick manipulatorJoystick;
     	public JoystickButton liftToteButton1;
@@ -37,6 +39,7 @@ public class OI {
 	    public InternalButton feedNextToteButton;	// Down D-Pad
 	    public JoystickButton quickStackButton1;
 	    public JoystickButton quickStackButton2;
+	    public JoystickButton shiftButton;
     
     public Joystick autoModeSelect;
 		public JoystickButton binary1;
@@ -46,19 +49,28 @@ public class OI {
     
 	public OI() {
         leftJoystick = new Joystick(0); {
-	        slideButton = new JoystickButton(leftJoystick, 1);
-	        slideButton.whileHeld(new SlideStraight());
+	        lowerElevatorButton = new JoystickButton(leftJoystick, 1);
+	        lowerElevatorButton.whileHeld(new ManualMoveElevator(false));
 
 	        gradualDriveButton = new JoystickButton(leftJoystick, 2);
 	        gradualDriveButton.whileHeld(new GradualDrive());
-        }
+	        
+	        shiftButton = new JoystickButton(leftJoystick, 3);
+	        shiftButton.whileHeld(new Shift());
+	    }
 
         rightJoystick = new Joystick(1); {
-	        shiftButton = new JoystickButton(rightJoystick, 1);
-	        shiftButton.whileHeld(new Shift());
+	        raiseElevatorButton = new JoystickButton(rightJoystick, 1);
+	        raiseElevatorButton.whileHeld(new ManualMoveElevator(true));
 
 	        quickTurnButton = new JoystickButton(rightJoystick, 2);
 	        quickTurnButton.whileHeld(new AutoTurn(180));
+
+	        openClawButton2 = new JoystickButton(rightJoystick, 4);
+	        openClawButton2.whenPressed(new OpenClaw());
+	        
+	        closeClawButton2 = new JoystickButton(rightJoystick, 5);
+	        closeClawButton2.whenPressed(new CloseClaw());
         }
 
         manipulatorJoystick = new Joystick(2); {

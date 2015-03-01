@@ -86,6 +86,9 @@ public class SlideWinder extends IterativeRobot {
 			case 8:
 				new AutoFollowLine(48).start();
 				break;
+			case 9:
+				new AutoModeFive_PullBinBack(2).start();
+				break;
 			default:
 				new Immobilize().start();
 				break;
