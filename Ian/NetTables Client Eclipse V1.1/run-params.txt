@@ -1,0 +1,40 @@
+Last updated on 3/1/2015.
+
+SUBSYSTEM Arm
+GETBOOL Arm/Grabbing
+GETBOOL Arm/Container Sensor
+GETBOOL Arm/Forward Limit
+GETBOOL Arm/Back Limit
+GETNUM Arm/Potentiometer
+NEWLINE
+
+SUBSYSTEM Vision
+SmartDashboard.putNumber("CameraVision/First Edge", firstEdge);
+GETNUM CameraVision/Second Edge
+GETNUM CameraVision/Offset
+GETNUM CameraVision/Vision Proc Time
+NEWLINE
+
+SUBSYSTEM Claw
+GETBOOL Claw/Closed
+NEWLINE
+
+SUBSYSTEM Drivetrain
+GETBOOL Drivetrain/High Gear
+GETNUM Drivetrain/LeftEncoder Raw
+GETNUM Drivetrain/RightEncoder Raw
+GETNUM Drivetrain/LeftEncoder
+GETNUM Drivetrain/RightEncoder
+GETNUM Drivetrain/Gyro
+GETNUM Drivetrain/Left LineReader Value
+GETNUM Drivetrain/Right LineReader Value
+GETBOOL Drivetrain/Left LineReader OnWhite
+GETBOOL Drivetrain/Right LineReader OnWhite
+GETNUM Drivetrain/LineTrackerLimit
+NEWLINE
+
+SUBSYSTEM Elevator
+GETBOOL Elevator/Upper Limit
+GETBOOL Elevator/Lower Limit
+GETBOOL Elevator/Top Triggered
+GETNUM Elevator/Encoder

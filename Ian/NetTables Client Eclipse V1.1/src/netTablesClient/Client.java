@@ -37,6 +37,8 @@ public class Client {
 
 	// The parameers file name.
 	public static final String PARAMS_FILE_NAME = "run-params.txt";
+	// The init file name.
+	public static final String INIT_FILE_NAME = "init-params.txt";
 	// The command seperator.
 	public static final String CMD_SEPERATOR = " ";
 
@@ -44,13 +46,6 @@ public class Client {
 	public static final String TXT_FILE_NAME = "NetTables Txt Log";
 	// The default file name is "NetworkTables Data.csv".
 	public static final String CSV_FILE_NAME = "NetTables Csv Log";
-	// A boolean to turn off or on the GUI.
-	public static final boolean USE_GUI = true;
-
-	// The time between refreshes in milliseconds.
-	public static final long REFRESH_RATE = 1000;
-	// Put the roboRIO IP here.
-	public static final String IP = "10.1.0.2";
 
 	// GUI constants.
 	public static final int WIDTH = 800;
@@ -70,6 +65,12 @@ public class Client {
 	boolean isRunning = true;
 	// Debug mode.
 	boolean debugMode = false;
+	// A boolean to turn off or on the GUI.
+	boolean useGui = true;
+	// The roboRIO IP here.
+	String ip = "10.1.0.2";
+	// The time between refreshes in milliseconds.
+	long refreshRate = 1000;
 
 	// Constructs a header array for the .csv file.
 	List<String> csvHeader = new ArrayList<String>();
@@ -80,6 +81,7 @@ public class Client {
 	// Converts data array to string.
 	String dataStr;
 
+	List<String> initList;
 	List<String> paramsList;
 
 	/*
@@ -91,6 +93,8 @@ public class Client {
 
 	// Instanciates the params file.
 	File paramsFile;
+	// Instanciates the init file.
+	File initFile;
 
 	// Instanciates the .txt file.
 	File txtFile;
@@ -133,7 +137,7 @@ public class Client {
 		// Sets NetworkTables to client mode.
 		NetworkTable.setClientMode();
 		// Sets the IP address.
-		NetworkTable.setIPAddress(IP);
+		NetworkTable.setIPAddress(ip);
 		// Constructs a NetworkTable called "table".
 		table = NetworkTable.getTable("SmartDashboard");
 	}
@@ -154,7 +158,7 @@ public class Client {
 		// Constructs the .csv file.
 		csvFile = new File(DIR_PATH + CSV_FILE_NAME + " 1.csv");
 
-		// Assigns paramsList.
+		// Assigns paramsList and initList.
 		try {
 			paramsList = BufferedFileReader.fileToArrList(paramsFile);
 		} catch (IOException e) {
@@ -198,7 +202,7 @@ public class Client {
 
 	// Sets up the GUI and redirects the input streams.
 	public void setupGUI() {
-		if (USE_GUI) {
+		if (useGui) {
 			frame = new JFrame("NetTables Client");
 			textArea = new JTextArea();
 
@@ -310,36 +314,81 @@ public class Client {
 				params = line.substring(line.indexOf(CMD_SEPERATOR) + 1,
 						line.length());
 				switch (cmd) {
+				// Lists the subsystem.
 					case "SUBSYSTEM" :
 						subsystem(params);
 						break;
+
+					// Gets number data.
 					case "GETNUM" :
 						getNum(params);
 						break;
+
+					// Gets boolean data.
 					case "GETBOOL" :
 						getBool(params);
 						break;
+
+					// Prints a message to the console.
 					case "STATUS" :
 						System.out.println("STATUS: " + params);
+						break;
+
+					// Only used when MODE is set to DEBUG;
 					case "DEBUG" :
 						debug(params);
 						break;
+
+					// Switches the mode
 					case "MODE" :
-						if (params == "DEBUG") {
+						if (params.equals("DEBUG")) {
 							debugMode = true;
-						} else if (params == "NORMAL") {
+						} else if (params.equals("NORMAL")) {
 							debugMode = false;
 						}
 						break;
+
+					// sets the GUI mode only works in init-params.txt.
+					case "GUIMODE" :
+						if (params.equals("GUI")) {
+							useGui = true;
+						} else if (params.equals("IDE")) {
+							useGui = false;
+						}
+						break;
+
+					// Sets the refresh rate.
+					case "REFRESH" :
+						refreshRate = Long.parseLong(params, 10);
+						break;
+
+					// Sets the IP.
+					case "SETIP" :
+						ip = params;
+						break;
+
+					// Ignores the line if command is unknown.
 					default :
-						System.out.println();
-						System.out.println();
+
+						break;
+				}
+			} else if (!line.equals("")) {
+				cmd = line;
+				switch (cmd) {
+					
+					// Goes to next line.
+					case "NEWLINE" :
+						System.out.println("");
 						try {
-							bTxtWriter.newLine();
 							bTxtWriter.newLine();
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
+						break;
+
+					// Ignores the line if command is unknown.
+					default :
+
 						break;
 				}
 			}
@@ -385,8 +434,15 @@ public class Client {
 	// Method that runs the client.
 	public void run() {
 
-		// Debug message.
-		debug("SETUP");
+		// Creates the init-params.txt file and list.
+		initFile = new File(DIR_PATH + INIT_FILE_NAME);
+		try {
+			initList = BufferedFileReader.fileToArrList(initFile);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		// Parses the init-params.txt file.
+		parseParams(initList);
 
 		// Sets up the GUI.
 		setupGUI();
@@ -402,13 +458,11 @@ public class Client {
 		// Start time.
 		final long START_TIME = System.currentTimeMillis();
 
-		debug("SETUP COMPLETE");
-
 		// Refresh loop.
 		while (isRunning) {
 			// Wait for "REFRESH_RATE" milliseconds.
 			try {
-				Thread.sleep(REFRESH_RATE);
+				Thread.sleep(refreshRate);
 			} catch (InterruptedException e) {
 			}
 
@@ -421,6 +475,7 @@ public class Client {
 			// Print cycles and time.
 			cycleTime();
 
+			// Parses the run-params.txt file.
 			parseParams(paramsList);
 
 			// Writes .csv arrays to the file.
