@@ -23,13 +23,11 @@ public class AutoModeFive_PullBinBack extends CommandGroup {
 		if(number >= 2){
 			addSequential(new SetElevatorPosition(1)); // 1?
 			addSequential(new OpenClaw()); // 0
-			addSequential(new AutoDelay(1.0)); // 1
-			addParallel(new AutoDrive(avoidBinDistance)); // 0
-			addSequential(new SetElevatorPosition(4)); // 1?
-			addSequential(new AutoTurn(90), 2); // 2?
+			addSequential(new AutoDelay(0.5)); // 0.5
+			addSequential(new AutoDrive(avoidBinDistance)); // 0
+			addSequential(new AutoTurn(90), 2); // 1
 			addSequential(new AutoDrive(distanceToTote)); // 2?
-			addParallel(new SetElevatorPosition(1)); // 1?
-			addSequential(new AutoTurn(-90), 2); // 2?
+			addSequential(new AutoTurn(-90), 2); // 1
 			addSequential(new AutoDrive(-distance-avoidBinDistance)); // 2?
 			addSequential(new CloseClaw()); // 0
 			addSequential(new AutoDelay(1.0)); // 1
