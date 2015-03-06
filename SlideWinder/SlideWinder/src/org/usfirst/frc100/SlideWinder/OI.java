@@ -13,12 +13,14 @@ import edu.wpi.first.wpilibj.buttons.*;
 public class OI {
 
     public Joystick leftJoystick;
-        public JoystickButton slideButton;
+        public JoystickButton lowerElevatorButton;
         public JoystickButton gradualDriveButton;
         
     public Joystick rightJoystick;
-    	public JoystickButton shiftButton;
+    	public JoystickButton raiseElevatorButton;
     	public JoystickButton quickTurnButton;
+    	public JoystickButton openClawButton2;
+    	public JoystickButton closeClawButton2;
 
     public Joystick manipulatorJoystick;
     	public JoystickButton liftToteButton1;
@@ -30,13 +32,14 @@ public class OI {
 	    public JoystickButton calibrateElevatorButton;
 	    public JoystickButton openClawButton;
 	    public JoystickButton coopertitionButton;
-	    public JoystickButton nonScoringButton;
+	    public JoystickButton scoringButton;
 	    public InternalButton rightDPadButton;	// Right D-Pad
 	    public InternalButton feedFirstToteButton;	// Up D-Pad 
 	    public InternalButton leftDPadButton;	// Left D-Pad
 	    public InternalButton feedNextToteButton;	// Down D-Pad
 	    public JoystickButton quickStackButton1;
 	    public JoystickButton quickStackButton2;
+	    public JoystickButton shiftButton;
     
     public Joystick autoModeSelect;
 		public JoystickButton binary1;
@@ -46,19 +49,28 @@ public class OI {
     
 	public OI() {
         leftJoystick = new Joystick(0); {
-	        slideButton = new JoystickButton(leftJoystick, 1);
-	        slideButton.whileHeld(new SlideStraight());
+	        lowerElevatorButton = new JoystickButton(leftJoystick, 1);
+	        lowerElevatorButton.whileHeld(new ManualMoveElevator(false));
 
 	        gradualDriveButton = new JoystickButton(leftJoystick, 2);
 	        gradualDriveButton.whileHeld(new GradualDrive());
-        }
+	        
+	        shiftButton = new JoystickButton(leftJoystick, 3);
+	        shiftButton.whileHeld(new Shift());
+	    }
 
         rightJoystick = new Joystick(1); {
-	        shiftButton = new JoystickButton(rightJoystick, 1);
-	        shiftButton.whileHeld(new Shift());
+	        raiseElevatorButton = new JoystickButton(rightJoystick, 1);
+	        raiseElevatorButton.whileHeld(new ManualMoveElevator(true));
 
 	        quickTurnButton = new JoystickButton(rightJoystick, 2);
 	        quickTurnButton.whileHeld(new AutoTurn(180));
+
+	        openClawButton2 = new JoystickButton(rightJoystick, 4);
+	        openClawButton2.whenPressed(new OpenClaw());
+	        
+	        closeClawButton2 = new JoystickButton(rightJoystick, 5);
+	        closeClawButton2.whenPressed(new CloseClaw());
         }
 
         manipulatorJoystick = new Joystick(2); {
@@ -88,7 +100,7 @@ public class OI {
 
 	        coopertitionButton = new JoystickButton(manipulatorJoystick, 9);
 
-	        nonScoringButton = new JoystickButton(manipulatorJoystick, 10);
+	        scoringButton = new JoystickButton(manipulatorJoystick, 10);
 
 	        quickStackButton1 = new JoystickButton(manipulatorJoystick, 11);
 	        quickStackButton1.whenPressed(new QuickStackOne());

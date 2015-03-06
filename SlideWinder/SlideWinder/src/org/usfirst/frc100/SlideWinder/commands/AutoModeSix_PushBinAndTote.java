@@ -5,7 +5,7 @@ import org.usfirst.frc100.SlideWinder.Preferences;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * Places a stack on one tote and picks up the whole stack
+ * Pushes both a bin and a tote into the auto zone during autonomous
  */
 public class AutoModeSix_PushBinAndTote extends CommandGroup {
 
@@ -16,9 +16,9 @@ public class AutoModeSix_PushBinAndTote extends CommandGroup {
 		addSequential(new CloseClaw());
 		addSequential(new AutoDelay(1));
 		addSequential(new SetElevatorPosition(2));
-		addSequential(new AutoDrive(-12, 0));
-		addSequential(new AutoDrive(0, 20));
-		addSequential(new AutoDrive(120));
+		addSequential(new AutoDrive(-12.0, 0));
+		addSequential(new AutoDrive(0, -20.0));
+		addSequential(new AutoDrive(Preferences.getDouble("AutoStackTotes_DistanceToScoring") + 12, 0));
 		addSequential(new SetElevatorPosition(1));
 		addSequential(new OpenClaw());
 	}

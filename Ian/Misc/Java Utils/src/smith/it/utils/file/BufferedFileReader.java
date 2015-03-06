@@ -10,13 +10,38 @@ import java.util.List;
 
 public class BufferedFileReader {
 
-	static FileInputStream inStream;
-	static BufferedReader bReader;
-	static String line;
-	static List<String> fileArr;
+	private static FileInputStream inStream;
+	private static BufferedReader bReader;
+	private static String line;
+	private static List<String> fileArr;
+	private static File file;
 
-	public static List<String> fileToArrList(File file) throws IOException {
+	public static List<String> fileToArrList(File inFile) throws IOException {
 
+		if (inFile.exists()) {
+			line = null;
+			fileArr = new ArrayList<String>();
+
+			inStream = new FileInputStream(inFile);
+			bReader = new BufferedReader(new InputStreamReader(inStream));
+
+			while ((line = bReader.readLine()) != null) {
+				fileArr.add(line);
+			}
+
+			bReader.close();
+
+			return fileArr;
+		} else {
+			System.out.println("BufferedFileReader: File does not exist!");
+			return null;
+		}
+	}
+
+	public static List<String> fileToArrList(String filePath) throws IOException {
+
+		file = new File(filePath);
+		
 		if (file.exists()) {
 			line = null;
 			fileArr = new ArrayList<String>();

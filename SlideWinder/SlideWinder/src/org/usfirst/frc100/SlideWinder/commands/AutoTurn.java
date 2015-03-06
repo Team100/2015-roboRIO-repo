@@ -43,7 +43,7 @@ public class AutoTurn extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return SlideWinder.drivetrain.autoReachedTarget();
+		return SlideWinder.drivetrain.reachedAngle();
 	}
 
 	// Called once after isFinished returns true

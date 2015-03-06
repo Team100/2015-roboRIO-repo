@@ -32,7 +32,7 @@ ElevatorSensorRatio 0.251838
 ElevatorErrorTolerance 1.0
 ElevatorRateTolerance 0.1
 ElevatorIntegralLimit 0.0
-ElevatorPositionOne -2.0
+ElevatorPositionOne 0.0
 Arm_kP 0.0
 Arm_kI 0.0
 Arm_kD 0.0
@@ -41,10 +41,12 @@ ArmSensorRatio 1.0
 ArmErrorTolerance 0.0
 ArmRateTolerance 0.0
 ArmIntegralLimit 0.0
-AutoDriveForward_Distance
-AutoStackTotes_DistanceForward
+AutoStackTotes_StartPosition 1.0
+AutoStackTotes_DistanceForward 12.0
 AutoStackTotes_DistanceToTote 51.0
-AutoStackTotes_DistanceToScoring
+AutoStackTotes_DistanceToScoring 107.0
+AutoStackTotes_DistanceToLandmark 80.5
+AutoStackTotes_LandmarkStackOrder 1.0
 AutoTakeRecycling_DriveDistance1 68.0
 AutoTakeRecycling_SlideDistance 0.0
 AutoTakeRecycling_DriveDistance2 98.06

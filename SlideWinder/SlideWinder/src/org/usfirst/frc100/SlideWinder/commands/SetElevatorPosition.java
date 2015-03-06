@@ -54,7 +54,7 @@ public class SetElevatorPosition extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return SlideWinder.elevator.isInPosition();
+		return SlideWinder.elevator.isInPosition()||(position == 4 && SlideWinder.elevator.getUpperLimit());
 	}
 
 	// Called once after isFinished returns true

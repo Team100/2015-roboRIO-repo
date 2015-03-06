@@ -1,10 +1,9 @@
 package org.usfirst.frc100.SlideWinder.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc100.SlideWinder.SlideWinder;
 import org.usfirst.frc100.SlideWinder.subsystems.CameraVision;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Autonomously follow the line using vision.
