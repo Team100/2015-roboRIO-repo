@@ -59,33 +59,34 @@ public class SlideWinder extends IterativeRobot {
     	Scheduler.getInstance().removeAll();
     	int modeSelect = oi.selector();
 		switch (modeSelect) {
-			case 0:
-				new AutoDrive(Preferences.getDouble("AutoDriveForward_Distance"), 0.0, false).start();
-				break;
 			case 1:
 				new AutoModeOne_StackTotes().start();
 				break;
 			case 2:
-				new AutoModeTwo_TakeRecycling().start();
+				new AutoModeTwo_PullBinBack((int)Preferences.getDouble("AutoTakeBinNumber")).start();
 				break;
 			case 3:
-				new AutoModeThree_TakeRecyclingWithVision().start();
-				break;
-			case 4:
-				new AutoModeFour_TakeRecyclingWithLineReaders().start();
-				break;
-			case 5:
-				new AutoModeFive_PullBinBack((int)Preferences.getDouble("AutoTakeBinNumber")).start();
-				break;
-			case 6:
 				new AutoSlideToLine().start();
 				break;
-			case 7:
+			case 4:
 				new AutoVisionFollowLine(48).start();
 				break;
-			case 8:
+			case 5:
 				new AutoFollowLine(48).start();
 				break;
+			case 6:
+				new AutoDrive(Preferences.getDouble("AutoDriveForward_Distance"), 0.0, false).start();
+				break;
+//			Arm Autonomi
+//			case 7:
+//				new AutoModeSeven_TakeRecycling().start();
+//				break;
+//			case 8:
+//				new AutoModeEight_TakeRecyclingWithVision().start();
+//				break;
+//			case 9:
+//				new AutoModeNine_TakeRecyclingWithLineReaders().start();
+//				break;
 			default:
 				new Immobilize().start();
 				break;

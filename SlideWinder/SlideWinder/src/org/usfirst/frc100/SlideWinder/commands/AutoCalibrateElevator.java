@@ -2,6 +2,7 @@ package org.usfirst.frc100.SlideWinder.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+import org.usfirst.frc100.SlideWinder.Preferences;
 import org.usfirst.frc100.SlideWinder.SlideWinder;
 
 /**
@@ -49,5 +50,6 @@ public class AutoCalibrateElevator extends Command {
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		end();
 	}
 }
