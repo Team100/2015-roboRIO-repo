@@ -56,28 +56,31 @@ public class SlideWinder extends IterativeRobot {
 				new AutoDrive(Preferences.getDouble("AutoDriveForward_Distance"), 0.0, false).start();
 				break;
 			case 2:
-				new AutoModeTwo_PullBinBack((int)Preferences.getDouble("AutoTakeBinNumber")).start();
+				new AutoMode_PullBinBack(1).start();
 				break;
 			case 3:
-				new AutoModeThree_StackTotes().start();
+				new AutoMode_PullBinBack(2).start();
 				break;
 			case 4:
-				new AutoSlideToLine().start();
+				new AutoMode_StackTotes().start();
 				break;
 			case 5:
-				new AutoFollowLine(48).start();
+				new AutoSlideToLine().start();
 				break;
 			case 6:
+				new AutoFollowLine(48).start();
+				break;
+			case 7:
 				new AutoVisionFollowLine(48).start();
 				break;
 //			Arm Autonomi
-//			case 7:
+//			case 8:
 //				new AutoModeSeven_TakeRecycling().start();
 //				break;
-//			case 8:
+//			case 9:
 //				new AutoModeEight_TakeRecyclingWithLineReaders().start();
 //				break;
-//			case 9:
+//			case 10:
 //				new AutoModeNine_TakeRecyclingWithVision().start();
 //				break;
 			default:
