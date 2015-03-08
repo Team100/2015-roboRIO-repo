@@ -23,7 +23,7 @@ public class SetElevatorPosition extends Command {
 		this.presetPosition = true;
         requires(SlideWinder.elevator);
 	}
-	
+
 	/**
 	 * @param position - The height in inches to which the elevator should be moved, relative to the lower hall effect
 	 * @param presetPosition - Whether the given position is one of the presets
@@ -51,7 +51,7 @@ public class SetElevatorPosition extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return SlideWinder.elevator.isInPosition()||(position == 4 && SlideWinder.elevator.getUpperLimit());
+		return SlideWinder.elevator.isInPosition() || (!SlideWinder.elevator.isGoingUp() && SlideWinder.elevator.getLowerLimit()) || (SlideWinder.elevator.isGoingUp() && SlideWinder.elevator.getUpperLimit());
 	}
 
 	// Called once after isFinished returns true

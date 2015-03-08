@@ -25,7 +25,7 @@ public class Elevator extends Subsystem {
 	private final double TOTE_HEIGHT = 11.75; // inches, compensated for 0.35 difference between lip and actual
 	private final double SCORING_PLATFORM_HEIGHT = 2.0; // inches
 	private final double STEP_HEIGHT = 6.0; // inches, compensated for the standard +2 inches for scoring
-	private boolean topTriggered = false; 
+	private boolean topTriggered = false;
 
 	public void initDefaultCommand() {
 	}
@@ -45,7 +45,7 @@ public class Elevator extends Subsystem {
 
 	/**
 	 * Getter method for the lower limit
-	 * 
+	 *
 	 * @return Whether the elevator has reached the lower limit
 	 */
 	public boolean getLowerLimit() {
@@ -70,7 +70,7 @@ public class Elevator extends Subsystem {
 
 	/**
 	 * Moves the elevator to a preset position
-	 * 
+	 *
 	 * @param position - 1 is the lowest tote, 2 is the second tote on the stack, 3
 	 *     is the 3rd tote on the stack, etc.
 	 */
@@ -89,16 +89,20 @@ public class Elevator extends Subsystem {
 
 	/**
 	 * Determines if PID has reached the target
-	 * 
+	 *
 	 * @return Whether target has been reached
 	 */
 	public boolean isInPosition() {
 		return elevatorPID.reachedTarget();
 	}
 
+	public boolean isGoingUp() {
+		return -motor.get() > 0.0; // the motor is reversed
+	}
+
 	/**
 	 * Sets the PID target
-	 * 
+	 *
 	 * @param target
 	 *            - Height in inches
 	 */
@@ -108,7 +112,7 @@ public class Elevator extends Subsystem {
 
 	/**
 	 * Sets the raw motor output unless limits are triggered
-	 * 
+	 *
 	 * @param speed - The motor output
 	 */
 	public void manualControl(double speed) {
