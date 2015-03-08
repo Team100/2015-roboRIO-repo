@@ -13,13 +13,13 @@ public class AutoModeTwo_PullBinBack extends CommandGroup {
 		double distance = Preferences.getDouble("AutoPullBin_Distance");
 		double distanceToTote = Preferences.getDouble("AutoStackTotes_DistanceToTote");
 		double avoidBinDistance = Preferences.getDouble("AutoPullBin_AvoidBinDistance");
-		
+
 		addSequential(new AutoCalibrateElevator(), 4.0); // 0
 		addSequential(new CloseClaw(), 1.0); // 0
 		addSequential(new AutoDelay(1.0)); // 1
 		addSequential(new SetElevatorPosition(3), 3.0); // 1?
  		addSequential(new AutoDrive(distance), 3.0); // 2?
-		
+
 		if(number >= 2){
 			addSequential(new SetElevatorPosition(1), 3.0); // 1?
 			addSequential(new OpenClaw(), 1.0); // 0
