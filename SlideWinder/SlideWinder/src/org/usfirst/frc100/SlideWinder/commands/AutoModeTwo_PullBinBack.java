@@ -14,25 +14,25 @@ public class AutoModeTwo_PullBinBack extends CommandGroup {
 		double distanceToTote = Preferences.getDouble("AutoStackTotes_DistanceToTote");
 		double avoidBinDistance = Preferences.getDouble("AutoPullBin_AvoidBinDistance");
 
-		addSequential(new AutoCalibrateElevator(), 4.0); // 0
-		addSequential(new CloseClaw(), 1.0); // 0
-		addSequential(new AutoDelay(1.0)); // 1
-		addSequential(new SetElevatorPosition(3), 3.0); // 1?
- 		addSequential(new AutoDrive(distance), 3.0); // 2?
+		addSequential(new AutoCalibrateElevator(), 3.0); // 0
+		addSequential(new CloseClaw()); // 0
+		addSequential(new AutoDelay(0.75)); // 1
+		addSequential(new SetElevatorPosition(3), 2.0); // 1?
+ 		addSequential(new AutoDrive(distance), 2.0); // 2?
 
 		if(number >= 2){
 			addSequential(new SetElevatorPosition(1), 3.0); // 1?
-			addSequential(new OpenClaw(), 1.0); // 0
+			addSequential(new OpenClaw()); // 0
 			addSequential(new AutoDelay(0.5)); // 0.5
-			addSequential(new AutoDrive(avoidBinDistance), 3.0); // 0
-			addSequential(new AutoTurn(90), 2.0); // 1
-			addSequential(new AutoDrive(distanceToTote), 3.0); // 2?
-			addSequential(new AutoTurn(-90), 2.0); // 1
-			addSequential(new AutoDrive(-distance-avoidBinDistance), 3.0); // 2?
-			addSequential(new CloseClaw(), 1.0); // 0
-			addSequential(new AutoDelay(1.0)); // 1
+			addSequential(new AutoDrive(avoidBinDistance), 1.5); // 1
+			addSequential(new AutoTurn(90), 1.0); // 1
+			addSequential(new AutoDrive(distanceToTote), 2.0); // 2
+			addSequential(new AutoTurn(-90), 1.0); // 1
+			addSequential(new AutoDrive(-distance-avoidBinDistance), 2.0); // 2
+			addSequential(new CloseClaw()); // 0
+			addSequential(new AutoDelay(.75)); // 0.75
 			addSequential(new SetElevatorPosition(3), 3.0); // 1?
-			addSequential(new AutoDrive(distance), 3.0); // 2?
+			addSequential(new AutoDrive(distance), 2.0); // 2?
 		}
 	}
 

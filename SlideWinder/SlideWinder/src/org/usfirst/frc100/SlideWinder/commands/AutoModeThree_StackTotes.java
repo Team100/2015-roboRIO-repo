@@ -19,31 +19,30 @@ public class AutoModeThree_StackTotes extends CommandGroup {
 		DISTANCE_FORWARD = Preferences.getDouble("AutoStackTotes_DistanceForward");
 		DISTANCE_TO_SCORING = Preferences.getDouble("AutoStackTotes_DistanceToScoring");
 
-		addSequential(new AutoCalibrateElevator(), 4.0);
-		addSequential(new OpenClaw(), 1.0);
-		addSequential(new AutoDrive(DISTANCE_FORWARD, 0), 3.0);
-		addSequential(new SetElevatorPosition(1), 3.0);
-		addSequential(new CloseClaw(), 1.0);
-		addSequential(new AutoDelay(1));
-		addSequential(new SetElevatorPosition(4), 3.0);
-		addSequential(new AutoDrive(0, DISTANCE_TO_TOTE), 3.0);
-		addSequential(new SetElevatorPosition(2), 3.0);
-		addSequential(new OpenClaw(), 1.0);
-		addSequential(new AutoDelay(1));
-		addSequential(new SetElevatorPosition(1), 3.0);
-		addSequential(new CloseClaw(), 1.0);
-		addSequential(new AutoDelay(1));
-		addSequential(new SetElevatorPosition(4), 3.0);
-		addSequential(new AutoDrive(0, DISTANCE_TO_TOTE), 3.0);
-		addSequential(new SetElevatorPosition(3), 3.0);
-		addSequential(new OpenClaw(), 1.0);
-		addSequential(new AutoDelay(1));
-		addSequential(new SetElevatorPosition(1), 3.0);
-		addSequential(new CloseClaw(), 1.0);
-		addSequential(new AutoDelay(1));
-		addSequential(new SetElevatorPosition(2), 3.0);
-		addSequential(new AutoDrive(DISTANCE_TO_SCORING), 3.0);
-		addSequential(new SetElevatorPosition(1), 3.0);
-		addSequential(new OpenClaw(), 1.0);
+		addSequential(new AutoCalibrateElevator(), 3.0); //0
+		addSequential(new OpenClaw()); 
+		addSequential(new AutoDrive(DISTANCE_FORWARD, 0), 2.0); //1
+		addSequential(new CloseClaw());
+		addSequential(new AutoDelay(0.75)); //.75
+		addSequential(new SetElevatorPosition(4), 3.0); //2
+		addSequential(new AutoDrive(0, DISTANCE_TO_TOTE), 3.0); //2
+		addSequential(new SetElevatorPosition(2), 3.0); //2
+		addSequential(new OpenClaw());
+		addSequential(new AutoDelay(0.75)); //.75
+		addSequential(new SetElevatorPosition(1), 3.0); //1
+		addSequential(new CloseClaw());
+		addSequential(new AutoDelay(0.75)); //.75
+		addSequential(new SetElevatorPosition(4), 3.0); //2
+		addSequential(new AutoDrive(0, DISTANCE_TO_TOTE), 3.0); //2
+		addSequential(new SetElevatorPosition(3), 3.0); //1
+		addSequential(new OpenClaw());
+		addSequential(new AutoDelay(0.75)); //.75
+		addSequential(new SetElevatorPosition(1), 3.0); //2
+		addSequential(new CloseClaw());
+		addSequential(new AutoDelay(0.75)); //.75
+		addSequential(new SetElevatorPosition(2), 3.0); //1
+		addSequential(new AutoDrive(DISTANCE_TO_SCORING), 3.0); //2
+		addSequential(new SetElevatorPosition(1), 3.0); //1, optional 
+		addSequential(new OpenClaw()); //1, optional
 	}
 }
