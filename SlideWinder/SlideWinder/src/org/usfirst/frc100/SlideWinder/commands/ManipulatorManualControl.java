@@ -14,7 +14,7 @@ public class ManipulatorManualControl extends Command {
 
 	public ManipulatorManualControl() {
         requires(SlideWinder.elevator);
-		requires(SlideWinder.arm);
+//		requires(SlideWinder.arm);
 		setInterruptible(false);
 	}
 
@@ -25,15 +25,15 @@ public class ManipulatorManualControl extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		SlideWinder.elevator.manualControl(-SlideWinder.oi.getManipulatorJoystick().getY());
-		SlideWinder.arm.manualControl(-SlideWinder.oi.getManipulatorJoystick().getThrottle());
-		if (SlideWinder.oi.liftToteButton1.get() ^ !LTB1_prev) { // this block only runs when the button value changes
-			SlideWinder.arm.toggleStab();
-			LTB1_prev = !LTB1_prev;
-		}
-		if (SlideWinder.oi.liftToteButton2.get() ^ !LTB2_prev) { // this block only runs when the button value changes
-			SlideWinder.arm.toggleDeploy();
-			LTB2_prev = !LTB2_prev;
-		}
+//		SlideWinder.arm.manualControl(-SlideWinder.oi.getManipulatorJoystick().getThrottle());
+//		if (SlideWinder.oi.liftToteButton1.get() ^ !LTB1_prev) { // this block only runs when the button value changes
+//			SlideWinder.arm.toggleStab();
+//			LTB1_prev = !LTB1_prev;
+//		}
+//		if (SlideWinder.oi.liftToteButton2.get() ^ !LTB2_prev) { // this block only runs when the button value changes
+//			SlideWinder.arm.toggleDeploy();
+//			LTB2_prev = !LTB2_prev;
+//		}
 		if(SlideWinder.oi.coopertitionButton.get() || SlideWinder.oi.scoringButton.get()) {
 			this.cancel();
 		}
@@ -47,16 +47,16 @@ public class ManipulatorManualControl extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		SlideWinder.elevator.activateBrake();
-		SlideWinder.arm.manualControl(0);
+//		SlideWinder.arm.manualControl(0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
 		end();
-		if(SlideWinder.oi.coopertitionButton.get()) 
-			new RaiseArm(true).start();
-		else if(SlideWinder.oi.scoringButton.get()) 
-			new RaiseArm(false).start();
+//		if(SlideWinder.oi.coopertitionButton.get())
+//			new RaiseArm(true).start();
+//		else if(SlideWinder.oi.scoringButton.get())
+//			new RaiseArm(false).start();
 	}
 }

@@ -19,7 +19,7 @@ public class SlideWinder extends IterativeRobot {
     public static OI oi;
     public static Drivetrain drivetrain;
     public static Elevator elevator;
-    public static Arm arm;
+//    public static Arm arm;
     public static Pneumatics pneumatics;
     public static Claw claw;
     public static CameraVision cameraVision;
@@ -31,7 +31,7 @@ public class SlideWinder extends IterativeRobot {
 
         drivetrain = new Drivetrain();
         elevator = new Elevator();
-        arm = new Arm();
+//        arm = new Arm();
         pneumatics = new Pneumatics();
         claw = new Claw();
         cameraVision = new CameraVision();
@@ -64,16 +64,16 @@ public class SlideWinder extends IterativeRobot {
 			case 4:
 				new AutoMode_StackTotes().start();
 				break;
-			case 5:
-				new AutoSlideToLine().start();
-				break;
-			case 6:
-				new AutoFollowLine(48).start();
-				break;
-			case 7:
-				new AutoVisionFollowLine(48).start();
-				break;
 //			Arm Autonomi
+//			case 5:
+//				new AutoSlideToLine().start();
+//				break;
+//			case 6:
+//				new AutoFollowLine(48).start();
+//				break;
+//			case 7:
+//				new AutoVisionFollowLine(48).start();
+//				break;
 //			case 8:
 //				new AutoModeSeven_TakeRecycling().start();
 //				break;

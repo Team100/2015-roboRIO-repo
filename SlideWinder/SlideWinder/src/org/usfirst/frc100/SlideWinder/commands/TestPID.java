@@ -27,8 +27,8 @@ public class TestPID extends Command {
 		this.system = system;
 		if (system == System.ELEVATOR) {
 			requires(SlideWinder.elevator);
-		} else if (system == System.ARM) {
-			requires(SlideWinder.arm);
+//		} else if (system == System.ARM) {
+//			requires(SlideWinder.arm);
 		} else {
 			requires(SlideWinder.drivetrain);
 		}
@@ -48,9 +48,9 @@ public class TestPID extends Command {
 		} else if (system == System.ELEVATOR) {
 			target = SmartDashboard.getNumber("PID/Elevator TestTarget");
 			SlideWinder.elevator.setAutoTarget(target);
-		} else if (system == System.ARM) {
-			target = SmartDashboard.getNumber("PID/Arm TestTarget");
-			SlideWinder.arm.setArmHeight(target);
+//		} else if (system == System.ARM) {
+//			target = SmartDashboard.getNumber("PID/Arm TestTarget");
+//			SlideWinder.arm.setArmHeight(target);
 		}
 	}
 
@@ -58,8 +58,8 @@ public class TestPID extends Command {
 	protected void execute() {
 		if (system == System.ELEVATOR) {
 			SlideWinder.elevator.updatePID();
-		} else if (system == System.ARM) {
-			armDone = SlideWinder.arm.updateArm();
+//		} else if (system == System.ARM) {
+//			armDone = SlideWinder.arm.updateArm();
 		} else {
 			SlideWinder.drivetrain.updateAuto(false);
 		}
@@ -80,8 +80,8 @@ public class TestPID extends Command {
 	protected void end() {
 		if (system == System.ELEVATOR) {
 			SlideWinder.elevator.activateBrake();
-		} else if (system == System.ARM) {
-			SlideWinder.arm.manualControl(0.0);
+//		} else if (system == System.ARM) {
+//			SlideWinder.arm.manualControl(0.0);
 		} else {
 			SlideWinder.drivetrain.drive(0, 0, 0);
 		}
