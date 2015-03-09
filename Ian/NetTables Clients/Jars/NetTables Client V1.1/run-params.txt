@@ -1,15 +1,16 @@
-Last updated on 3/1/2015.
+Last updated on 3/9/2015.
 
-SUBSYSTEM Arm
-GETBOOL Arm/Grabbing
-GETBOOL Arm/Container Sensor
-GETBOOL Arm/Forward Limit
-GETBOOL Arm/Back Limit
-GETNUM Arm/Potentiometer
-NEWLINE
+The Arm subsystem is unused as of 3/9/2015.
+unused SUBSYSTEM Arm
+unused GETBOOL Arm/Grabbing
+unused GETBOOL Arm/Container Sensor
+unused GETBOOL Arm/Forward Limit
+unused GETBOOL Arm/Back Limit
+unused GETNUM Arm/Potentiometer
+unused NEWLINE
 
 SUBSYSTEM Vision
-SmartDashboard.putNumber("CameraVision/First Edge", firstEdge);
+GETNUM CameraVision/First Edge
 GETNUM CameraVision/Second Edge
 GETNUM CameraVision/Offset
 GETNUM CameraVision/Vision Proc Time
