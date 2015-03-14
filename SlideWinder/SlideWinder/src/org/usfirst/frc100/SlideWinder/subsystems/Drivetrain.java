@@ -149,32 +149,11 @@ public class Drivetrain extends Subsystem {
 
 	/**
 	 * Updates the drive PID
-	 * 
-	 * @param gradualDrive - whether the acceleration should be limited
 	 */
 	public void updateAuto(boolean gradualDrive) {
 		distancePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
 		slidePID.update(slideEncoder.getDistance());
 		anglePID.update(gyro.getAngle());
-		if (gradualDrive) {
-			gradualDrive(distancePID.getOutput(), slidePID.getOutput(), anglePID.getOutput());
-		} else {
-			drive(distancePID.getOutput(), slidePID.getOutput(), anglePID.getOutput());
-		}
-	}
-
-	/**
-	 * Updates the drive PID with specific input values
-	 * 
-	 * @param newDistance - the new distance input in inches
-	 * @param newSlide - the new slide input in inches
-	 * @param newAngle - the new angle input in degrees
-	 * @param gradualDrive - whether the acceleration should be limited
-	 */
-	public void updateAuto(double newDistance, double newSlide, double newAngle, boolean gradualDrive) {
-		distancePID.update(newDistance);
-		slidePID.update(newSlide);
-		anglePID.update(newAngle);
 		if (gradualDrive) {
 			gradualDrive(distancePID.getOutput(), slidePID.getOutput(), anglePID.getOutput());
 		} else {
@@ -289,11 +268,6 @@ public class Drivetrain extends Subsystem {
 		return distancePID.reachedTarget();
 	}
 	
-	/**
-	 * Sets the slide PID target
-	 * 
-	 * @param targetSlideDistance - The target slide distance in inches
-	 */
 	public void setSlideTarget(double targetSlideDistance) {
 		slidePID.update((leftEncoder.getDistance() + rightEncoder.getDistance()) / 2);
 		slidePID.setRelativeLocation(0);

@@ -167,21 +167,4 @@ public class CameraVision extends Subsystem {
 		SmartDashboard.putNumber("CameraVision/Offset", offset);
 		SmartDashboard.putNumber("CameraVision/Vision Proc Time", visionProcessingTime);
 	}
-
-	/**
-	 * Determines the angle of the tote relative to the robot
-	 * @return The angle error in degrees, or zero if tote not found
-	 */
-	public double getToteAngleError() {
-		return 0;
-	}
-
-	/**
-	 * Determines the horizontal distance from the robot to the center of the tote
-	 * @return The horizontal error in arbitrary units, or zero if tote not found
-	 */
-	public double getTotePositionError() {
-		// If you can convert the error into inches, that would be even better
-		return 0;
-	}
 }
