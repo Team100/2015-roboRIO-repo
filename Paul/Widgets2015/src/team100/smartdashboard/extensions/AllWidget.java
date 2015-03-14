@@ -3,6 +3,7 @@ package team100.smartdashboard.extensions;
 import edu.wpi.first.smartdashboard.gui.elements.bindings.AbstractTableWidget;
 import edu.wpi.first.smartdashboard.properties.Property;
 import edu.wpi.first.smartdashboard.types.DataType;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.tables.ITableListener;
 import java.awt.Dimension;
@@ -25,8 +26,7 @@ public class AllWidget extends AbstractTableWidget{
     private ArrayList<Object> labels = new ArrayList<>();
     private ArrayList<EditorTextField> fields = new ArrayList<>();
 
-    @Override
-    public void setValue(Object o) {
+    public void setValueBetter(Object o) {
         prefs = (ITable)o;
         prefs.addTableListener(new ITableListener() {
             @Override
@@ -56,7 +56,6 @@ public class AllWidget extends AbstractTableWidget{
                 }
             }
         }, true);
-        super.setValue(o);
     }
     
     @Override
@@ -64,6 +63,7 @@ public class AllWidget extends AbstractTableWidget{
         layout = new GridLayout(0,2);
         this.setLayout(layout);
         setMaximumSize(new Dimension(Integer.MAX_VALUE, getPreferredSize().height));
+        setValueBetter(NetworkTable.getTable("SmartDashboard/"+getFieldName()));
     }
 
     @Override

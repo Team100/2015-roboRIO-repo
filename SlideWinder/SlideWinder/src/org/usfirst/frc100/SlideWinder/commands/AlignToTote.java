@@ -1,39 +1,35 @@
 package org.usfirst.frc100.SlideWinder.commands;
 
+import org.usfirst.frc100.SlideWinder.Preferences;
 import org.usfirst.frc100.SlideWinder.SlideWinder;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Uses line readers to follow the line autonomously.
+ * Uses vision and PID to line up with a tote.
  */
-public class AutoFollowLine extends Command {
+public class AlignToTote extends Command {
 	
-	private final double distance;
-	
-	/**
-	 * @param distance - The distance to travel in inches
-	 */
-    public AutoFollowLine(double distance) {
-    	this.distance = distance;
+    public AlignToTote() {
         requires(SlideWinder.drivetrain);
+        requires(SlideWinder.cameraVision);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	SlideWinder.drivetrain.setDistanceTarget(distance);
-    	SlideWinder.drivetrain.setAngleTarget(0);
+    	SlideWinder.drivetrain.setAutoTarget(0, 0, 0);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	SlideWinder.drivetrain.drive(SlideWinder.drivetrain.updateDistance(), SlideWinder.drivetrain.followLine(),
-				SlideWinder.drivetrain.updateAngle());
+    	double angleError = SlideWinder.cameraVision.getToteAngleError();
+    	double positionError = SlideWinder.cameraVision.getTotePositionError();
+    	positionError *= Preferences.getDouble("CameraPID_Ratio");
+    	SlideWinder.drivetrain.updateAuto(0.0, positionError, angleError, false);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return SlideWinder.drivetrain.reachedDistance();
+        return SlideWinder.drivetrain.autoReachedTarget();
     }
 
     // Called once after isFinished returns true
