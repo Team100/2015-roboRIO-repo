@@ -2,7 +2,6 @@ package org.usfirst.frc100.SlideWinder.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-import org.usfirst.frc100.SlideWinder.Preferences;
 import org.usfirst.frc100.SlideWinder.SlideWinder;
 
 /**
