@@ -16,7 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * constant position.
  */
 public class Elevator extends Subsystem {
-	SpeedController motor = RobotMap.elevatorMotor;
+	SpeedController motor1 = RobotMap.elevatorMotor1;
+	SpeedController motor2 = RobotMap.elevatorMotor2;
 	Encoder encoder = RobotMap.elevatorEncoder;
 	DigitalInput upperLimit = RobotMap.elevatorUpperLimit;
 	DigitalInput lowerLimit = RobotMap.elevatorLowerLimit;
@@ -34,7 +35,8 @@ public class Elevator extends Subsystem {
 	 * Activates the brake and stops the motor
 	 */
 	public void activateBrake() {
-		motor.set(0);
+		motor1.set(0);
+		motor2.set(0);
 	}
 
 	/**
@@ -97,7 +99,7 @@ public class Elevator extends Subsystem {
 	}
 
 	public boolean isGoingUp() {
-		return -motor.get() > 0.0; // the motor is reversed
+		return motor1.get() > 0.0; // the motor is reversed
 	}
 
 	/**
@@ -124,18 +126,21 @@ public class Elevator extends Subsystem {
 		}
 		if (!topTriggered && !getLowerLimit()) {
 			releaseBrake();
-			motor.set(-speed);
+			motor1.set(speed);
+			motor2.set(-speed);
 		} else if (topTriggered) {
 			if (speed < 0) {
 				releaseBrake();
-				motor.set(-speed);
+				motor1.set(speed);
+				motor2.set(-speed);
 			} else {
 				activateBrake();
 			}
 		} else if (getLowerLimit()) {
 			if (speed > 0) {
 				releaseBrake();
-				motor.set(-speed);
+				motor1.set(speed);
+				motor2.set(-speed);
 			} else {
 				activateBrake();
 			}

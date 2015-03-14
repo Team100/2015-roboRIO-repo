@@ -22,7 +22,8 @@ public class RobotMap {
     public static Gyro drivetrainGyro;
     public static AnalogInput drivetrainLeftLineReader;
     public static AnalogInput drivetrainRightLineReader;
-    public static SpeedController elevatorMotor;
+    public static SpeedController elevatorMotor1;
+    public static SpeedController elevatorMotor2;
     public static Encoder elevatorEncoder;
     public static DigitalInput elevatorUpperLimit;
     public static DigitalInput elevatorLowerLimit;
@@ -84,8 +85,10 @@ public class RobotMap {
         drivetrainRightLineReader = new AnalogInput(3);
         LiveWindow.addSensor("Drivetrain", "RightLineReader", drivetrainRightLineReader);
 
-        elevatorMotor = new VictorSP(3);
-        LiveWindow.addActuator("Elevator", "Motor", (VictorSP) elevatorMotor);
+        elevatorMotor1 = new VictorSP(3);
+        LiveWindow.addActuator("Elevator", "Motor", (VictorSP) elevatorMotor1);
+        elevatorMotor2 = new VictorSP(6);
+        LiveWindow.addActuator("Elevator", "Motor", (VictorSP) elevatorMotor2);
 
         elevatorEncoder = new Encoder(6, 7, false, EncodingType.k4X);
         LiveWindow.addSensor("Elevator", "Encoder", elevatorEncoder);

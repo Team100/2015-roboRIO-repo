@@ -1,0 +1,41 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="CameraVision" type="SubSystem" class="team100.smartdashboard.extensions.AllWidget">
+		<location x="8" y="324"/>
+	</widget>
+	<widget field="Elevator" type="SubSystem" class="team100.smartdashboard.extensions.AllWidget">
+		<location x="270" y="148"/>
+	</widget>
+	<widget field="Drivetrain" type="SubSystem" class="team100.smartdashboard.extensions.AllWidget">
+		<location x="9" y="73"/>
+	</widget>
+	<widget field="Claw" type="SubSystem" class="team100.smartdashboard.extensions.AllWidget">
+		<location x="269" y="97"/>
+	</widget>
+	<widget field="Arm" type="SubSystem" class="team100.smartdashboard.extensions.AllWidget">
+		<location x="0" y="1"/>
+	</widget>
+	<widget field="PDP" type="SubSystem" class="team100.smartdashboard.extensions.AllWidget">
+		<location x="414" y="85"/>
+	</widget>
+	<widget field="Load Preferences" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="5" y="42"/>
+	</widget>
+	<widget field="Scheduler" type="Scheduler" class="edu.wpi.first.smartdashboard.gui.elements.Scheduler">
+		<location x="170" y="321"/>
+	</widget>
+	<widget field="Save Preferences" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="184" y="41"/>
+	</widget>
+	<static-widget class="team100.smartdashboard.extensions.Preferences">
+		<location x="3" y="7"/>
+	</static-widget>
+	<static-widget class="team100.smartdashboard.extensions.PID">
+		<location x="538" y="22"/>
+		<width>817</width>
+		<height>441</height>
+	</static-widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>
