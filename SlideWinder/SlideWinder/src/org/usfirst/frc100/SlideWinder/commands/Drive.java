@@ -31,7 +31,7 @@ public class Drive extends Command {
 		}
 		// Joystick Y-axis values are flipped, so send a negative Y-value
 		SlideWinder.drivetrain.drive(-SlideWinder.oi.getLeftJoystick().getY(),
-				leftJoystickX*0.5, SlideWinder.oi.getRightJoystick().getX());
+				leftJoystickX, SlideWinder.oi.getRightJoystick().getX());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
