@@ -1,0 +1,41 @@
+Last updated on 3/9/2015.
+
+The Arm subsystem is unused as of 3/9/2015.
+unused SUBSYSTEM Arm
+unused GETBOOL Arm/Grabbing
+unused GETBOOL Arm/Container Sensor
+unused GETBOOL Arm/Forward Limit
+unused GETBOOL Arm/Back Limit
+unused GETNUM Arm/Potentiometer
+unused NEWLINE
+
+SUBSYSTEM Vision
+GETNUM CameraVision/First Edge
+GETNUM CameraVision/Second Edge
+GETNUM CameraVision/Offset
+GETNUM CameraVision/Vision Proc Time
+NEWLINE
+
+SUBSYSTEM Claw
+GETBOOL Claw/Closed
+NEWLINE
+
+SUBSYSTEM Drivetrain
+GETBOOL Drivetrain/High Gear
+GETNUM Drivetrain/LeftEncoder Raw
+GETNUM Drivetrain/RightEncoder Raw
+GETNUM Drivetrain/LeftEncoder
+GETNUM Drivetrain/RightEncoder
+GETNUM Drivetrain/Gyro
+GETNUM Drivetrain/Left LineReader Value
+GETNUM Drivetrain/Right LineReader Value
+GETBOOL Drivetrain/Left LineReader OnWhite
+GETBOOL Drivetrain/Right LineReader OnWhite
+GETNUM Drivetrain/LineTrackerLimit
+NEWLINE
+
+SUBSYSTEM Elevator
+GETBOOL Elevator/Upper Limit
+GETBOOL Elevator/Lower Limit
+GETBOOL Elevator/Top Triggered
+GETNUM Elevator/Encoder
