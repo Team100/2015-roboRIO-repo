@@ -28,7 +28,7 @@ public class UpdateDashboard extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-//		SlideWinder.arm.updateDashboard();
+		SlideWinder.arm.updateDashboard();
 		SlideWinder.claw.updateDashboard();
 		SlideWinder.drivetrain.updateDashboard();
 		SlideWinder.elevator.updateDashboard();

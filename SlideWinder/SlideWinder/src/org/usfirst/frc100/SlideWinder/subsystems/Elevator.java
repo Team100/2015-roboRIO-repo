@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Elevator extends Subsystem {
 	SpeedController motor1 = RobotMap.elevatorMotor1;
-	SpeedController motor2 = RobotMap.elevatorMotor2;
+//	SpeedController motor2 = RobotMap.elevatorMotor2;
 	Encoder encoder = RobotMap.elevatorEncoder;
 	DigitalInput upperLimit = RobotMap.elevatorUpperLimit;
 	DigitalInput lowerLimit = RobotMap.elevatorLowerLimit;
@@ -27,6 +27,9 @@ public class Elevator extends Subsystem {
 	private final double SCORING_PLATFORM_HEIGHT = 2.0; // inches
 	private final double STEP_HEIGHT = 6.0; // inches, compensated for the standard +2 inches for scoring
 	private boolean topTriggered = false;
+	
+	private final double MOTOR_1_INVERSION = -1.0;
+//	private final double MOTOR_2_INVERSION = -1.0;
 
 	public void initDefaultCommand() {
 	}
@@ -36,7 +39,7 @@ public class Elevator extends Subsystem {
 	 */
 	public void activateBrake() {
 		motor1.set(0);
-		motor2.set(0);
+//		motor2.set(0);
 	}
 
 	/**
@@ -99,14 +102,13 @@ public class Elevator extends Subsystem {
 	}
 
 	public boolean isGoingUp() {
-		return motor1.get() > 0.0; // the motor is reversed
+		return MOTOR_1_INVERSION*motor1.get() > 0.0;
 	}
 
 	/**
 	 * Sets the PID target
 	 *
-	 * @param target
-	 *            - Height in inches
+	 * @param target - Height in inches
 	 */
 	public void setAutoTarget(double target) {
 		elevatorPID.setTarget(target);
@@ -126,21 +128,21 @@ public class Elevator extends Subsystem {
 		}
 		if (!topTriggered && !getLowerLimit()) {
 			releaseBrake();
-			motor1.set(speed);
-			motor2.set(-speed);
+			motor1.set(MOTOR_1_INVERSION*speed);
+//			motor2.set(MOTOR_2_INVERSION*speed);
 		} else if (topTriggered) {
 			if (speed < 0) {
 				releaseBrake();
-				motor1.set(speed);
-				motor2.set(-speed);
+				motor1.set(MOTOR_1_INVERSION*speed);
+//				motor2.set(MOTOR_2_INVERSION*speed);
 			} else {
 				activateBrake();
 			}
 		} else if (getLowerLimit()) {
 			if (speed > 0) {
 				releaseBrake();
-				motor1.set(speed);
-				motor2.set(-speed);
+				motor1.set(MOTOR_1_INVERSION*speed);
+//				motor2.set(MOTOR_2_INVERSION*speed);
 			} else {
 				activateBrake();
 			}

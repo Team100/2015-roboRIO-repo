@@ -27,13 +27,8 @@ public class RobotMap {
     public static Encoder elevatorEncoder;
     public static DigitalInput elevatorUpperLimit;
     public static DigitalInput elevatorLowerLimit;
-//    public static SpeedController armRaiseMotor;
-//    public static DoubleSolenoid armStabPiston;
-//    public static DigitalInput armContainerSensor;
-//    public static AnalogPotentiometer armPotentiometer;
-//    public static DigitalInput armForwardLimit;
-//    public static DigitalInput armBackLimit;
-//    public static DoubleSolenoid armDeployPiston;
+    public static DoubleSolenoid arm_Y_Piston;
+//    public static DoubleSolenoid arm_X_Piston;
     public static Compressor pneumaticsCompressor;
     public static DoubleSolenoid clawPiston;
 
@@ -67,15 +62,12 @@ public class RobotMap {
         drivetrainLeftEncoder = new Encoder(0, 1, false, EncodingType.k4X);
         LiveWindow.addSensor("Drivetrain", "LeftEncoder", drivetrainLeftEncoder);
         drivetrainLeftEncoder.setDistancePerPulse(1.0);
-//        drivetrainLeftEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
         drivetrainRightEncoder = new Encoder(2, 3, false, EncodingType.k4X);
         LiveWindow.addSensor("Drivetrain", "RightEncoder", drivetrainRightEncoder);
         drivetrainRightEncoder.setDistancePerPulse(1.0);
-//        drivetrainRightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
         drivetrainSlideEncoder = new Encoder(4, 5, false, EncodingType.k4X);
         LiveWindow.addSensor("Drivetrain", "SlideEncoder", drivetrainSlideEncoder);
         drivetrainSlideEncoder.setDistancePerPulse(1.0);
-//        drivetrainSlideEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
         drivetrainGyro = new Gyro(0);
         LiveWindow.addSensor("Drivetrain", "Gyro", drivetrainGyro);
         drivetrainGyro.setSensitivity(0.007);
@@ -87,13 +79,12 @@ public class RobotMap {
 
         elevatorMotor1 = new VictorSP(3);
         LiveWindow.addActuator("Elevator", "Motor", (VictorSP) elevatorMotor1);
-        elevatorMotor2 = new VictorSP(6);
-        LiveWindow.addActuator("Elevator", "Motor", (VictorSP) elevatorMotor2);
+//        elevatorMotor2 = new VictorSP(6);
+//        LiveWindow.addActuator("Elevator", "Motor", (VictorSP) elevatorMotor2);
 
         elevatorEncoder = new Encoder(6, 7, false, EncodingType.k4X);
         LiveWindow.addSensor("Elevator", "Encoder", elevatorEncoder);
         elevatorEncoder.setDistancePerPulse(1.0);
-//        elevatorEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
 
         elevatorUpperLimit = new DigitalInput(8);
         LiveWindow.addSensor("Elevator", "UpperLimit", elevatorUpperLimit);
@@ -101,31 +92,15 @@ public class RobotMap {
         elevatorLowerLimit = new DigitalInput(9);
         LiveWindow.addSensor("Elevator", "LowerLimit", elevatorLowerLimit);
 
-//        armRaiseMotor = new VictorSP(5);
-//        LiveWindow.addActuator("Arm", "RaiseMotor", (VictorSP) armRaiseMotor);
-//
-//        armStabPiston = new DoubleSolenoid(0, 4, 5);
-//        LiveWindow.addActuator("Arm", "StabPiston", armStabPiston);
-//
-//        armContainerSensor = new DigitalInput(10);
-//        LiveWindow.addSensor("Arm", "ContainerSensor", armContainerSensor);
-//
-//        armPotentiometer = new AnalogPotentiometer(1, 1.0, 0.0);
-//        LiveWindow.addSensor("Arm", "Potentiometer", armPotentiometer);
-//
-//        armForwardLimit = new DigitalInput(11);
-//        LiveWindow.addSensor("Arm", "ForwardLimit", armForwardLimit);
-//
-//        armBackLimit = new DigitalInput(12);
-//        LiveWindow.addSensor("Arm", "BackLimit", armBackLimit);
-//
-//        armDeployPiston = new DoubleSolenoid(0, 6, 7);
-//		LiveWindow.addActuator("Arm", "DeployPiston", armDeployPiston);
+        arm_Y_Piston = new DoubleSolenoid(0, 6, 7);
+        LiveWindow.addActuator("Arm", "Y_Piston", arm_Y_Piston);
+ 
+//        arm_X_Piston = new DoubleSolenoid(0, 6, 7);
+//		LiveWindow.addActuator("Arm", "X_Piston", arm_X_Piston);
 
         pneumaticsCompressor = new Compressor(0);
 
-
-        clawPiston = new DoubleSolenoid(0, 2, 3);
+        clawPiston = new DoubleSolenoid(0, 4, 5);
         LiveWindow.addActuator("Claw", "Piston", clawPiston);
 
 		drivetrainLeftLineReadTrigger = new AnalogTrigger(
@@ -134,5 +109,12 @@ public class RobotMap {
 				drivetrainRightLineReader);
 		drivetrainLeftLineReadTrigger.setLimitsRaw(0, 0);
 		drivetrainRightLineReadTrigger.setLimitsRaw(0, 0);
+	}
+	
+	public static void stopAllMotors() {
+		drivetrainLeftMotor.set(0);
+		drivetrainRightMotor.set(0);
+		drivetrainSlideMotor.set(0);
+		elevatorMotor1.set(0);
 	}
 }
