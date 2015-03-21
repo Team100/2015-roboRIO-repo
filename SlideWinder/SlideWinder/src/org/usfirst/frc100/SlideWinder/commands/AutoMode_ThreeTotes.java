@@ -14,31 +14,31 @@ public class AutoMode_ThreeTotes extends CommandGroup {
 		DISTANCE_TO_TOTE = Preferences.getDouble("AutoStackTotes_DistanceToTote");
 		DISTANCE_FORWARD = Preferences.getDouble("AutoStackTotes_DistanceForward");
 		DISTANCE_TO_SCORING = Preferences.getDouble("AutoStackTotes_DistanceToScoring");
-		ANGLE = Preferences.getDouble("AutoStackTotes_Angle");
+		ANGLE = 45;
 		
+		System.out.println("blah");
 		addSequential(new AutoCalibrateElevator(), 2.0);
-		addSequential(new OpenClaw());
-		addSequential(new AutoDrive(DISTANCE_FORWARD), 2.0);
 		addSequential(new CloseClaw());
 		addSequential(new AutoDelay(0.8));
 		addSequential(new SetElevatorPosition(3));
-		addSequential(new AutoDrive(DISTANCE_FORWARD));
-		addSequential(new AutoTurn(90));
+		addSequential(new AutoDrive(DISTANCE_FORWARD), 3);
+		addSequential(new AutoTurn(90), 2);
 		addSequential(new AutoDrive(DISTANCE_TO_TOTE));
 		addSequential(new QuickStackOne());
-		addSequential(new AutoTurn(-ANGLE));
-		addSequential(new AutoDrive(DISTANCE_FORWARD/2));
+		addSequential(new AutoTurn(-ANGLE), 2);
+		addSequential(new AutoDrive(DISTANCE_FORWARD/2), 3);
 		if(three) {
-			addSequential(new AutoTurn(ANGLE*2));
-			addSequential(new AutoDrive(DISTANCE_FORWARD/2));
-			addSequential(new AutoTurn(-ANGLE));
-			addSequential(new AutoDrive(DISTANCE_TO_TOTE));
+			addSequential(new AutoTurn(ANGLE*2), 2);
+			addSequential(new AutoDrive(DISTANCE_FORWARD/2), 3);
+			addSequential(new AutoTurn(-ANGLE), 2);
+			addSequential(new AutoDrive(DISTANCE_TO_TOTE+21-14*Math.sqrt(2)), 3);
 			addSequential(new QuickStackOne());
-			addSequential(new AutoTurn(90));
+			addSequential(new AutoTurn(90), 2);
+			addSequential(new AutoDrive(DISTANCE_TO_SCORING), 3);
 		} else {
-			addSequential(new AutoTurn(ANGLE + 90));
+			addSequential(new AutoTurn(ANGLE + 90), 2);
+			addSequential(new AutoDrive(DISTANCE_TO_SCORING+7*Math.sqrt(2)), 3);
 		}
-		addSequential(new AutoDrive(DISTANCE_TO_SCORING));
 		
 	}
 }

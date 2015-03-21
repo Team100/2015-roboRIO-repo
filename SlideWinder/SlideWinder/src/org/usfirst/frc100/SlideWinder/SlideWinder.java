@@ -90,7 +90,7 @@ public class SlideWinder extends IterativeRobot {
 //				new AutoModeNine_TakeRecyclingWithVision().start();
 //				break;
 			default:
-				new Immobilize().start();
+//				new Immobilize().start();
 				break;
 		}
         new UpdateDashboard().start();

@@ -66,10 +66,10 @@ public class OI {
 			quickTurnButton = new JoystickButton(rightJoystick, 2);
 			quickTurnButton.whileHeld(new AutoTurn(180));
 
-			openClawButton2 = new JoystickButton(rightJoystick, 4);
+			openClawButton2 = new JoystickButton(rightJoystick, 5);
 			openClawButton2.whenPressed(new OpenClaw());
 
-			closeClawButton2 = new JoystickButton(rightJoystick, 5);
+			closeClawButton2 = new JoystickButton(rightJoystick, 4);
 			closeClawButton2.whenPressed(new CloseClaw());
 		}
 

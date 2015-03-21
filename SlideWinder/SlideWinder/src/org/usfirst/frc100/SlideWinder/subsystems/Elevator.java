@@ -61,7 +61,7 @@ public class Elevator extends Subsystem {
 	 * Zeroes the PID loop
 	 */
 	public void zeroPID() {
-		elevatorPID.update(encoder.getDistance());
+		elevatorPID.update(-encoder.getDistance());
 		elevatorPID.setRelativeLocation(0);
 	}
 
@@ -69,7 +69,7 @@ public class Elevator extends Subsystem {
 	 * Updates the PID loop
 	 */
 	public void updatePID() {
-		elevatorPID.update(encoder.getDistance());
+		elevatorPID.update(-encoder.getDistance());
 		manualControl(elevatorPID.getOutput());
 	}
 
@@ -146,7 +146,7 @@ public class Elevator extends Subsystem {
 			} else {
 				activateBrake();
 			}
-			elevatorPID.update(encoder.getDistance());
+			elevatorPID.update(-encoder.getDistance());
 			elevatorPID.setRelativeLocation(0);
 		}
 	}
@@ -158,7 +158,7 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putBoolean("Elevator/Upper Limit", upperLimit.get());
 		SmartDashboard.putBoolean("Elevator/Lower Limit", lowerLimit.get());
 		SmartDashboard.putBoolean("Elevator/Top Triggered", topTriggered);
-		SmartDashboard.putNumber("Elevator/Encoder", encoder.getDistance());
+		SmartDashboard.putNumber("Elevator/Encoder", -encoder.getDistance());
 	}
 
 	public boolean getUpperLimit() {
