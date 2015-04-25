@@ -19,6 +19,7 @@ public class AutoCalibrateElevator extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		limitTrigger = false;
+		SlideWinder.elevator.setOverride(false);
 	}
 
 	// Called repeatedly when this Command is scheduled to run

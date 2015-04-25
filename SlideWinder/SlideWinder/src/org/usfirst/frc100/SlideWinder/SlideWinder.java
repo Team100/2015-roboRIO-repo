@@ -53,6 +53,7 @@ public class SlideWinder extends IterativeRobot {
 
 	public void autonomousInit() {
     	Scheduler.getInstance().removeAll();
+    	elevator.setOverride(false);
     	int modeSelect = oi.selector();
 		switch (modeSelect) {
 			case 1:
@@ -104,6 +105,7 @@ public class SlideWinder extends IterativeRobot {
 
 	public void teleopInit() {
     	Scheduler.getInstance().removeAll();
+    	elevator.setOverride(false);
         new UpdateDashboard().start();
 //        new AutoCalibrateElevator().start();
         drivetrain.shift(true);

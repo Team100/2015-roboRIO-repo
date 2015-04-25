@@ -71,7 +71,7 @@ public class PID {
 	}
 
 	/**
-	 * Getter method for error
+	 * Getter method for error (call update first)
 	 * 
 	 * @return The displacement from the target value
 	 */
@@ -80,7 +80,16 @@ public class PID {
 	}
 
 	/**
-	 * Getter method for output
+	 * Getter method for input (call update first)
+	 * 
+	 * @return The raw sensor value
+	 */
+	public double getInputValue() {
+		return input;
+	}
+
+	/**
+	 * Getter method for output (call update first)
 	 * 
 	 * @return The PID output value
 	 */

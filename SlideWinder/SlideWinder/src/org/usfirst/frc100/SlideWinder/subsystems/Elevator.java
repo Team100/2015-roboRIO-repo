@@ -27,6 +27,7 @@ public class Elevator extends Subsystem {
 	private final double SCORING_PLATFORM_HEIGHT = 2.0; // inches
 	private final double STEP_HEIGHT = 6.0; // inches, compensated for the standard +2 inches for scoring
 	private boolean topTriggered = false;
+	private boolean override = false;
 	
 	private final double MOTOR_1_INVERSION = -1.0;
 //	private final double MOTOR_2_INVERSION = -1.0;
@@ -126,6 +127,11 @@ public class Elevator extends Subsystem {
 		if (!upperLimit.get()) {
 			topTriggered = true;
 		}
+		if(override){
+			motor1.set(MOTOR_1_INVERSION*speed);
+//			motor2.set(MOTOR_2_INVERSION*speed);
+			return;
+		}
 		if (!topTriggered && !getLowerLimit()) {
 			releaseBrake();
 			motor1.set(MOTOR_1_INVERSION*speed);
@@ -158,10 +164,17 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putBoolean("Elevator/Upper Limit", upperLimit.get());
 		SmartDashboard.putBoolean("Elevator/Lower Limit", lowerLimit.get());
 		SmartDashboard.putBoolean("Elevator/Top Triggered", topTriggered);
+		SmartDashboard.putBoolean("Elevator/Override", override);
 		SmartDashboard.putNumber("Elevator/Encoder", -encoder.getDistance());
+		elevatorPID.update(-encoder.getDistance());
+		SmartDashboard.putNumber("Elevator Height", elevatorPID.getInputValue());
 	}
 
 	public boolean getUpperLimit() {
 		return topTriggered;
+	}
+	
+	public void setOverride(boolean override) {
+		this.override = override;
 	}
 }

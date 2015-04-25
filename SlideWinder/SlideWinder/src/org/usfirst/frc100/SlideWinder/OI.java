@@ -125,7 +125,7 @@ public class OI {
 			binary3 = new JoystickButton(autoModeSelect, 3);
 			binary4 = new JoystickButton(autoModeSelect, 4);
 		}
-
+		SmartDashboard.putData("Manual Override", new ManualOverrideElevator());
 		SmartDashboard.putData("Load Preferences", new SyncPreferences(true));
 		SmartDashboard.putData("Save Preferences", new SyncPreferences(false));
 		SmartDashboard.putData("PID/Test DriveDistance PID", new TestPID(TestPID.System.DRIVEDISTANCE));

@@ -1,7 +1,10 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Manual Override" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="368" y="42"/>
+	</widget>
 	<widget field="CameraVision" type="SubSystem" class="team100.smartdashboard.extensions.AllWidget">
-		<location x="132" y="339"/>
+		<location x="132" y="321"/>
 	</widget>
 	<widget field="Elevator" type="SubSystem" class="team100.smartdashboard.extensions.AllWidget">
 		<location x="398" y="128"/>
@@ -14,7 +17,7 @@
 		<width>133</width>
 	</widget>
 	<widget field="Arm" type="SubSystem" class="team100.smartdashboard.extensions.AllWidget">
-		<location x="398" y="258"/>
+		<location x="398" y="280"/>
 		<width>133</width>
 	</widget>
 	<widget field="PDP" type="SubSystem" class="team100.smartdashboard.extensions.AllWidget">
