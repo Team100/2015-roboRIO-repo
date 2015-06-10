@@ -63,7 +63,7 @@ public class SlideWinder extends IterativeRobot {
 				new AutoMode_PullBinBack(1).start();
 				break;
 			case 3:
-				new AutoMode_PullBinBack(2).start();
+				new AutoMode_PullBinBack(0).start();
 				break;
 			case 4:
 				new AutoMode_ThreeTotes(false).start();

@@ -29,7 +29,7 @@ public class Elevator extends Subsystem {
 	private boolean topTriggered = false;
 	private boolean override = false;
 	
-	private final double MOTOR_1_INVERSION = -1.0;
+	private final double MOTOR_1_INVERSION = 1.0;
 //	private final double MOTOR_2_INVERSION = -1.0;
 
 	public void initDefaultCommand() {
